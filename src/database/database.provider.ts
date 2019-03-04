@@ -10,6 +10,7 @@ import { Presentacion } from 'src/modules/presentacion/entities/presentacion.ent
 import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
 import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { Cups } from 'src/modules/cups/entities/cups.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 
 export const databaseProviders = [
   {
@@ -30,6 +31,7 @@ export const databaseProviders = [
         },
       });
       sequelize.addModels([
+        User,
         Municipio,
         AmbitoAtencion,
         PrescripcionEncabezado,

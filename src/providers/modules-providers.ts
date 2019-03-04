@@ -1,3 +1,4 @@
+import { User } from 'src/modules/users/entities/user.entity';
 import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
 import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-atencion.entity';
 import { Municipio } from 'src/modules/municipio/entities/municipio';
@@ -11,6 +12,10 @@ import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/e
 import { Cups } from 'src/modules/cups/entities/cups.entity';
 
 export const modulesProviders = [
+  {
+    provide: 'UsersRepository',
+    useValue: User,
+  },
   {
     provide: 'MunicipioRepository',
     useValue: Municipio,
