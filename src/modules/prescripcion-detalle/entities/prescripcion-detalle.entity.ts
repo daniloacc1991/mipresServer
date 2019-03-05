@@ -1,4 +1,5 @@
-import { Table, Model, Column, PrimaryKey, DataType, Unique, AutoIncrement, AllowNull, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull } from 'sequelize-typescript';
+import { ForeignKey, BelongsTo, HasMany, BelongsToMany } from 'sequelize-typescript';
 import { FormaFarmaceutica } from 'src/modules/forma-farmaceutica/entities/forma-farmaceutica';
 import { ViaAdministracion } from 'src/modules/via-administracion/entities/via-administracion.entity';
 import { UnidadMedidaDosis } from 'src/modules/unidad-medida-dosis/entities/unidad-medida-dosis';
@@ -6,6 +7,7 @@ import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/enti
 import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
 import { Cups } from 'src/modules/cups/entities/cups.entity';
 import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
+import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 
 @Table({
   timestamps: true,
@@ -21,7 +23,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @AllowNull(false)
   @Column(DataType.STRING('1'))
-  TipoTecnologia: number;
+  TipoTecnologia: string;
 
   @AllowNull(false)
   @Column
@@ -145,7 +147,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.STRING('160'))
   ProNutDescartado: string;
 
-  @ForeignKey( () => TipoDispositivoMedico)
+  @ForeignKey(() => TipoDispositivoMedico)
   @Column(DataType.STRING('10'))
   CodDisp: string;
 
@@ -165,6 +167,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   DXEnfRCEV: number;
 
+  @ForeignKey(() => TipoProductoNutricional)
   @Column(DataType.STRING('30'))
   TippProNut: string;
 
@@ -238,7 +241,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.STRING('10'))
   CantTotalF: string;
 
-  @ForeignKey( () => Presentacion)
+  @ForeignKey(() => Presentacion)
   @Column(DataType.STRING('100'))
   UFCantTotal: string;
 
@@ -259,6 +262,11 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   prescripcionId: number;
 
+  @BelongsTo(() => PrescripcionEncabezado, {
+    as: 'prescripcion_encabezado_id',
+  })
+  prescripcion: PrescripcionEncabezado;
+
   @BelongsTo(() => ViaAdministracion)
   viaAdministracion: ViaAdministracion;
 
@@ -274,9 +282,10 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @BelongsTo(() => Cups)
   cups: Cups;
 
-  @BelongsTo( () => TipoDispositivoMedico)
+  @BelongsTo(() => TipoDispositivoMedico)
   tipoDispositivoMedico: TipoDispositivoMedico;
 
-  @BelongsTo(() => PrescripcionEncabezado)
-  prescripcion: PrescripcionEncabezado;
+  @BelongsTo(() => TipoProductoNutricional)
+  tipoProductoNutricional: TipoProductoNutricional;
+
 }

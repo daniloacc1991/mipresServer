@@ -17,10 +17,10 @@ import { DatabaseModule } from 'src/database/database.module';
     }),
   ],
   providers: [
+    ...modulesProviders,
     AuthService,
     JwtStrategy,
     UsersService,
-    ...modulesProviders,
   ],
   controllers: [AuthController],
 })

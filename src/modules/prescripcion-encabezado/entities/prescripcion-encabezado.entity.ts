@@ -1,6 +1,7 @@
-import { Table, Model, Column, PrimaryKey, DataType, Unique, AutoIncrement, AllowNull, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, DataType, Unique, AutoIncrement, AllowNull, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-atencion.entity';
 import { Municipio } from 'src/modules/municipio/entities/municipio';
+import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
 @Table({
   timestamps: true,
@@ -147,6 +148,21 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
   @AllowNull(false)
   @Column
   EstPres: number;
+
+  @HasMany(() => PrescripcionDetalle)
+  medicamentos: PrescripcionDetalle[];
+
+  @HasMany(() => PrescripcionDetalle)
+  procedimientos: PrescripcionDetalle[];
+
+  @HasMany(() => PrescripcionDetalle)
+  dispositivos: PrescripcionDetalle[];
+
+  @HasMany(() => PrescripcionDetalle)
+  productosnutricionales: PrescripcionDetalle[];
+
+  @HasMany(() => PrescripcionDetalle)
+  serviciosComplementarios: PrescripcionDetalle[];
 
   @BelongsTo(() => AmbitoAtencion)
   ambitoAtencion: AmbitoAtencion;

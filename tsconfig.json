@@ -10,8 +10,5 @@
     "outDir": "./dist",
     "baseUrl": "./"
   },
-  "exclude": ["node_modules"],
-  "paths": {
-    "@app-prescripcion-encabezado": ["src/modules/prescripcion-encabezado/*"],
-  }
+  "exclude": ["node_modules"]
 }

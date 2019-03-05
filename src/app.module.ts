@@ -34,6 +34,8 @@ import { DatabaseModule } from './database/database.module';
     TipoProductoNutricionalModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+  ],
 })
 export class AppModule { }
