@@ -1,4 +1,5 @@
 import { Table, Model, PrimaryKey, Column, DataType, HasOne } from 'sequelize-typescript';
+import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
 
 @Table({
@@ -16,8 +17,10 @@ export class AmbitoAtencion extends Model<AmbitoAtencion> {
   })
   @PrimaryKey
   @Column
+  @ApiModelProperty()
   id: number;
 
   @Column(DataType.STRING('50'))
+  @ApiModelProperty()
   descripcion: string;
 }

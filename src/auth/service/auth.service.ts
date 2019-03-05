@@ -8,7 +8,7 @@ import { UsersService } from 'src/modules/users/service/users.service';
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject('sequelizeProvider') private seq: Sequelize,
+    @Inject('SequelizeRepository') private seq: Sequelize,
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
   ) { }

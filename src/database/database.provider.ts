@@ -14,7 +14,7 @@ import { User } from 'src/modules/users/entities/user.entity';
 
 export const databaseProviders = [
   {
-    provide: 'sequelizeProvider',
+    provide: 'SequelizeRepository',
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'postgres',

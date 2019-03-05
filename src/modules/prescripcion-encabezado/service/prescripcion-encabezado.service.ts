@@ -16,7 +16,7 @@ export class PrescripcionEncabezadoService {
   constructor(
     @Inject('PrescripcionEncabezadoRepository') private readonly prescripcionEncabezadoRepository: typeof PrescripcionEncabezado,
     @Inject('PrescripcionDetalleRepository') private readonly prescripcionDetalleRepository: typeof PrescripcionDetalle,
-    @Inject('sequelizeProvider') private seq: Sequelize,
+    @Inject('SequelizeRepository') private seq: Sequelize,
     private prescripcionEncabezadoGateway: PrescripcionEncabezadoGateway,
   ) { }
 
