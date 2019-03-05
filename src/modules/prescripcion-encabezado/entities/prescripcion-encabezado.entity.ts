@@ -2,6 +2,7 @@ import { Table, Model, Column, PrimaryKey, DataType, Unique, AutoIncrement, Allo
 import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-atencion.entity';
 import { Municipio } from 'src/modules/municipio/entities/municipio';
 import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 @Table({
   timestamps: true,
@@ -12,140 +13,178 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
 
   @AutoIncrement
   @PrimaryKey
+  @ApiModelProperty()
   @Column(DataType.BIGINT)
   id: number;
 
   @Unique
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('20'))
   NoPrescripcion: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column
   FPrescripcion: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('10'))
   HPrescripcion: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('20'))
   CodHabIPS: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('2'))
   TipoIDIPS: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('10'))
   NroIDIPS: string;
 
   @ForeignKey(() => Municipio)
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('5'))
   CodDANEMunIPS: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('300'))
   DirSedeIPS: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('70'))
   TelSedeIPS: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('20'))
   TipoIDProf: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('17'))
   NumIDProf: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('60'))
   PNProfS: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('60'))
   SNProfS: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('60'))
   PAProfS: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('60'))
   SAProfS: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('30'))
   RegProfS: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('20'))
   TipoIDPaciente: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('17'))
   NroIDPaciente: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('60'))
   PNPaciente: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('60'))
   SNPaciente: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column(DataType.STRING('60'))
   PAPaciente: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('60'))
   SAPaciente: string;
 
   @ForeignKey(() => AmbitoAtencion)
   @AllowNull(false)
+  @ApiModelProperty()
   @Column
   CodAmbAte: number;
 
+  @ApiModelProperty()
   @Column
   EnfHuerfana: number;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('4'))
   CodEnfHuerfana: string;
 
+  @ApiModelProperty()
   @Column
   EnfHuerfanaDX: number;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('4'))
   CodDxPpal: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('4'))
   CodDxRel1: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('4'))
   CodDxRel2: string;
 
+  @ApiModelProperty()
   @Column
   SopNutricional: number;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('20'))
   CodEPS: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('20'))
   TipoIDMadrePaciente: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('17'))
   NroIDMadrePaciente: string;
 
+  @ApiModelProperty()
   @Column
   TipoTransc: number;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('20'))
   TipoIDDonanteVivo: string;
 
+  @ApiModelProperty()
   @Column(DataType.STRING('17'))
   NroIDDonanteVivo: string;
 
   @AllowNull(false)
+  @ApiModelProperty()
   @Column
   EstPres: number;
 

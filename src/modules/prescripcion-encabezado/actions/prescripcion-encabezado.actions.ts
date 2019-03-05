@@ -1,5 +1,5 @@
-export enum PRESCRIPCIONS_ACTIONS {
-  LIVE_CREATED = '[Prescripcions] LIVE CREATED',
-  LIVE_UPDATED = '[Prescripcions] LIVE UPDATED',
-  LIVE_DELETED = '[Prescripcions] LIVE DELETED',
+export enum PRESCRIPCIONS_ENCABEZADO_ACTIONS {
+  LIVE_CREATED = '[PrescripcionEncabezado] LIVE CREATED',
+  LIVE_UPDATED = '[PrescripcionEncabezado] LIVE UPDATED',
+  LIVE_DELETED = '[PrescripcionEncabezado] LIVE DELETED',
 }

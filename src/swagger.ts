@@ -5,6 +5,7 @@ import { CupsModule } from './modules/cups/cups.module';
 import { FormaFarmaceuticaModule } from './modules/forma-farmaceutica/forma-farmaceutica.module';
 import { MunicipioModule } from './modules/municipio/municipio.module';
 import { PrescripcionDetalleModule } from './modules/prescripcion-detalle/prescripcion-detalle.module';
+import { PrescripcionEncabezadoModule } from './modules/prescripcion-encabezado/prescripcion-encabezado.module';
 
 export function swaggerApp(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -17,6 +18,7 @@ export function swaggerApp(app: INestApplication) {
   const document = SwaggerModule.createDocument(app, options, {
     include:
       [
+        PrescripcionEncabezadoModule,
         PrescripcionDetalleModule,
         AmbitoAtencionModule,
         CupsModule,

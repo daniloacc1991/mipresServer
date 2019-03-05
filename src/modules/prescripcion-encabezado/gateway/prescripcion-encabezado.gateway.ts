@@ -1,7 +1,7 @@
 import { WebSocketGateway, OnGatewayConnection, WebSocketServer } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { PrescripcionEncabezado } from '../entities/prescripcion-encabezado.entity';
-import { PRESCRIPCIONS_ACTIONS } from '../actions/prescripcion-encabezado.actions';
+import { PRESCRIPCIONS_ENCABEZADO_ACTIONS } from '../actions/prescripcion-encabezado.actions';
 
 @WebSocketGateway({
   namespace: '/prescripcion-encabezado',
@@ -25,16 +25,16 @@ export class PrescripcionEncabezadoGateway implements OnGatewayConnection {
 
   prescripcionCreated(prescripcion: PrescripcionEncabezado) {
     Logger.log('PT-GATEWAY: prescripcion-encabezado created');
-    this.socket$.emit(PRESCRIPCIONS_ACTIONS.LIVE_CREATED, prescripcion);
+    this.socket$.emit(PRESCRIPCIONS_ENCABEZADO_ACTIONS.LIVE_CREATED, prescripcion);
   }
 
   prescripcionUpdated(prescripcion: PrescripcionEncabezado) {
     Logger.log('PT-GATEWAY: prescripcion-encabezado updated', JSON.stringify(prescripcion));
-    this.socket$.emit(PRESCRIPCIONS_ACTIONS.LIVE_UPDATED, prescripcion);
+    this.socket$.emit(PRESCRIPCIONS_ENCABEZADO_ACTIONS.LIVE_UPDATED, prescripcion);
   }
 
   prescripcionDeleted(id: number) {
     Logger.log('PT-GATEWAY: prescripcion-encabezado deleted', id.toString());
-    this.socket$.emit(PRESCRIPCIONS_ACTIONS.LIVE_DELETED, id);
+    this.socket$.emit(PRESCRIPCIONS_ENCABEZADO_ACTIONS.LIVE_DELETED, id);
   }
 }

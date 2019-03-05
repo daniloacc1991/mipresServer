@@ -1,7 +1,12 @@
-import { Controller, Get, Param, Res, HttpStatus, Post, Body, HttpException, Put, HttpCode, Delete } from '@nestjs/common';
+import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body } from '@nestjs/common';
+import { Get, Post, Put, Delete } from '@nestjs/common';
+import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { PrescripcionEncabezadoService } from '../service/prescripcion-encabezado.service';
 import { PrescripcionEncabezado } from '../entities/prescripcion-encabezado.entity';
 
+@ApiUseTags('Prescripcion Encabezado')
+@ApiBearerAuth()
 @Controller('prescripcion-encabezado')
 export class PrescripcionEncabezadoController {
   constructor(
@@ -9,13 +14,13 @@ export class PrescripcionEncabezadoController {
   ) {}
 
   @Get()
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   async findAll() {
     return await this.prescripcionEncabezadoService.findAll();
   }
 
   @Get(':id')
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   async findById(@Res() res, @Param('id') id: number) {
     const prescripcion: PrescripcionEncabezado = await this.prescripcionEncabezadoService.findById(+id);
     if (prescripcion) {
@@ -26,7 +31,7 @@ export class PrescripcionEncabezadoController {
   }
 
   @Post()
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   async create(@Body() prescripcion: PrescripcionEncabezado) {
     try {
       return await this.prescripcionEncabezadoService.create(prescripcion);
@@ -38,16 +43,28 @@ export class PrescripcionEncabezadoController {
   }
 
   @Put(':id')
-  // @UseGuards(AuthGuard('jwt'))
-  async update(@Body() p: PrescripcionEncabezado, @Param('id') id) {
-    return await this.prescripcionEncabezadoService.update(id, p);
+  @UseGuards(AuthGuard('jwt'))
+  async update(@Body() p: PrescripcionEncabezado, @Param('id') id: number, @Res() res) {
+    try {
+      const element = await this.prescripcionEncabezadoService.update(id, p);
+      res.status(HttpStatus.OK).json(element);
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.NOT_MODIFIED);
+    }
   }
 
-  @HttpCode(204)
   @Delete(':id')
-  // @UseGuards(AuthGuard('jwt'))
-  async destroy(@Param('id') id) {
-    await this.prescripcionEncabezadoService.delete(id);
-    return;
+  @UseGuards(AuthGuard('jwt'))
+  async destroy(@Param('id') id, @Res() res) {
+    try {
+      await this.prescripcionEncabezadoService.delete(id);
+      res.status(HttpStatus.OK).json({});
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.BAD_REQUEST);
+    }
   }
 }
