@@ -15,7 +15,6 @@ export class AuthService {
 
   async singIn(data: Auth) {
     const user: JwtPayload = await this.userService.login(data);
-    Logger.log(user);
     return this.jwtService.sign(user);
   }
 

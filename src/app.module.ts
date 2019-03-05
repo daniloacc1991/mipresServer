@@ -12,7 +12,6 @@ import { PresentacionModule } from './modules/presentacion/presentacion.module';
 import { CupsModule } from './modules/cups/cups.module';
 import { TipoDispositivoMedicoModule } from './modules/tipo-dispositivo-medico/tipo-dispositivo-medico.module';
 import { TipoProductoNutricionalModule } from './modules/tipo-producto-nutricional/tipo-producto-nutricional.module';
-import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { DatabaseModule } from './database/database.module';
 
@@ -20,7 +19,6 @@ import { DatabaseModule } from './database/database.module';
   imports: [
     DatabaseModule,
     UsersModule,
-    AuthModule,
     PrescripcionEncabezadoModule,
     PrescripcionDetalleModule,
     AmbitoAtencionModule,

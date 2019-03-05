@@ -12,7 +12,6 @@ export class User extends Model<User> {
   @PrimaryKey
   @AllowNull(false)
   @Column
-  @ApiModelProperty()
   id: number;
 
   @AllowNull(false)

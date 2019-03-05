@@ -4,6 +4,7 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import { AppModule } from './app.module';
 import { swaggerApp } from './swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,6 +15,7 @@ async function bootstrap() {
   app.use(helmet());
   app.enableCors();
   app.use(compression());
+  app.useGlobalPipes(new ValidationPipe());
   swaggerApp(app);
   await app.listen(3000);
 }

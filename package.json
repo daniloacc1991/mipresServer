@@ -26,6 +26,8 @@
     "@nestjs/passport": "^5.1.0",
     "@nestjs/swagger": "^2.5.1",
     "@nestjs/websockets": "^5.7.3",
+    "class-transformer": "^0.2.0",
+    "class-validator": "^0.9.1",
     "compression": "^1.7.3",
     "express-rate-limit": "^3.4.0",
     "helmet": "^3.15.1",

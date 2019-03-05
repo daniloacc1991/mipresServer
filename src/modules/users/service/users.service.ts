@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import { Md5 } from 'md5-typescript';
-import { Auth, JwtPayload } from 'src/auth/interfaces';
+import { Auth, JwtPayload } from '../interfaces';
 import { Sequelize } from 'sequelize-typescript';
 import { UsersGateway } from '../gateway/users.gateway';
 
