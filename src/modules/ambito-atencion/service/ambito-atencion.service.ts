@@ -1,12 +1,14 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { AmbitoAtencion } from '../entities/ambito-atencion.entity';
 import { Sequelize } from 'sequelize-typescript';
+import { AmbitoAtencionGateway } from '../gateway/ambito-atencion.gateway';
 
 @Injectable()
 export class AmbitoAtencionService {
   constructor(
     @Inject('AmbitoAtencionRepository') private readonly ambitoAtencionRepository: typeof AmbitoAtencion,
     @Inject('SequelizeRepository') private seq: Sequelize,
+    private ambitoAtencionGateway: AmbitoAtencionGateway,
   ) { }
 
   async findAll() {
@@ -22,6 +24,7 @@ export class AmbitoAtencionService {
     try {
       const element = await this.ambitoAtencionRepository.create(ambitoAtencion, { transaction: t });
       t.commit();
+      this.ambitoAtencionGateway.ambitoAtencionCreated(element);
       return element;
     } catch (e) {
       t.rollback();
@@ -33,9 +36,11 @@ export class AmbitoAtencionService {
     const t = await this.seq.transaction();
     try {
       delete ambitoAtencion.id;
-      const element = await this.ambitoAtencionRepository.update({ ...ambitoAtencion }, { where: { id } });
+      const res = await this.ambitoAtencionRepository.update({ ...ambitoAtencion }, { where: { id } });
       t.commit();
-      return await this.ambitoAtencionRepository.findById(element[0]);
+      const element = await this.ambitoAtencionRepository.findById(res[0]);
+      this.ambitoAtencionGateway.ambitoAtencionUpdated(element);
+      return element;
     } catch (e) {
       t.rollback();
       throw e;
@@ -45,8 +50,9 @@ export class AmbitoAtencionService {
   async delete(id: number) {
     const t = await this.seq.transaction();
     try {
-      const element = await this.ambitoAtencionRepository.destroy({ where: { id } });
+      await this.ambitoAtencionRepository.destroy({ where: { id } });
       t.commit();
+      this.ambitoAtencionGateway.ambitoAtencionDeleted(id);
       return;
     } catch (e) {
       t.rollback();

@@ -1,0 +1,5 @@
+export enum CUPS_ACTIONS {
+  LIVE_CREATED = '[Cups] LIVE CREATED',
+  LIVE_UPDATED = '[Cups] LIVE UPDATED',
+  LIVE_DELETED = '[Cups] LIVE DELETED',
+}

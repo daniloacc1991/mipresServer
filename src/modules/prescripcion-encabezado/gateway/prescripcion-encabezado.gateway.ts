@@ -11,29 +11,30 @@ export class PrescripcionEncabezadoGateway implements OnGatewayConnection {
   @WebSocketServer() private socket$;
 
   afterInit() {
-    Logger.log('socket initialized');
+    Logger.log('socket prescripcion-encabezado initialized');
   }
 
   handleConnection(client) {
-    Logger.log('client connected');
+    Logger.log(client);
+    Logger.log('client prescripcion-encabezado connected');
   }
 
   handleDisconnect(client) {
-    Logger.log('client disconnected');
+    Logger.log('client prescripcion-encabezado disconnected');
   }
 
   prescripcionCreated(prescripcion: PrescripcionEncabezado) {
-    Logger.log('PT-GATEWAY: prescripcion created');
+    Logger.log('PT-GATEWAY: prescripcion-encabezado created');
     this.socket$.emit(PRESCRIPCIONS_ACTIONS.LIVE_CREATED, prescripcion);
   }
 
   prescripcionUpdated(prescripcion: PrescripcionEncabezado) {
-    Logger.log('PT-GATEWAY: contact updated', JSON.stringify(prescripcion));
+    Logger.log('PT-GATEWAY: prescripcion-encabezado updated', JSON.stringify(prescripcion));
     this.socket$.emit(PRESCRIPCIONS_ACTIONS.LIVE_UPDATED, prescripcion);
   }
 
   prescripcionDeleted(id: number) {
-    Logger.log('PT-GATEWAY: contact deleted', id.toString());
+    Logger.log('PT-GATEWAY: prescripcion-encabezado deleted', id.toString());
     this.socket$.emit(PRESCRIPCIONS_ACTIONS.LIVE_DELETED, id);
   }
 }

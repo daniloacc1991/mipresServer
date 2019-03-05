@@ -1,5 +1,6 @@
-import { Table, Model, PrimaryKey, Column, DataType, HasOne } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, HasOne, AllowNull } from 'sequelize-typescript';
 import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 @Table({
   timestamps: true,
@@ -15,15 +16,21 @@ export class Cups extends Model<Cups> {
     onDelete: 'CASCADE',
     constraints: true,
   })
+  @ApiModelProperty()
   @Column(DataType.STRING('6'))
   id: string;
 
+  @AllowNull(false)
+  @ApiModelProperty()
   @Column
   descripcion: string;
 
+  @AllowNull(false)
+  @ApiModelProperty()
   @Column
   habilitado: boolean;
 
+  @ApiModelProperty()
   @Column(DataType.DATE)
   fecha: string;
 }
