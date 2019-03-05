@@ -1,8 +1,11 @@
 import { Controller, UseGuards, Res, HttpStatus, Body, Post, Get, Param, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
 import { AuthService } from '../service/auth.service';
 import { Auth } from '../interfaces/auth';
 
+@ApiUseTags('Auth')
+@ApiBearerAuth()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
