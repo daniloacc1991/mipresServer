@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PrescripcionEncabezadoModule } from './modules/prescripcion-encabezado/prescripcion-encabezado.module';
 import { AmbitoAtencionModule } from './modules/ambito-atencion/ambito-atencion.module';
 import { MunicipioModule } from './modules/municipio/municipio.module';
@@ -31,9 +29,7 @@ import { DatabaseModule } from './database/database.module';
     TipoDispositivoMedicoModule,
     TipoProductoNutricionalModule,
   ],
-  controllers: [AppController],
-  providers: [
-    AppService,
-  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule { }

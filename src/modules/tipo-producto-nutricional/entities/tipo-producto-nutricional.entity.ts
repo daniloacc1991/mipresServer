@@ -1,5 +1,6 @@
 import { Table, Model, PrimaryKey, HasOne, Column, DataType } from 'sequelize-typescript';
 import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 @Table({
   timestamps: true,
@@ -18,12 +19,15 @@ export class TipoProductoNutricional extends Model<TipoProductoNutricional> {
   @Column(DataType.STRING('30'))
   id: string;
 
+  @ApiModelProperty()
   @Column
   descripcion: string;
 
+  @ApiModelProperty()
   @Column
   habititado: number;
 
+  @ApiModelProperty()
   @Column(DataType.DATE)
   fecha: string;
 }
