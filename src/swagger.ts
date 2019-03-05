@@ -10,7 +10,7 @@ import { PrescripcionEncabezadoModule } from './modules/prescripcion-encabezado/
 export function swaggerApp(app: INestApplication) {
   const options = new DocumentBuilder()
     .setTitle('API MIPRES San Luis')
-    .setDescription('API interna para las prescripciones de la clínica san luis')
+    .setDescription('API interna para las prescripciones de la Clínica San Luis')
     .setVersion('0.0.1')
     .addBearerAuth()
     .build();
