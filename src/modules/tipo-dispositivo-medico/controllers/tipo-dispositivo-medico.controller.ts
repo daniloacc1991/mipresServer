@@ -2,22 +2,22 @@ import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body } fr
 import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { AmbitoAtencionService } from '../service/ambito-atencion.service';
-import { AmbitoAtencion } from '../entities/ambito-atencion.entity';
+import { TipoDispositivoMedicoService } from '../services/tipo-dispositivo-medico.service';
+import { TipoDispositivoMedico } from '../entities/tipo-dispositivo-medico';
 
-@ApiUseTags('Ambito Atencion')
+@ApiUseTags('Tipo Dispositivo Medico')
 @ApiBearerAuth()
-@Controller('ambito-atencion')
-export class AmbitoAtencionController {
+@Controller('tipo-dispositivo-medico')
+export class TipoDispositivoMedicoController {
   constructor(
-    private ambitoAtencionService: AmbitoAtencionService,
-  ) { }
+    private tipoDispositivoMedicoService: TipoDispositivoMedicoService,
+  ) {}
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async findAll(@Res() res) {
     try {
-      const elements = await this.ambitoAtencionService.findAll();
+      const elements = await this.tipoDispositivoMedicoService.findAll();
       if (elements.length > 0) {
         res.status(HttpStatus.OK).json(elements);
       } else {
@@ -34,7 +34,7 @@ export class AmbitoAtencionController {
   @UseGuards(AuthGuard('jwt'))
   async findbyId(@Res() res, @Param('id') id: number) {
     try {
-      const element = await this.ambitoAtencionService.findById(id);
+      const element = await this.tipoDispositivoMedicoService.findById(id);
       if (element) {
         res.status(HttpStatus.OK).json(element);
       } else {
@@ -49,9 +49,9 @@ export class AmbitoAtencionController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  async create(@Body() ambitoAtencion: AmbitoAtencion, @Res() res) {
+  async create(@Body() tipoDispositivoMedico: TipoDispositivoMedico, @Res() res) {
     try {
-      const element = await this.ambitoAtencionService.create(ambitoAtencion);
+      const element = await this.tipoDispositivoMedicoService.create(tipoDispositivoMedico);
       res.status(HttpStatus.CREATED).json(element);
     } catch (e) {
       throw new HttpException({
@@ -62,9 +62,9 @@ export class AmbitoAtencionController {
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  async update(@Body() ambitoAtencion: AmbitoAtencion, @Param('id') id: number, @Res() res) {
+  async update(@Body() tipoDispositivoMedico: TipoDispositivoMedico, @Param('id') id: number, @Res() res) {
     try {
-      const element = await this.ambitoAtencionService.update(id, ambitoAtencion);
+      const element = await this.tipoDispositivoMedicoService.update(id, tipoDispositivoMedico);
       res.status(HttpStatus.OK).json(element);
     } catch (e) {
       throw new HttpException({
@@ -77,7 +77,7 @@ export class AmbitoAtencionController {
   @UseGuards(AuthGuard('jwt'))
   async delete(@Param('id') id: number, @Res() res) {
     try {
-      await this.ambitoAtencionService.delete(id);
+      await this.tipoDispositivoMedicoService.delete(id);
       res.status(HttpStatus.OK).json({});
     } catch (e) {
       throw new HttpException({
