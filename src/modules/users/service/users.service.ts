@@ -2,33 +2,65 @@ import { Injectable, Inject } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import { Md5 } from 'md5-typescript';
 import { Auth, JwtPayload } from 'src/auth/interfaces';
+import { Sequelize } from 'sequelize-typescript';
+import { UsersGateway } from '../gateway/users.gateway';
 
 @Injectable()
 export class UsersService {
   constructor(
     @Inject('UsersRepository') private readonly usersRepository: typeof User,
+    @Inject('SequelizeRepository') private seq: Sequelize,
+    private usersGateway: UsersGateway,
   ) { }
 
   async findAll() {
     return await this.usersRepository.findAll();
   }
 
-  async create(user: User) {
-    user.password = Md5.init(user.password);
-    return await this.usersRepository.create(user);
-  }
-
   async findById(id: number) {
     return await this.usersRepository.findById(id);
   }
 
+  async create(user: User) {
+    user.password = Md5.init(user.password);
+    const t = await this.seq.transaction();
+    try {
+      const element = await this.usersRepository.create(user, { transaction: t });
+      t.commit();
+      this.usersGateway.usersCreated(element);
+      return element;
+    } catch (e) {
+      t.rollback();
+      throw e;
+    }
+  }
+
   async update(id: number, user: User) {
-    await this.usersRepository.update({ ...user }, { where: { id } });
-    return await this.usersRepository.findById(id);
+    const t = await this.seq.transaction();
+    try {
+      delete user.id;
+      const res = await this.usersRepository.update({ ...user }, { where: { id } });
+      t.commit();
+      const element = await this.usersRepository.findById(res[0]);
+      this.usersGateway.usersUpdated(element);
+      return element;
+    } catch (e) {
+      t.rollback();
+      throw e;
+    }
   }
 
   async delete(id: number) {
-    return await this.usersRepository.destroy({ where: { id } });
+    const t = await this.seq.transaction();
+    try {
+      await this.usersRepository.destroy({ where: { id } });
+      t.commit();
+      this.usersGateway.usersDeleted(id);
+      return;
+    } catch (e) {
+      t.rollback();
+      throw e;
+    }
   }
 
   async findOneByUsuario(usuario: string) {

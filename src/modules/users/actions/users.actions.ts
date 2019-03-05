@@ -1,0 +1,5 @@
+export enum USERS_ACTIONS {
+  LIVE_CREATED = '[Users] LIVE CREATED',
+  LIVE_UPDATED = '[Users] LIVE UPDATED',
+  LIVE_DELETED = '[Users] LIVE DELETED',
+}
