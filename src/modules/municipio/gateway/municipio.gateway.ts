@@ -14,7 +14,6 @@ export class MunicipioGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client municipio connected');
   }
 

@@ -15,7 +15,6 @@ export class UnidadMedidaDosisGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client unidad-medida-dosis connected');
   }
 

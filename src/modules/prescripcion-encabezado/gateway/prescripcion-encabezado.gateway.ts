@@ -15,7 +15,6 @@ export class PrescripcionEncabezadoGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client prescripcion-encabezado connected');
   }
 

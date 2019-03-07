@@ -73,10 +73,11 @@ export class UsersService {
         usuario: auth.usuario,
         password: Md5.init(auth.password),
       },
-      attributes: ['usuario', 'rol'],
+      attributes: ['usuario', 'rol', 'name', 'email'],
     });
     const data: JwtPayload = {
       usuario: user.usuario,
+      nombre: user.name,
       email: user.email,
       scope: user.rol,
     };

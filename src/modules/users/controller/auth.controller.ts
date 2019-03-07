@@ -17,7 +17,7 @@ export class AuthController {
   async singIn(@Body() auth: Auth, @Res() res) {
     Logger.log(auth);
     const rows = await this.authService.singIn(auth);
-    res.status(HttpStatus.OK).json({ token: rows });
+    res.status(HttpStatus.OK).json(rows);
   }
 
   @Get('menu/:system')

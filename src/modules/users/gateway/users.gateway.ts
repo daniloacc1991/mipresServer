@@ -15,7 +15,6 @@ export class UsersGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client ambito-atencion connected');
   }
 

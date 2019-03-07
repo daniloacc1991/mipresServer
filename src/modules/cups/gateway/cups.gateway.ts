@@ -14,7 +14,6 @@ export class CupsGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client cups connected');
   }
 

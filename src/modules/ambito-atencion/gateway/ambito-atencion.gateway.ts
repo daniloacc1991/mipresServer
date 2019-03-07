@@ -15,7 +15,8 @@ export class AmbitoAtencionGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
+    // tslint:disable-next-line:no-console
+    console.log(client);
     Logger.log('client ambito-atencion connected');
   }
 

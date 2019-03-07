@@ -8,6 +8,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const port = process.env.PORT || 3000;
   app.use(rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs
@@ -17,6 +18,6 @@ async function bootstrap() {
   app.use(compression());
   app.useGlobalPipes(new ValidationPipe());
   swaggerApp(app);
-  await app.listen(3000);
+  await app.listen(port);
 }
 bootstrap();

@@ -15,7 +15,6 @@ export class PresentacionGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client presentacion connected');
   }
 

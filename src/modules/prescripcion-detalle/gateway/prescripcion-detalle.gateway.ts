@@ -15,7 +15,6 @@ export class PrescripcionDetalleGateway {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client prescripcion-detalle connected');
   }
 

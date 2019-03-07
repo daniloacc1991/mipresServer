@@ -15,7 +15,6 @@ export class TipoDispositivoMedicoGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client tipo-dispositivo-medico connected');
   }
 

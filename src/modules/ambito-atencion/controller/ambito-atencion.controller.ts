@@ -18,7 +18,7 @@ export class AmbitoAtencionController {
   async findAll(@Res() res) {
     try {
       const elements = await this.ambitoAtencionService.findAll();
-      if (elements.length > 0) {
+      if (elements) {
         res.status(HttpStatus.OK).json(elements);
       } else {
         res.status(HttpStatus.NO_CONTENT).json([]);

@@ -3,22 +3,23 @@ import { Logger } from '@nestjs/common';
 import { TipoProductoNutricional } from '../entities/tipo-producto-nutricional.entity';
 import { TIPO_PRODUCTO_NUTRICIONAL_ACTIONS } from '../actions/tipo-producto-nutricional.actions';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  namespace: '/tipo-producto-nutricional',
+})
 export class TipoProductoNutricionalGateway implements OnGatewayConnection {
 
   @WebSocketServer() private socket$;
 
   afterInit() {
-    Logger.log('socket ambito-atencion initialized');
+    Logger.log('socket tipo-producto-nutricional initialized');
   }
 
   handleConnection(client) {
-    Logger.log(client);
-    Logger.log('client ambito-atencion connected');
+    Logger.log('client tipo-producto-nutricional connected');
   }
 
   handleDisconnect(client) {
-    Logger.log('client ambito-atencion disconnected');
+    Logger.log('client tipo-producto-nutricional disconnected');
   }
 
   tipoProductoNutricionalCreated(tipoProductoNutricional: TipoProductoNutricional) {

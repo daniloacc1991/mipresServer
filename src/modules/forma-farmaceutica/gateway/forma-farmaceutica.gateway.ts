@@ -15,7 +15,6 @@ export class FormaFarmaceuticaGateway implements OnGatewayConnection {
   }
 
   handleConnection(client) {
-    Logger.log(client);
     Logger.log('client forma-farmaceutica connected');
   }
 
