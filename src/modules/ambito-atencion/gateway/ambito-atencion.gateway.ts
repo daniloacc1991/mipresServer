@@ -28,7 +28,7 @@ export class AmbitoAtencionGateway implements OnGatewayConnection {
   }
 
   ambitoAtencionUpdated(ambitoAtencion: AmbitoAtencion) {
-    Logger.log('PT-GATEWAY: ambitoAtencion updated', JSON.stringify(ambitoAtencion));
+    Logger.log(JSON.stringify(ambitoAtencion) , 'PT-GATEWAY: ambitoAtencion updated');
     this.socket$.emit(AMBITOS_ATENCION_ACTIONS.LIVE_UPDATED, ambitoAtencion);
   }
 

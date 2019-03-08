@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { AmbitoAtencion } from '../entities/ambito-atencion.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { AmbitoAtencionGateway } from '../gateway/ambito-atencion.gateway';
@@ -35,10 +35,9 @@ export class AmbitoAtencionService {
   async update(id: number, ambitoAtencion: AmbitoAtencion) {
     const t = await this.seq.transaction();
     try {
-      delete ambitoAtencion.id;
-      const res = await this.ambitoAtencionRepository.update({ ...ambitoAtencion }, { where: { id } });
+      await this.ambitoAtencionRepository.update({ ...ambitoAtencion }, { where: { id } });
       t.commit();
-      const element = await this.ambitoAtencionRepository.findById(res[0]);
+      const element = await this.ambitoAtencionRepository.findById(id);
       this.ambitoAtencionGateway.ambitoAtencionUpdated(element);
       return element;
     } catch (e) {

@@ -1,5 +1,5 @@
 export enum AMBITOS_ATENCION_ACTIONS {
-  LIVE_CREATED = '[AmbitosAtencion] LIVE CREATED',
-  LIVE_UPDATED = '[AmbitosAtencion] LIVE UPDATED',
-  LIVE_DELETED = '[AmbitosAtencion] LIVE DELETED',
+  LIVE_CREATED = '[AmbitoAtencion] LIVE CREATED',
+  LIVE_UPDATED = '[AmbitoAtencion] LIVE UPDATED',
+  LIVE_DELETED = '[AmbitoAtencion] LIVE DELETED',
 }
