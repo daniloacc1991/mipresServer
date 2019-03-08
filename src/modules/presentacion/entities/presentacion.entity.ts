@@ -8,13 +8,8 @@ import { ApiModelProperty } from '@nestjs/swagger';
   tableName: 'mp_presentacion',
 })
 export class Presentacion extends Model<Presentacion> {
+  
   @PrimaryKey
-  @HasOne( () => PrescripcionDetalle, {
-    as: 'presentacion_id',
-    foreignKey: 'UFCantTotal',
-    onDelete: 'CASCADE',
-    constraints: true,
-  })
   @ApiModelProperty()
   @Column(DataType.STRING('10'))
   id: string;

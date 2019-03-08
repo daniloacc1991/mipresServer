@@ -296,7 +296,6 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   CodFreAdmon: number;
 
-  @AllowNull(false)
   @ApiModelProperty()
   @Column
   IndEsp: number;
@@ -313,7 +312,6 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.STRING('10'))
   CantTotalF: string;
 
-  @ForeignKey(() => Presentacion)
   @ApiModelProperty()
   @Column(DataType.STRING('100'))
   UFCantTotal: string;
@@ -353,9 +351,6 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @BelongsTo(() => UnidadMedidaDosis)
   unidadMedidaDosis: UnidadMedidaDosis;
-
-  @BelongsTo(() => Presentacion)
-  presentacion: Presentacion;
 
   @BelongsTo(() => Cups)
   cups: Cups;

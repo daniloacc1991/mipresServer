@@ -1,9 +1,10 @@
-import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body } from '@nestjs/common';
+import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body, Logger } from '@nestjs/common';
 import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { PrescripcionEncabezadoService } from '../service/prescripcion-encabezado.service';
 import { PrescripcionEncabezado } from '../entities/prescripcion-encabezado.entity';
+import { BodyxFecha } from '../interfaces/body-x-fecha';
 
 @ApiUseTags('Prescripcion Encabezado')
 @ApiBearerAuth()
@@ -11,7 +12,7 @@ import { PrescripcionEncabezado } from '../entities/prescripcion-encabezado.enti
 export class PrescripcionEncabezadoController {
   constructor(
     private prescripcionEncabezadoService: PrescripcionEncabezadoService,
-  ) {}
+  ) { }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
@@ -61,6 +62,20 @@ export class PrescripcionEncabezadoController {
     try {
       await this.prescripcionEncabezadoService.delete(id);
       res.status(HttpStatus.OK).json({});
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Post('importarxFecha')
+  // @UseGuards(AuthGuard('jwt'))
+  async importarxFecha(@Body() body: BodyxFecha, @Res() res) {
+    Logger.log(body, 'Llego la peticion de importación');
+    try {
+      const response = await this.prescripcionEncabezadoService.importarxFecha(body);
+      res.status(HttpStatus.OK).json(response);
     } catch (e) {
       throw new HttpException({
         error: e,
