@@ -10,6 +10,7 @@ import { Presentacion } from 'src/modules/presentacion/entities/presentacion.ent
 import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
 import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { Cups } from 'src/modules/cups/entities/cups.entity';
+import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
 
 export const modulesProviders = [
   {
@@ -19,6 +20,10 @@ export const modulesProviders = [
   {
     provide: 'MunicipioRepository',
     useValue: Municipio,
+  },
+  {
+    provide: 'Cie10Repository',
+    useValue: Cie10,
   },
   {
     provide: 'AmbitoAtencionRepository',

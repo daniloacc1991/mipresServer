@@ -8,7 +8,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
   tableName: 'mp_presentacion',
 })
 export class Presentacion extends Model<Presentacion> {
-  
+
   @PrimaryKey
   @ApiModelProperty()
   @Column(DataType.STRING('10'))

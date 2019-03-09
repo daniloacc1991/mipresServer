@@ -11,6 +11,7 @@ import { TipoDispositivoMedicoModule } from './modules/tipo-dispositivo-medico/t
 import { UsersModule } from './modules/users/users.module';
 import { TipoProductoNutricionalModule } from './modules/tipo-producto-nutricional/tipo-producto-nutricional.module';
 import { UnidadMedidaDosisModule } from './modules/unidad-medida-dosis/unidad-medida-dosis.module';
+import { Cie10Module } from './modules/cie10/cie10.module';
 
 export function swaggerApp(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -34,6 +35,7 @@ export function swaggerApp(app: INestApplication) {
         TipoDispositivoMedicoModule,
         TipoProductoNutricionalModule,
         UnidadMedidaDosisModule,
+        Cie10Module,
       ],
   });
 

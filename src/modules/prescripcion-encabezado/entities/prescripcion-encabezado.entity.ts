@@ -3,6 +3,7 @@ import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-aten
 import { Municipio } from 'src/modules/municipio/entities/municipio';
 import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
 
 @Table({
   timestamps: true,
@@ -143,6 +144,7 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
   @Column
   EnfHuerfanaDX: number;
 
+  @ForeignKey(() => Cie10)
   @ApiModelProperty()
   @Column(DataType.STRING('4'))
   CodDxPpal: string;
@@ -208,4 +210,7 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
 
   @BelongsTo(() => Municipio)
   municipio: Municipio;
+
+  @BelongsTo(() => Cie10)
+  cie10: Cie10;
 }

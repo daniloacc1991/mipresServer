@@ -12,6 +12,7 @@ import { TipoDispositivoMedicoModule } from './modules/tipo-dispositivo-medico/t
 import { TipoProductoNutricionalModule } from './modules/tipo-producto-nutricional/tipo-producto-nutricional.module';
 import { UsersModule } from './modules/users/users.module';
 import { DatabaseModule } from './database/database.module';
+import { Cie10Module } from './modules/cie10/cie10.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { DatabaseModule } from './database/database.module';
     CupsModule,
     TipoDispositivoMedicoModule,
     TipoProductoNutricionalModule,
+    Cie10Module,
   ],
   controllers: [],
   providers: [],

@@ -12,6 +12,9 @@ import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entit
 import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { map } from 'rxjs/operators';
 import { BodyxFecha } from '../interfaces/body-x-fecha';
+import { Municipio } from 'src/modules/municipio/entities/municipio';
+import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-atencion.entity';
+import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
 
 @Injectable()
 export class PrescripcionEncabezadoService {
@@ -77,6 +80,18 @@ export class PrescripcionEncabezadoService {
             TipoTecnologia: 'S',
           },
         },
+        {
+          model: Municipio,
+          attributes: ['descripcion', 'departamento'],
+        },
+        {
+          model: AmbitoAtencion,
+          attributes: ['descripcion'],
+        },
+        {
+          model: Cie10,
+          attributes: ['descripcion'],
+        },
       ],
     });
   }
@@ -85,6 +100,7 @@ export class PrescripcionEncabezadoService {
     return await this.prescripcionEncabezadoRepository.findById(id, {
       include: [
         {
+          required: false,
           as: 'medicamentos',
           model: PrescripcionDetalle,
           include: [
@@ -97,6 +113,7 @@ export class PrescripcionEncabezadoService {
           },
         },
         {
+          required: false,
           as: 'procedimientos',
           model: PrescripcionDetalle,
           include: [Cups],
@@ -105,6 +122,7 @@ export class PrescripcionEncabezadoService {
           },
         },
         {
+          required: false,
           as: 'dispositivos',
           model: PrescripcionDetalle,
           include: [TipoDispositivoMedico],
@@ -113,6 +131,7 @@ export class PrescripcionEncabezadoService {
           },
         },
         {
+          required: false,
           as: 'productosnutricionales',
           model: PrescripcionDetalle,
           include: [
@@ -124,11 +143,24 @@ export class PrescripcionEncabezadoService {
           },
         },
         {
+          required: false,
           as: 'serviciosComplementarios',
           model: PrescripcionDetalle,
           where: {
             TipoTecnologia: 'S',
           },
+        },
+        {
+          model: Municipio,
+          attributes: ['descripcion', 'departamento'],
+        },
+        {
+          model: AmbitoAtencion,
+          attributes: ['descripcion'],
+        },
+        {
+          model: Cie10,
+          attributes: ['descripcion'],
         },
       ],
     });

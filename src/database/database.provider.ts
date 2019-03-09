@@ -11,6 +11,7 @@ import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entit
 import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { Cups } from 'src/modules/cups/entities/cups.entity';
 import { User } from 'src/modules/users/entities/user.entity';
+import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
 
 export const databaseProviders = [
   {
@@ -34,6 +35,7 @@ export const databaseProviders = [
         User,
         Municipio,
         AmbitoAtencion,
+        Cie10,
         PrescripcionEncabezado,
         FormaFarmaceutica,
         ViaAdministracion,
