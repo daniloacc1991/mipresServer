@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, HasOne, AllowNull } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, HasMany, AllowNull, AutoIncrement, Unique } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
 
@@ -9,13 +9,13 @@ import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/enti
 })
 export class Cie10 extends Model<Cie10> {
 
+  @ApiModelProperty()
   @PrimaryKey
-  @HasOne(() => PrescripcionEncabezado, {
-    as: 'CodDxPpal_id',
-    foreignKey: 'CodDxPpal',
-    onDelete: 'CASCADE',
-    constraints: true,
-  })
+  @AutoIncrement
+  @Column(DataType.BIGINT)
+  id: number;
+
+  @Unique
   @ApiModelProperty()
   @Column(DataType.STRING('4'))
   codigo: string;
@@ -28,4 +28,12 @@ export class Cie10 extends Model<Cie10> {
   @Column(DataType.BOOLEAN)
   @ApiModelProperty()
   habilitado: boolean;
+
+  @HasMany(() => PrescripcionEncabezado, {
+    as: 'prescripciones_fk',
+    foreignKey: 'CodDxPpal',
+    constraints: true,
+    sourceKey: 'codigo',
+  })
+  prescripciones: PrescripcionEncabezado[];
 }
