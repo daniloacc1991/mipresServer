@@ -13,6 +13,7 @@ import { TipoProductoNutricionalModule } from './modules/tipo-producto-nutricion
 import { UsersModule } from './modules/users/users.module';
 import { DatabaseModule } from './database/database.module';
 import { Cie10Module } from './modules/cie10/cie10.module';
+import { IndicacionEspecialModule } from './modules/indicacion-especial/indicacion-especial.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { Cie10Module } from './modules/cie10/cie10.module';
     TipoDispositivoMedicoModule,
     TipoProductoNutricionalModule,
     Cie10Module,
+    IndicacionEspecialModule,
   ],
   controllers: [],
   providers: [],

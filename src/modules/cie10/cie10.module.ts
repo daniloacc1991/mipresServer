@@ -13,6 +13,7 @@ import { modulesProviders } from 'src/providers/modules-providers';
   providers: [
     ...modulesProviders,
     Cie10Service,
+    Cie10Gateway,
   ],
 })
 export class Cie10Module { }
