@@ -211,6 +211,10 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
   @BelongsTo(() => Municipio)
   municipio: Municipio;
 
-  @BelongsTo(() => Cie10)
+  @BelongsTo(() => Cie10, {
+    as: 'cie10',
+    foreignKey: 'CodDxPpal',
+    targetKey: 'codigo',
+  })
   cie10: Cie10;
 }
