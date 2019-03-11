@@ -11,6 +11,7 @@ import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entit
 import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { Cups } from 'src/modules/cups/entities/cups.entity';
 import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
+import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
 
 export const modulesProviders = [
   {
@@ -60,6 +61,10 @@ export const modulesProviders = [
   {
     provide: 'TipoProductoNutricionalRepository',
     useValue: TipoProductoNutricional,
+  },
+  {
+    provide: 'IndicacionEspecialRepository',
+    useValue: IndicacionEspecial,
   },
   {
     provide: 'PrescripcionDetalleRepository',
