@@ -1,5 +1,6 @@
-import { Table, DefaultScope, Model, AutoIncrement, PrimaryKey, Column, DataType, AllowNull } from 'sequelize-typescript';
+import { Table, DefaultScope, Model, AutoIncrement, PrimaryKey, Column, DataType, AllowNull, HasOne } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
 @DefaultScope({
   attributes: ['codigo', 'descripcion'],
@@ -14,6 +15,11 @@ export class IndicacionEspecial extends Model<IndicacionEspecial> {
   @ApiModelProperty()
   @AutoIncrement
   @PrimaryKey
+  @HasOne(() => PrescripcionDetalle, {
+    as: 'prescripcion_detalle_id',
+    foreignKey: 'IndEsp',
+    foreignKeyConstraint: false,
+  })
   @Column
   id: number;
 

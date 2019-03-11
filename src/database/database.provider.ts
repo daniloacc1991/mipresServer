@@ -12,6 +12,7 @@ import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/e
 import { Cups } from 'src/modules/cups/entities/cups.entity';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
+import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
 
 export const databaseProviders = [
   {
@@ -44,6 +45,7 @@ export const databaseProviders = [
         Cups,
         TipoDispositivoMedico,
         TipoProductoNutricional,
+        IndicacionEspecial,
         PrescripcionDetalle,
       ]);
       await sequelize.sync();

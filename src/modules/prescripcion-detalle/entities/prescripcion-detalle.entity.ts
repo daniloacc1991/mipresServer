@@ -1,5 +1,5 @@
-import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull } from 'sequelize-typescript';
-import { ForeignKey, BelongsTo, HasMany, BelongsToMany } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default } from 'sequelize-typescript';
+import { ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { FormaFarmaceutica } from 'src/modules/forma-farmaceutica/entities/forma-farmaceutica';
 import { ViaAdministracion } from 'src/modules/via-administracion/entities/via-administracion.entity';
 import { UnidadMedidaDosis } from 'src/modules/unidad-medida-dosis/entities/unidad-medida-dosis';
@@ -9,6 +9,7 @@ import { Cups } from 'src/modules/cups/entities/cups.entity';
 import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
 import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
 
 @Table({
   timestamps: true,
@@ -297,6 +298,9 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CodFreAdmon: number;
 
   @ApiModelProperty()
+  @Default(10)
+  @AllowNull(false)
+  @ForeignKey( () => IndicacionEspecial)
   @Column
   IndEsp: number;
 
@@ -360,5 +364,10 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @BelongsTo(() => TipoProductoNutricional)
   tipoProductoNutricional: TipoProductoNutricional;
+
+  @BelongsTo(() => IndicacionEspecial, {
+    constraints: false,
+  })
+  indicacionEspecial: IndicacionEspecial;
 
 }

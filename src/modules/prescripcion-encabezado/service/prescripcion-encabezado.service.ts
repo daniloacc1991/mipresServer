@@ -186,6 +186,7 @@ export class PrescripcionEncabezadoService {
         for (const medicamento of medicamentos) {
           medicamento.prescripcionId = p.id;
           medicamento.TipoTecnologia = 'M';
+          // medicamento.IndEsp = medicamento.IndEsp ? medicamento.IndEsp : 10;
           // const principiosActivos: MedicamentoPrincipio[] = medicamento.PrincipiosActivos;
           // const indicacionesUNIRS: MedicamentoIndicacion[] = medicamento.IndicacionesUNIRS ? medicamento.IndicacionesUNIRS : [];
           const m = await this.prescripcionDetalleRepository.create(medicamento, { transaction: t });
@@ -202,21 +203,25 @@ export class PrescripcionEncabezadoService {
         for (const procedimiento of procedimientos) {
           procedimiento.prescripcionId = p.id;
           procedimiento.TipoTecnologia = 'P';
+          // procedimiento.IndEsp = procedimiento.IndEsp ? procedimiento.IndEsp : 10;
           await this.prescripcionDetalleRepository.create(procedimiento, { transaction: t });
         }
         for (const dispositivo of dispositivos) {
           dispositivo.prescripcionId = p.id;
           dispositivo.TipoTecnologia = 'D';
+          // dispositivo.IndEsp = dispositivo.IndEsp ? dispositivo.IndEsp : 10;
           await this.prescripcionDetalleRepository.create(dispositivo, { transaction: t });
         }
         for (const serviciosComplementario of serviciosComplementarios) {
           serviciosComplementario.prescripcionId = p.id;
           serviciosComplementario.TipoTecnologia = 'S';
+          // serviciosComplementario.IndEsp = serviciosComplementario.IndEsp ? serviciosComplementario.IndEsp : 10;
           await this.prescripcionDetalleRepository.create(serviciosComplementario, { transaction: t });
         }
         for (const productosnutricional of productosnutricionales) {
           productosnutricional.prescripcionId = p.id;
           productosnutricional.TipoTecnologia = 'N';
+          // productosnutricional.IndEsp = productosnutricional.IndEsp ? productosnutricional.IndEsp : 10;
           await this.prescripcionDetalleRepository.create(productosnutricional, { transaction: t });
         }
         this.prescripcionEncabezadoGateway.prescripcionCreated(p);
@@ -257,13 +262,18 @@ export class PrescripcionEncabezadoService {
 
   async importarxFecha(body: BodyxFecha) {
     const url = `https://wsmipres.sispro.gov.co/WSMIPRESNOPBS/api/Prescripcion/${body.nit}/${body.fecha}/${body.token}`;
-    const prescripciones: PrescripcionEncabezado[] = await this.importacion(url);
+    let prescripciones: PrescripcionEncabezado[];
+
+    try {
+      prescripciones = await this.importacion(url);
+    } catch (e) {
+      throw e;
+    }
     const response = {
       cargados: [],
       errores: [],
     };
 
-    Logger.log('Empezo a For');
     for (const prescripcion of prescripciones) {
       try {
         await this.create(prescripcion);
