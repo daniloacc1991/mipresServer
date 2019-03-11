@@ -41,6 +41,7 @@
     "rimraf": "^2.6.2",
     "rxjs": "^6.2.2",
     "sequelize": "^4.43.0",
+    "sequelize-cli": "^5.4.0",
     "sequelize-typescript": "^0.6.7",
     "typescript": "^3.0.1"
   },

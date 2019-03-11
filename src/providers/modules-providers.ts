@@ -12,6 +12,7 @@ import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/e
 import { Cups } from 'src/modules/cups/entities/cups.entity';
 import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
 import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
+import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia';
 
 export const modulesProviders = [
   {
@@ -65,6 +66,10 @@ export const modulesProviders = [
   {
     provide: 'IndicacionEspecialRepository',
     useValue: IndicacionEspecial,
+  },
+  {
+    provide: 'FrecuenciaRepository',
+    useValue: Frecuencia,
   },
   {
     provide: 'PrescripcionDetalleRepository',

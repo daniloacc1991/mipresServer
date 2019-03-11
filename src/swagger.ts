@@ -13,6 +13,7 @@ import { TipoProductoNutricionalModule } from './modules/tipo-producto-nutricion
 import { UnidadMedidaDosisModule } from './modules/unidad-medida-dosis/unidad-medida-dosis.module';
 import { Cie10Module } from './modules/cie10/cie10.module';
 import { IndicacionEspecialModule } from './modules/indicacion-especial/indicacion-especial.module';
+import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
 
 export function swaggerApp(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -38,6 +39,7 @@ export function swaggerApp(app: INestApplication) {
         UnidadMedidaDosisModule,
         Cie10Module,
         IndicacionEspecialModule,
+        FrecuenciaModule,
       ],
   });
 

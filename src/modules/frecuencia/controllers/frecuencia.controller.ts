@@ -2,23 +2,23 @@ import { Controller, UseGuards, Res, HttpStatus, HttpException, Param, Body } fr
 import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { IndicacionEspecialService } from '../services/indicacion-especial.service';
-import { IndicacionEspecial } from '../entities/indicacion-especial';
+import { FrecuenciaService } from '../services/frecuencia.service';
+import { Frecuencia } from '../entities/frecuencia';
 
-@ApiUseTags('Indicacion Especial')
+@ApiUseTags('Frecuencia')
 @ApiBearerAuth()
-@Controller('indicacion-especial')
-export class IndicacionEspecialController {
+@Controller('frecuencia')
+export class FrecuenciaController {
 
   constructor(
-    private indicacionEspecialService: IndicacionEspecialService,
-  ) {}
+    private frecuenciaService: FrecuenciaService,
+  ) { }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async findAll(@Res() res) {
     try {
-      const elements = await this.indicacionEspecialService.findAll();
+      const elements = await this.frecuenciaService.findAll();
       if (elements.length > 0) {
         res.status(HttpStatus.OK).json(elements);
       } else {
@@ -35,7 +35,7 @@ export class IndicacionEspecialController {
   @UseGuards(AuthGuard('jwt'))
   async findbyId(@Res() res, @Param('id') id: number) {
     try {
-      const element = await this.indicacionEspecialService.findById(id);
+      const element = await this.frecuenciaService.findById(id);
       if (element) {
         res.status(HttpStatus.OK).json(element);
       } else {
@@ -50,9 +50,9 @@ export class IndicacionEspecialController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  async create(@Body() indicacionEspecial: IndicacionEspecial, @Res() res) {
+  async create(@Body() frecuencia: Frecuencia, @Res() res) {
     try {
-      const element = await this.indicacionEspecialService.create(indicacionEspecial);
+      const element = await this.frecuenciaService.create(frecuencia);
       res.status(HttpStatus.CREATED).json(element);
     } catch (e) {
       throw new HttpException({
@@ -63,9 +63,9 @@ export class IndicacionEspecialController {
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  async update(@Body() indicacionEspecial: IndicacionEspecial, @Param('id') id: number, @Res() res) {
+  async update(@Body() frecuencia: Frecuencia, @Param('id') id: number, @Res() res) {
     try {
-      const element = await this.indicacionEspecialService.update(id, indicacionEspecial);
+      const element = await this.frecuenciaService.update(id, frecuencia);
       res.status(HttpStatus.OK).json(element);
     } catch (e) {
       throw new HttpException({
@@ -78,7 +78,7 @@ export class IndicacionEspecialController {
   @UseGuards(AuthGuard('jwt'))
   async delete(@Param('id') id: number, @Res() res) {
     try {
-      await this.indicacionEspecialService.delete(id);
+      await this.frecuenciaService.delete(id);
       res.status(HttpStatus.OK).json({});
     } catch (e) {
       throw new HttpException({

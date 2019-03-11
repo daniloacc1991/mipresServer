@@ -14,6 +14,7 @@ import { UsersModule } from './modules/users/users.module';
 import { DatabaseModule } from './database/database.module';
 import { Cie10Module } from './modules/cie10/cie10.module';
 import { IndicacionEspecialModule } from './modules/indicacion-especial/indicacion-especial.module';
+import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { IndicacionEspecialModule } from './modules/indicacion-especial/indicaci
     TipoProductoNutricionalModule,
     Cie10Module,
     IndicacionEspecialModule,
+    FrecuenciaModule,
   ],
   controllers: [],
   providers: [],
