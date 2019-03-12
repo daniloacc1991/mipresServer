@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "POSTGRES",
+    "database": "mipres_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "POSTGRES",
+    "database": "mipres_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "POSTGRES",
+    "database": "mipres_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

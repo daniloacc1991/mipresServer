@@ -1,4 +1,4 @@
-import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default, DefaultScope } from 'sequelize-typescript';
 import { ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { FormaFarmaceutica } from 'src/modules/forma-farmaceutica/entities/forma-farmaceutica';
 import { ViaAdministracion } from 'src/modules/via-administracion/entities/via-administracion.entity';
@@ -300,7 +300,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @ApiModelProperty()
   @Default(10)
   @AllowNull(false)
-  @ForeignKey( () => IndicacionEspecial)
+  @ForeignKey(() => IndicacionEspecial)
   @Column
   IndEsp: number;
 
@@ -365,9 +365,6 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @BelongsTo(() => TipoProductoNutricional)
   tipoProductoNutricional: TipoProductoNutricional;
 
-  @BelongsTo(() => IndicacionEspecial, {
-    constraints: false,
-  })
+  @BelongsTo(() => IndicacionEspecial)
   indicacionEspecial: IndicacionEspecial;
-
 }

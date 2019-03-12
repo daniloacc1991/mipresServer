@@ -32,6 +32,10 @@ export class Cie10 extends Model<Cie10> {
   @ApiModelProperty()
   habilitado: boolean;
 
+  @Column(DataType.DATE)
+  @ApiModelProperty()
+  fecha: boolean;
+
   @HasMany(() => PrescripcionEncabezado, {
     as: 'prescripciones_fk',
     foreignKey: 'CodDxPpal',

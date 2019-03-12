@@ -20,6 +20,14 @@ export class FrecuenciaService {
     return await this.frecuenciaRepository.findById(id);
   }
 
+  async findByIdDescripcion(id: number) {
+    return await this.frecuenciaRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
   async create(frecuencia: Frecuencia) {
     const t = await this.seq.transaction();
     try {

@@ -48,6 +48,23 @@ export class FrecuenciaController {
     }
   }
 
+  @Get('/descripcion/:id')
+  @UseGuards(AuthGuard('jwt'))
+  async findByIdDescripcion(@Res() res, @Param('id') id: number) {
+    try {
+      const element = await this.frecuenciaService.findByIdDescripcion(id);
+      if (element) {
+        res.status(HttpStatus.OK).json(element);
+      } else {
+        res.status(HttpStatus.NO_CONTENT).json({});
+      }
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async create(@Body() frecuencia: Frecuencia, @Res() res) {

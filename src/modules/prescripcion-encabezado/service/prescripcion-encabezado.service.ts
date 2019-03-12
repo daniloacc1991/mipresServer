@@ -10,7 +10,6 @@ import { Presentacion } from 'src/modules/presentacion/entities/presentacion.ent
 import { Cups } from 'src/modules/cups/entities/cups.entity';
 import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
 import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
-import { map } from 'rxjs/operators';
 import { BodyxFecha } from '../interfaces/body-x-fecha';
 import { Municipio } from 'src/modules/municipio/entities/municipio';
 import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-atencion.entity';
@@ -55,7 +54,9 @@ export class PrescripcionEncabezadoService {
           required: false,
           as: 'dispositivos',
           model: PrescripcionDetalle,
-          include: [TipoDispositivoMedico],
+          include: [
+            TipoDispositivoMedico,
+          ],
           where: {
             TipoTecnologia: 'D',
           },
@@ -125,7 +126,9 @@ export class PrescripcionEncabezadoService {
           required: false,
           as: 'dispositivos',
           model: PrescripcionDetalle,
-          include: [TipoDispositivoMedico],
+          include: [
+            TipoDispositivoMedico,
+          ],
           where: {
             TipoTecnologia: 'D',
           },
