@@ -3,7 +3,9 @@ import { Logger } from '@nestjs/common';
 import { Entrega } from '../entities/entrega.entity';
 import { ENTREGA_ACTIONS } from '../actions/entrega.actions';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  namespace: '/entrega',
+})
 export class EntregaGateway implements OnGatewayConnection {
   @WebSocketServer() private socket$;
 
