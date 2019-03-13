@@ -2,12 +2,15 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Entrega } from '../entities/entrega.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { EntregaGateway } from '../gateway/entrega.gateway';
+import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
 
 @Injectable()
 export class EntregaService {
 
   constructor(
     @Inject('EntregaRepository') private readonly entregaRepository: typeof Entrega,
+    @Inject('PrescripcionDetalleRepository') private readonly prescripcionDetalleRepository: typeof PrescripcionDetalle,
     @Inject('SequelizeRepository') private seq: Sequelize,
     private entregaGateway: EntregaGateway,
   ) { }
@@ -59,5 +62,17 @@ export class EntregaService {
       t.rollback();
       throw e;
     }
+  }
+
+  async findPrescripcionDetalleById(id: number) {
+    return await this.prescripcionDetalleRepository.findById(id, {
+      attributes: ['id', 'TipoTecnologia', 'ConOrden'],
+      include: [
+        {
+          model: PrescripcionEncabezado,
+          attributes: ['id', 'NoPrescripcion', 'TipoIDPaciente', 'NroIDPaciente'],
+        },
+      ],
+    });
   }
 }

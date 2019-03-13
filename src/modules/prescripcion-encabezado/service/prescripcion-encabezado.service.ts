@@ -14,6 +14,7 @@ import { BodyxFecha } from '../interfaces/body-x-fecha';
 import { Municipio } from 'src/modules/municipio/entities/municipio';
 import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-atencion.entity';
 import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
+import { ImportaFechaSuccess } from '../interfaces';
 
 @Injectable()
 export class PrescripcionEncabezadoService {
@@ -272,7 +273,7 @@ export class PrescripcionEncabezadoService {
     } catch (e) {
       throw e;
     }
-    const response = {
+    const response: ImportaFechaSuccess = {
       success: [],
       fails: [],
     };
@@ -285,7 +286,7 @@ export class PrescripcionEncabezadoService {
         response.fails.push(prescripcion.NoPrescripcion);
       }
     }
-    Logger.log('Finalizo a For');
+    this.prescripcionEncabezadoGateway.prescripcionImported(response);
     return response;
   }
 

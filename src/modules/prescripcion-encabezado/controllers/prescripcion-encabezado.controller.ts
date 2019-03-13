@@ -5,6 +5,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { PrescripcionEncabezadoService } from '../service/prescripcion-encabezado.service';
 import { PrescripcionEncabezado } from '../entities/prescripcion-encabezado.entity';
 import { BodyxFecha } from '../interfaces/body-x-fecha';
+import { ImportaFechaSuccess } from '../interfaces';
 
 @ApiUseTags('Prescripcion Encabezado')
 @ApiBearerAuth()
@@ -70,11 +71,11 @@ export class PrescripcionEncabezadoController {
   }
 
   @Post('importarxFecha')
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   async importarxFecha(@Body() body: BodyxFecha, @Res() res) {
     Logger.log(body, 'Llego la peticion de importación');
     try {
-      const response = await this.prescripcionEncabezadoService.importarxFecha(body);
+      const response: ImportaFechaSuccess = await this.prescripcionEncabezadoService.importarxFecha(body);
       res.status(HttpStatus.OK).json(response);
     } catch (e) {
       throw new HttpException({
