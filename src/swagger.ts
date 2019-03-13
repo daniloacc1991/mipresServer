@@ -14,6 +14,7 @@ import { UnidadMedidaDosisModule } from './modules/unidad-medida-dosis/unidad-me
 import { Cie10Module } from './modules/cie10/cie10.module';
 import { IndicacionEspecialModule } from './modules/indicacion-especial/indicacion-especial.module';
 import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
+import { EntregaModule } from './modules/entrega/entrega.module';
 
 export function swaggerApp(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -40,6 +41,7 @@ export function swaggerApp(app: INestApplication) {
         Cie10Module,
         IndicacionEspecialModule,
         FrecuenciaModule,
+        EntregaModule,
       ],
   });
 

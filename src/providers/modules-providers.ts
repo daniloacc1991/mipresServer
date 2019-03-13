@@ -13,6 +13,7 @@ import { Cups } from 'src/modules/cups/entities/cups.entity';
 import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
 import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
 import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia';
+import { Entrega } from 'src/modules/entrega/entities/entrega.entity';
 
 export const modulesProviders = [
   {
@@ -74,5 +75,9 @@ export const modulesProviders = [
   {
     provide: 'PrescripcionDetalleRepository',
     useValue: PrescripcionDetalle,
+  },
+  {
+    provide: 'EntregaRepository',
+    useValue: Entrega,
   },
 ];

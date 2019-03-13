@@ -1,4 +1,4 @@
-import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default, DefaultScope } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default, DefaultScope, HasMany } from 'sequelize-typescript';
 import { ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { FormaFarmaceutica } from 'src/modules/forma-farmaceutica/entities/forma-farmaceutica';
 import { ViaAdministracion } from 'src/modules/via-administracion/entities/via-administracion.entity';
@@ -10,6 +10,7 @@ import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entit
 import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
+import { Entrega } from 'src/modules/entrega/entities/entrega.entity';
 
 @Table({
   timestamps: true,
@@ -367,4 +368,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @BelongsTo(() => IndicacionEspecial)
   indicacionEspecial: IndicacionEspecial;
+
+  @HasMany(() => Entrega)
+  entregas: Entrega[];
 }

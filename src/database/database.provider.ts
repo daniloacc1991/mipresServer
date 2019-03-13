@@ -14,6 +14,7 @@ import { User } from 'src/modules/users/entities/user.entity';
 import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
 import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
 import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia';
+import { Entrega } from 'src/modules/entrega/entities/entrega.entity';
 
 export const databaseProviders = [
   {
@@ -49,6 +50,7 @@ export const databaseProviders = [
         IndicacionEspecial,
         Frecuencia,
         PrescripcionDetalle,
+        Entrega,
       ]);
       await sequelize.sync();
       return sequelize;

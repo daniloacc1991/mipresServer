@@ -15,6 +15,7 @@ import { DatabaseModule } from './database/database.module';
 import { Cie10Module } from './modules/cie10/cie10.module';
 import { IndicacionEspecialModule } from './modules/indicacion-especial/indicacion-especial.module';
 import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
+import { EntregaModule } from './modules/entrega/entrega.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
     Cie10Module,
     IndicacionEspecialModule,
     FrecuenciaModule,
+    EntregaModule,
   ],
   controllers: [],
   providers: [],

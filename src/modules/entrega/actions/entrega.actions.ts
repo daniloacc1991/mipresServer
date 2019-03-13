@@ -1,0 +1,5 @@
+export enum ENTREGA_ACTIONS {
+  LIVE_CREATED = '[Entrega] LIVE CREATED',
+  LIVE_UPDATED = '[Entrega] LIVE UPDATED',
+  LIVE_DELETED = '[Entrega] LIVE DELETED',
+}

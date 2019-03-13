@@ -1,23 +1,24 @@
-import { Controller, Get, UseGuards, Res, HttpStatus, HttpException, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, UseGuards, Res, HttpStatus, HttpException, Param, Body } from '@nestjs/common';
+import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { Cie10Service } from '../services/cie10.service';
-import { Cie10 } from '../entities/cie10.entity';
+import { EntregaService } from '../services/entrega.service';
+import { Entrega } from '../entities/entrega.entity';
 
-@ApiUseTags('CIE 10')
+@ApiUseTags('Entrega')
 @ApiBearerAuth()
-@Controller('cie10')
-export class Cie10Controller {
+@Controller('entrega')
+export class EntregaController {
 
   constructor(
-    private cie10Service: Cie10Service,
-  ) {}
+    private entregaService: EntregaService,
+  ) { }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async findAll(@Res() res) {
     try {
-      const elements = await this.cie10Service.findAll();
+      const elements = await this.entregaService.findAll();
       if (elements.length > 0) {
         res.status(HttpStatus.OK).json(elements);
       } else {
@@ -34,7 +35,7 @@ export class Cie10Controller {
   @UseGuards(AuthGuard('jwt'))
   async findbyId(@Res() res, @Param('id') id: number) {
     try {
-      const element = await this.cie10Service.findById(id);
+      const element = await this.entregaService.findById(id);
       if (element) {
         res.status(HttpStatus.OK).json(element);
       } else {
@@ -49,9 +50,9 @@ export class Cie10Controller {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  async create(@Body() cie10: Cie10, @Res() res) {
+  async create(@Body() entrega: Entrega, @Res() res) {
     try {
-      const element = await this.cie10Service.create(cie10);
+      const element = await this.entregaService.create(entrega);
       res.status(HttpStatus.CREATED).json(element);
     } catch (e) {
       throw new HttpException({
@@ -62,9 +63,9 @@ export class Cie10Controller {
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  async update(@Body() cie10: Cie10, @Param('id') id: number, @Res() res) {
+  async update(@Body() entrega: Entrega, @Param('id') id: number, @Res() res) {
     try {
-      const element = await this.cie10Service.update(id, cie10);
+      const element = await this.entregaService.update(id, entrega);
       res.status(HttpStatus.OK).json(element);
     } catch (e) {
       throw new HttpException({
@@ -77,7 +78,7 @@ export class Cie10Controller {
   @UseGuards(AuthGuard('jwt'))
   async delete(@Param('id') id: number, @Res() res) {
     try {
-      await this.cie10Service.delete(id);
+      await this.entregaService.delete(id);
       res.status(HttpStatus.OK).json({});
     } catch (e) {
       throw new HttpException({
