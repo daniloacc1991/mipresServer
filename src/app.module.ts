@@ -16,6 +16,7 @@ import { Cie10Module } from './modules/cie10/cie10.module';
 import { IndicacionEspecialModule } from './modules/indicacion-especial/indicacion-especial.module';
 import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
 import { EntregaModule } from './modules/entrega/entrega.module';
+import { ConfigService } from './config-service';
 
 @Module({
   imports: [
@@ -38,6 +39,11 @@ import { EntregaModule } from './modules/entrega/entrega.module';
     EntregaModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: ConfigService,
+      useValue: new ConfigService(`.env`),
+    },
+  ],
 })
 export class AppModule { }

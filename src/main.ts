@@ -4,11 +4,14 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import { AppModule } from './app.module';
 import { swaggerApp } from './swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
+  dotenv.config();
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT || 3000;
+  Logger.log(port, 'PUERTO ESCUCHA');
   app.use(rateLimit({
     windowMs: 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs
