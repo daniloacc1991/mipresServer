@@ -40,6 +40,6 @@ export class PrescripcionEncabezadoGateway implements OnGatewayConnection {
 
   prescripcionImported(importSuccess: ImportaFechaSuccess) {
     Logger.log('PT-GATEWAY: prescripcion-encabezado importes', JSON.stringify(importSuccess));
-    this.socket$.emit(PRESCRIPCIONS_ENCABEZADO_ACTIONS.LIVE_UPDATED, importSuccess);
+    this.socket$.emit(PRESCRIPCIONS_ENCABEZADO_ACTIONS.LIVE_IMPORTED, importSuccess);
   }
 }
