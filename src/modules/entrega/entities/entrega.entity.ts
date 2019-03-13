@@ -59,8 +59,8 @@ export class Entrega extends Model<Entrega> {
   CausaNoEntrega: number;
 
   @ApiModelProperty()
-  @Column
-  FecEntreg: string;
+  @Column(DataType.DATE)
+  FecEntrega: string;
 
   @ApiModelProperty()
   @Column

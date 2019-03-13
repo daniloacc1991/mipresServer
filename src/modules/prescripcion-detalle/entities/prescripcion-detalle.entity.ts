@@ -343,9 +343,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   prescripcionId: number;
 
-  @BelongsTo(() => PrescripcionEncabezado, {
-    as: 'prescripcion_encabezado_id',
-  })
+  @BelongsTo(() => PrescripcionEncabezado)
   prescripcion: PrescripcionEncabezado;
 
   @BelongsTo(() => ViaAdministracion)
