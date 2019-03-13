@@ -69,7 +69,7 @@ export class Entrega extends Model<Entrega> {
   @ApiModelProperty()
   @ForeignKey(() => PrescripcionDetalle)
   @Column
-  prescrpicionDetalleId: number;
+  prescripcionDetalleId: number;
 
   @BelongsTo(() => PrescripcionDetalle)
   prescripcionDetalle: PrescripcionDetalle;

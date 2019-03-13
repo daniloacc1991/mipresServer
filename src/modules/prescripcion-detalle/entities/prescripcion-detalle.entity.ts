@@ -338,6 +338,12 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   EstJM: number;
 
+  @ApiModelProperty()
+  @AllowNull(false)
+  @Default(false)
+  @Column(DataType.BOOLEAN)
+  indEntregado: boolean;
+
   @ForeignKey(() => PrescripcionEncabezado)
   @ApiModelProperty()
   @Column
