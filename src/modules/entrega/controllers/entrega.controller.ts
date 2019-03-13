@@ -16,19 +16,8 @@ export class EntregaController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  async findAll(@Res() res) {
-    try {
-      const elements = await this.entregaService.findAll();
-      if (elements.length > 0) {
-        res.status(HttpStatus.OK).json(elements);
-      } else {
-        res.status(HttpStatus.NO_CONTENT).json([]);
-      }
-    } catch (e) {
-      throw new HttpException({
-        error: e,
-      }, HttpStatus.BAD_REQUEST);
-    }
+  async findAll() {
+    return await this.entregaService.findAll();
   }
 
   @Get(':id')

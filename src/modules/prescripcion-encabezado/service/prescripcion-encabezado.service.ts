@@ -273,16 +273,16 @@ export class PrescripcionEncabezadoService {
       throw e;
     }
     const response = {
-      cargados: [],
-      errores: [],
+      success: [],
+      fails: [],
     };
 
     for (const prescripcion of prescripciones) {
       try {
         await this.create(prescripcion);
-        response.cargados.push(prescripcion.NoPrescripcion);
+        response.success.push(prescripcion.NoPrescripcion);
       } catch (error) {
-        response.errores.push(prescripcion.NoPrescripcion);
+        response.fails.push(prescripcion.NoPrescripcion);
       }
     }
     Logger.log('Finalizo a For');

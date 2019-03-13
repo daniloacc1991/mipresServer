@@ -15,19 +15,8 @@ export class AmbitoAtencionController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  async findAll(@Res() res) {
-    try {
-      const elements = await this.ambitoAtencionService.findAll();
-      if (elements) {
-        res.status(HttpStatus.OK).json(elements);
-      } else {
-        res.status(HttpStatus.NO_CONTENT).json([]);
-      }
-    } catch (e) {
-      throw new HttpException({
-        error: e,
-      }, HttpStatus.BAD_REQUEST);
-    }
+  async findAll() {
+    return await this.ambitoAtencionService.findAll();
   }
 
   @Get(':id')
