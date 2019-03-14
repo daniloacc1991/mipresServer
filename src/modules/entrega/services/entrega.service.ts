@@ -2,9 +2,9 @@ import { Injectable, Inject, Logger, HttpService } from '@nestjs/common';
 import { Entrega } from '../entities/entrega.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { EntregaGateway } from '../gateway/entrega.gateway';
-import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
-import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
-import { PrescripcionEncabezadoGateway } from 'src/modules/prescripcion-encabezado/gateway/prescripcion-encabezado.gateway';
+import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { PrescripcionEncabezado } from '../../../modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
+import { PrescripcionEncabezadoGateway } from '../../../modules/prescripcion-encabezado/gateway/prescripcion-encabezado.gateway';
 import { EntregaMinSalud } from '../interface/entregaMinSalud';
 
 @Injectable()

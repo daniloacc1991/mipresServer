@@ -1,11 +1,11 @@
 import { Sequelize } from 'sequelize-typescript';
 import { PrescripcionEncabezado } from '../modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
-import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-atencion.entity';
-import { Municipio } from 'src/modules/municipio/entities/municipio.entity';
-import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
-import { FormaFarmaceutica } from 'src/modules/forma-farmaceutica/entities/forma-farmaceutica';
-import { ViaAdministracion } from 'src/modules/via-administracion/entities/via-administracion.entity';
-import { UnidadMedidaDosis } from 'src/modules/unidad-medida-dosis/entities/unidad-medida-dosis';
+import { AmbitoAtencion } from '../modules/ambito-atencion/entities/ambito-atencion.entity';
+import { Municipio } from '../modules/municipio/entities/municipio.entity';
+import { PrescripcionDetalle } from '../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { FormaFarmaceutica } from '../modules/forma-farmaceutica/entities/forma-farmaceutica';
+import { ViaAdministracion } from '../modules/via-administracion/entities/via-administracion.entity';
+import { UnidadMedidaDosis } from '../modules/unidad-medida-dosis/entities/unidad-medida-dosis';
 import { Presentacion } from '../modules/presentacion/entities/presentacion.entity';
 import { TipoDispositivoMedico } from '../modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
 import { TipoProductoNutricional } from '../modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
