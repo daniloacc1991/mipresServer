@@ -1,4 +1,4 @@
-import { Frecuencia } from './frecuencia';
+import { Frecuencia } from './frecuencia.entity';
 
 describe('Frecuencia', () => {
   it('should be defined', () => {

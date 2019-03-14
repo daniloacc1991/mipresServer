@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Municipio } from '../entities/municipio';
+import { Municipio } from '../entities/municipio.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { MunicipioGateway } from '../gateway/municipio.gateway';
 

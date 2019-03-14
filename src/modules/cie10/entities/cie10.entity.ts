@@ -1,6 +1,6 @@
 import { Table, Model, PrimaryKey, Column, DataType, HasMany, AllowNull, AutoIncrement, Unique, DefaultScope } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
+import { PrescripcionEncabezado } from '../../../modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
 
 @DefaultScope({
   attributes: ['codigo', 'descripcion'],

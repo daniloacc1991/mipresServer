@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload, Auth } from '../interfaces';
 import { Sequelize } from 'sequelize-typescript';
 import sequelize = require('sequelize');
-import { UsersService } from 'src/modules/users/service/users.service';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class AuthService {

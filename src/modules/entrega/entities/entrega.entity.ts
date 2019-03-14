@@ -1,6 +1,6 @@
 import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, AutoIncrement } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
 @Table({
   timestamps: true,

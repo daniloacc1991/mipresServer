@@ -1,9 +1,9 @@
 import { Module, HttpModule } from '@nestjs/common';
 import { PrescripcionEncabezadoGateway } from './gateway/prescripcion-encabezado.gateway';
-import { DatabaseModule } from 'src/database/database.module';
+import { DatabaseModule } from '../../database/database.module';
 import { PrescripcionEncabezadoController } from './controllers/prescripcion-encabezado.controller';
 import { PrescripcionEncabezadoService } from './service/prescripcion-encabezado.service';
-import { modulesProviders } from 'src/providers/modules-providers';
+import { modulesProviders } from '../../providers/modules-providers';
 
 @Module({
   imports: [

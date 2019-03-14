@@ -1,6 +1,6 @@
 import { WebSocketGateway, OnGatewayConnection, WebSocketServer } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
-import { Municipio } from '../entities/municipio';
+import { Municipio } from '../entities/municipio.entity';
 import { MUNICIPIOS_ACTIONS } from '../actions/municipio.actions';
 
 @WebSocketGateway({

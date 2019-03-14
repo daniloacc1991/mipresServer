@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Frecuencia } from '../entities/frecuencia';
+import { Frecuencia } from '../entities/frecuencia.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { FrecuenciaGateway } from '../gateway/frecuencia.gateway';
 

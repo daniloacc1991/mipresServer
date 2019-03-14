@@ -1,7 +1,7 @@
 import { WebSocketServer, WebSocketGateway, OnGatewayConnection } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { FRECUENCIA_ACTIONS } from '../actions/frecuencia.actions';
-import { Frecuencia } from '../entities/frecuencia';
+import { Frecuencia } from '../entities/frecuencia.entity';
 
 @WebSocketGateway({
   namespace: '/frecuencia',

@@ -1,5 +1,5 @@
 import { Table, Model, PrimaryKey, HasOne, Column, DataType, AllowNull } from 'sequelize-typescript';
-import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @Table({

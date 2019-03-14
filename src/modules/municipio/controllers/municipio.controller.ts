@@ -2,7 +2,7 @@ import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body } fr
 import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { Municipio } from '../entities/municipio';
+import { Municipio } from '../entities/municipio.entity';
 import { MunicipioService } from '../services/municipio.service';
 
 @ApiUseTags('Municipio')

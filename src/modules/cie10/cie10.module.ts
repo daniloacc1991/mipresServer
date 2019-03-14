@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { Cie10Controller } from './controllers/cie10.controller';
 import { Cie10Service } from './services/cie10.service';
 import { Cie10Gateway } from './gateway/cie10.gateway';
-import { DatabaseModule } from 'src/database/database.module';
-import { modulesProviders } from 'src/providers/modules-providers';
+import { DatabaseModule } from '../../database/database.module';
+import { modulesProviders } from '../../providers/modules-providers';
 
 @Module({
   imports: [

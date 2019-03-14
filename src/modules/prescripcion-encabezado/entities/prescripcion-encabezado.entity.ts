@@ -1,9 +1,9 @@
 import { Table, Model, Column, PrimaryKey, DataType, Unique, AutoIncrement, AllowNull, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
-import { AmbitoAtencion } from 'src/modules/ambito-atencion/entities/ambito-atencion.entity';
-import { Municipio } from 'src/modules/municipio/entities/municipio';
-import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { AmbitoAtencion } from '../../../modules/ambito-atencion/entities/ambito-atencion.entity';
+import { Municipio } from '../../../modules/municipio/entities/municipio.entity';
+import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { Cie10 } from 'src/modules/cie10/entities/cie10.entity';
+import { Cie10 } from '../../../modules/cie10/entities/cie10.entity';
 
 @Table({
   timestamps: true,

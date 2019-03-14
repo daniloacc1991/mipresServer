@@ -1,16 +1,15 @@
-import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default, DefaultScope, HasMany } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default, HasMany } from 'sequelize-typescript';
 import { ForeignKey, BelongsTo } from 'sequelize-typescript';
-import { FormaFarmaceutica } from 'src/modules/forma-farmaceutica/entities/forma-farmaceutica';
-import { ViaAdministracion } from 'src/modules/via-administracion/entities/via-administracion.entity';
-import { UnidadMedidaDosis } from 'src/modules/unidad-medida-dosis/entities/unidad-medida-dosis';
-import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
-import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
-import { Cups } from 'src/modules/cups/entities/cups.entity';
-import { TipoDispositivoMedico } from 'src/modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
-import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
+import { FormaFarmaceutica } from '../../../modules/forma-farmaceutica/entities/forma-farmaceutica';
+import { ViaAdministracion } from '../../../modules/via-administracion/entities/via-administracion.entity';
+import { UnidadMedidaDosis } from '../../../modules/unidad-medida-dosis/entities/unidad-medida-dosis';
+import { PrescripcionEncabezado } from '../../../modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
+import { Cups } from '../../../modules/cups/entities/cups.entity';
+import { TipoDispositivoMedico } from '../../../modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
+import { TipoProductoNutricional } from '../../../modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
-import { Entrega } from 'src/modules/entrega/entities/entrega.entity';
+import { IndicacionEspecial } from '../../../modules/indicacion-especial/entities/indicacion-especial';
+import { Entrega } from '../../../modules/entrega/entities/entrega.entity';
 
 @Table({
   timestamps: true,

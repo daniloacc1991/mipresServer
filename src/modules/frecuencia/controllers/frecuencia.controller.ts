@@ -3,7 +3,7 @@ import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { FrecuenciaService } from '../services/frecuencia.service';
-import { Frecuencia } from '../entities/frecuencia';
+import { Frecuencia } from '../entities/frecuencia.entity';
 
 @ApiUseTags('Frecuencia')
 @ApiBearerAuth()
