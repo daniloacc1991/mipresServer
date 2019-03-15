@@ -22,7 +22,7 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: '172.27.142.45',
+        host: 'localhost',
         port: 5432,
         username: 'postgres',
         password: 'POSTGRES',

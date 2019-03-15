@@ -15,7 +15,7 @@ export class AuthController {
 
   @Post('singIn')
   async singIn(@Body() auth: Auth, @Res() res) {
-    Logger.log(auth);
+    Logger.log(JSON.stringify(auth), 'ROUTE SingIn');
     const rows = await this.authService.singIn(auth);
     res.status(HttpStatus.OK).json(rows);
   }

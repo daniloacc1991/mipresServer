@@ -17,6 +17,7 @@ import { IndicacionEspecialModule } from './modules/indicacion-especial/indicaci
 import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
 import { EntregaModule } from './modules/entrega/entrega.module';
 import { ConfigService } from './config-service';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -38,7 +39,7 @@ import { ConfigService } from './config-service';
     FrecuenciaModule,
     EntregaModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [
     {
       provide: ConfigService,
