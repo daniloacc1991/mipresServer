@@ -2,11 +2,11 @@ INSERT INTO mp_forma_farmaceutica VALUES('C28944','CREMA','1','2016/11/18',NOW()
 INSERT INTO mp_forma_farmaceutica VALUES('C29167','LOCION','1','2016/11/18',NOW(),NOW());
 INSERT INTO mp_forma_farmaceutica VALUES('C29269','ENJUAGUE','1','2016/11/18',NOW(),NOW());
 INSERT INTO mp_forma_farmaceutica VALUES('C42887','AEROSOL','1','2016/11/18',NOW(),NOW());
-INSERT INTO mp_forma_farmaceutica VALUES('C42909','GRANULOS EFERVESCENTES','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_forma_farmaceutica VALUES('C42909','GRÁNULOS EFERVESCENTES','1','2016/11/18',NOW(),NOW());
 INSERT INTO mp_forma_farmaceutica VALUES('C42912','ELIXIR','1','2016/11/18',NOW(),NOW());
 INSERT INTO mp_forma_farmaceutica VALUES('C42932','CINTA ADHESIVA / PELICULA','1','2016/11/18',NOW(),NOW());
 INSERT INTO mp_forma_farmaceutica VALUES('C42933','GAS','1','2016/11/18',NOW(),NOW());
-INSERT INTO mp_forma_farmaceutica VALUES('C42938','GRANULOS CONVENCIONALES','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_forma_farmaceutica VALUES('C42938','GRÁNULOS CONVENCIONALES','1','2016/11/18',NOW(),NOW());
 INSERT INTO mp_forma_farmaceutica VALUES('C42941','GOMA','1','2016/11/18',NOW(),NOW());
 INSERT INTO mp_forma_farmaceutica VALUES('C42942','IMPLANTE','1','2016/11/18',NOW(),NOW());
 INSERT INTO mp_forma_farmaceutica VALUES('C42948','GELES y JALEAS','1','2016/11/18',NOW(),NOW());
