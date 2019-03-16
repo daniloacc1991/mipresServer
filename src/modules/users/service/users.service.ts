@@ -68,19 +68,26 @@ export class UsersService {
   }
 
   async login(auth: Auth): Promise<JwtPayload> {
-    const user = await this.usersRepository.findOne({
-      where: {
-        usuario: auth.usuario,
-        password: Md5.init(auth.password),
-      },
-      attributes: ['usuario', 'rol', 'name', 'email'],
-    });
-    const data: JwtPayload = {
-      usuario: user.usuario,
-      nombre: user.name,
-      email: user.email,
-      scope: user.rol,
-    };
-    return data;
+    try {
+      const user = await this.usersRepository.findOne({
+        where: {
+          usuario: auth.usuario,
+          password: Md5.init(auth.password),
+        },
+        attributes: ['usuario', 'rol', 'name', 'email'],
+      });
+      if (user) {
+        const data: JwtPayload = {
+          usuario: user.usuario,
+          nombre: user.name,
+          email: user.email,
+          scope: user.rol,
+        };
+        return data;
+      }
+      return;
+    } catch (e) {
+      throw (e);
+    }
   }
 }

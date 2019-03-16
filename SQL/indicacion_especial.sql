@@ -1,0 +1,10 @@
+INSERT INTO mp_indicacion_especial VALUES('1','Administración en dosis única','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('2','Administración inmediata','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('3','Administrar en Bolo','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('4','Administrar en Goteo','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('5','Infusión contínua','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('6','Infusión intermitente','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('7','Infusión intermitente simultánea con perfusión de otra solución','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('8','Microgoteo','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('9','Perfusión','1','2016/11/18',NOW(),NOW());
+INSERT INTO mp_indicacion_especial VALUES('10','Sin indicación Especial','1','2016/11/18',NOW(),NOW());

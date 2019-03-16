@@ -1,4 +1,4 @@
-import { Injectable, Logger, Inject } from '@nestjs/common';
+import { Injectable, Inject, HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload, Auth } from '../interfaces';
 import { Sequelize } from 'sequelize-typescript';
@@ -14,8 +14,17 @@ export class AuthService {
   ) { }
 
   async singIn(data: Auth) {
-    const user: JwtPayload = await this.userService.login(data);
-    return this.jwtService.sign(user);
+    try {
+      const user: JwtPayload = await this.userService.login(data);
+      if (!user) {
+        throw new HttpException({
+          error: 'Usuario y Contraseña Incorrectos',
+        }, 401);
+      }
+      return this.jwtService.sign(user);
+    } catch (e) {
+      throw(e);
+    }
   }
 
   async validateUser(payload: JwtPayload) {
