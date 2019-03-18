@@ -1,6 +1,6 @@
 export interface EntregaMinSalud {
   ID: number;
-  IDEntrega: number;
+  IdEntrega: number;
   NoPrescripcion: string;
   TipoTec: string;
   ConTec: number;

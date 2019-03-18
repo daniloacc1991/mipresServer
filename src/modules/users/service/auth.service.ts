@@ -19,7 +19,7 @@ export class AuthService {
       if (!user) {
         throw new HttpException({
           error: 'Usuario y Contraseña Incorrectos',
-        }, 401);
+        }, 200);
       }
       return this.jwtService.sign(user);
     } catch (e) {

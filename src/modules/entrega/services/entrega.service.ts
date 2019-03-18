@@ -35,7 +35,10 @@ export class EntregaService {
       const element = await this.entregaRepository.create(entFinal);
       Logger.log(element, 'Entrega');
       await this.prescripcionDetRepository.update(
-        { indEntregado: true },
+        {
+          indEntregado: true,
+          cantidadEntregada: element.CantTotEntregada,
+        },
         { where: { id: entFinal.prescripcionDetalleId } },
       );
       const prescripcionDet = await this.prescripcionDetRepository.findById(entFinal.prescripcionDetalleId);
@@ -96,13 +99,13 @@ export class EntregaService {
     const url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
     const entMinSalud = await this.putEntregaAmbito(url, ent);
     const entregaLocal: Entrega = ent;
-    entregaLocal.IDEntrega = entMinSalud[0].IDEntrega;
+    entregaLocal.IDEntrega = entMinSalud.IdEntrega;
     return entregaLocal;
   }
 
-  private async putEntregaAmbito(url, data): Promise<EntregaMinSalud[]> {
+  private async putEntregaAmbito(url, data): Promise<EntregaMinSalud> {
     return new Promise((resolve, reject) => {
-      this.http.put<EntregaMinSalud[]>(url, data)
+      this.http.put(url, data)
         .subscribe(
           rows => {
             resolve(rows.data);

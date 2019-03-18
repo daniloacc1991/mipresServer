@@ -15,7 +15,7 @@ import { AuthController } from './controller/auth.controller';
     DatabaseModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secretOrPrivateKey: 'secretKey',
+      secretOrPrivateKey: 'b8ee5150-bf69-40d2-89b8-c9cc1cfc1ea4',
     }),
   ],
   providers: [

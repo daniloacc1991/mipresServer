@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, AutoIncrement } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, AutoIncrement, AllowNull } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
@@ -15,6 +15,7 @@ export class Entrega extends Model<Entrega> {
   id: number;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column
   IDEntrega: number;
 

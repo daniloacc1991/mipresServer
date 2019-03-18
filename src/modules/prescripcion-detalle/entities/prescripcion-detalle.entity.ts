@@ -343,6 +343,11 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.BOOLEAN)
   indEntregado: boolean;
 
+  @ApiModelProperty()
+  @Default(0)
+  @Column
+  cantidadEntregada: number;
+
   @ForeignKey(() => PrescripcionEncabezado)
   @ApiModelProperty()
   @Column
