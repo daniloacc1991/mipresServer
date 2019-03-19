@@ -1,7 +1,10 @@
-import { Table, Model, PrimaryKey, Column, DataType, HasOne, AllowNull } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, HasOne, AllowNull, DefaultScope } from 'sequelize-typescript';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
 
+@DefaultScope({
+  attributes: ['id', 'unidadMedidcaPrincipioActivo', 'descripcion'],
+})
 @Table({
   timestamps: true,
   paranoid: true,

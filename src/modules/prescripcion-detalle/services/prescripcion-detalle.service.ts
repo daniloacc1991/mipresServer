@@ -3,6 +3,8 @@ import { PrescripcionDetalle } from '../entities/prescripcion-detalle.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { PrescripcionDetalleGateway } from '../gateway/prescripcion-detalle.gateway';
 import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
+import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
+import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
 
 @Injectable()
 export class PrescripcionDetalleService {
@@ -21,15 +23,26 @@ export class PrescripcionDetalleService {
     try {
       return await this.prescripcionDetalleRepository.findByPk(id, {
         include: [
+          IndicacionEspecial,
           {
             as: 'codigoFreUso',
             model: Frecuencia,
-            required: false,
           },
           {
             as: 'codigoPerDurTrat',
             model: Frecuencia,
-            required: false,
+          },
+          {
+            as: 'codigoUFCantTotal',
+            model: Presentacion,
+          },
+          {
+            as: 'codigoFreAdmon',
+            model: Frecuencia,
+          },
+          {
+            as: 'duracionTrat',
+            model: Frecuencia,
           },
         ],
       });

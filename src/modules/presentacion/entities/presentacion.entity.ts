@@ -1,6 +1,9 @@
-import { Table, Model, PrimaryKey, Column, DataType, HasOne } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, HasOne, DefaultScope } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 
+@DefaultScope({
+  attributes: ['id', 'descripcion'],
+})
 @Table({
   timestamps: true,
   paranoid: true,

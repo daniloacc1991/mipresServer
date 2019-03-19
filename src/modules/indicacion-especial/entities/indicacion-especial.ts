@@ -3,7 +3,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
 @DefaultScope({
-  attributes: ['codigo', 'descripcion'],
+  attributes: ['id', 'descripcion'],
 })
 @Table({
   timestamps: true,

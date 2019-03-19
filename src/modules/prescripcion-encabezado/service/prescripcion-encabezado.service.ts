@@ -14,6 +14,9 @@ import { Municipio } from '../../municipio/entities/municipio.entity';
 import { AmbitoAtencion } from '../../../modules/ambito-atencion/entities/ambito-atencion.entity';
 import { Cie10 } from '../../../modules/cie10/entities/cie10.entity';
 import { ImportaFechaSuccess } from '../interfaces';
+import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
+import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
+import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
 
 @Injectable()
 export class PrescripcionEncabezadoService {
@@ -36,6 +39,22 @@ export class PrescripcionEncabezadoService {
             FormaFarmaceutica,
             ViaAdministracion,
             UnidadMedidaDosis,
+            {
+              model: IndicacionEspecial,
+              required: false,
+            },
+            {
+              as: 'codigoUFCantTotal',
+              model: Presentacion,
+            },
+            {
+              as: 'codigoFreAdmon',
+              model: Frecuencia,
+            },
+            {
+              as: 'duracionTrat',
+              model: Frecuencia,
+            },
           ],
           where: {
             TipoTecnologia: 'M',
@@ -45,7 +64,19 @@ export class PrescripcionEncabezadoService {
           required: false,
           as: 'procedimientos',
           model: PrescripcionDetalle,
-          include: [Cups],
+          include: [
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+              required: false,
+            },
+            Cups,
+          ],
           where: {
             TipoTecnologia: 'P',
           },
@@ -68,6 +99,15 @@ export class PrescripcionEncabezadoService {
           include: [
             TipoProductoNutricional,
             UnidadMedidaDosis,
+            IndicacionEspecial,
+            {
+              as: 'codigoFreAdmon',
+              model: Frecuencia,
+            },
+            {
+              as: 'duracionTrat',
+              model: Frecuencia,
+            },
           ],
           where: {
             TipoTecnologia: 'N',

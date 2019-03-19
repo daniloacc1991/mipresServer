@@ -11,6 +11,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 import { IndicacionEspecial } from '../../../modules/indicacion-especial/entities/indicacion-especial';
 import { Entrega } from '../../../modules/entrega/entities/entrega.entity';
 import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
+import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
 
 @Table({
   timestamps: true,
@@ -297,6 +298,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   NoFAdmon: string;
 
   @ApiModelProperty()
+  @ForeignKey(() => Frecuencia)
   @Column
   CodFreAdmon: number;
 
@@ -312,6 +314,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CanTrat: string;
 
   @ApiModelProperty()
+  @ForeignKey(() => Frecuencia)
   @Column
   DurTrat: number;
 
@@ -320,6 +323,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CantTotalF: string;
 
   @ApiModelProperty()
+  @ForeignKey(() => Presentacion)
   @Column(DataType.STRING('100'))
   UFCantTotal: string;
 
@@ -391,6 +395,24 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
     foreignKey: 'CodPerDurTrat',
   })
   codigoPerdurTrat: Frecuencia;
+
+  @BelongsTo(() => Presentacion, {
+    as: 'codigoUFCantTotal',
+    foreignKey: 'UFCantTotal',
+  })
+  codigoUFCantTotal: Presentacion;
+
+  @BelongsTo(() => Frecuencia, {
+    as: 'codigoFreAdmon',
+    foreignKey: 'CodFreAdmon',
+  })
+  codigoFreAdmon: Frecuencia;
+
+  @BelongsTo(() => Frecuencia, {
+    as: 'duracionTrat',
+    foreignKey: 'DurTrat',
+  })
+  duracionTrat: Frecuencia;
 
   @HasMany(() => Entrega)
   entregas: Entrega[];
