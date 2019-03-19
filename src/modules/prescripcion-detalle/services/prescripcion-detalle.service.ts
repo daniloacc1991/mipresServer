@@ -1,7 +1,8 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { PrescripcionDetalle } from '../entities/prescripcion-detalle.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { PrescripcionDetalleGateway } from '../gateway/prescripcion-detalle.gateway';
+import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
 
 @Injectable()
 export class PrescripcionDetalleService {
@@ -10,14 +11,32 @@ export class PrescripcionDetalleService {
     @Inject('PrescripcionDetalleRepository') private readonly prescripcionDetalleRepository: typeof PrescripcionDetalle,
     @Inject('SequelizeRepository') private seq: Sequelize,
     private prescripcionDetalleGateway: PrescripcionDetalleGateway,
-  ) {}
+  ) { }
 
   async findAll() {
     return await this.prescripcionDetalleRepository.findAll();
   }
 
-  async findById(id) {
-    return await this.prescripcionDetalleRepository.findById(id);
+  async findById(id: number) {
+    try {
+      return await this.prescripcionDetalleRepository.findByPk(id, {
+        include: [
+          {
+            as: 'codigoFreUso',
+            model: Frecuencia,
+            required: false,
+          },
+          {
+            as: 'codigoPerDurTrat',
+            model: Frecuencia,
+            required: false,
+          },
+        ],
+      });
+    } catch (e) {
+      Logger.error(e);
+      throw e;
+    }
   }
 
   async create(prescripcionDetalle: PrescripcionDetalle) {

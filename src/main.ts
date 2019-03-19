@@ -6,14 +6,18 @@ import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
 import { swaggerApp } from './swagger';
 import { RedisIoAdapter } from './adapters/redis-io.adapters';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 async function bootstrap() {
   dotenv.config();
-  const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
-  app.useWebSocketAdapter(new RedisIoAdapter(app));
+
   const port = process.env.PORT || 3000;
   const host = process.env.HOST || 'localhost';
+  const app = await NestFactory.create(AppModule);
+
+  // app.setGlobalPrefix('api');
+  app.useWebSocketAdapter(new RedisIoAdapter(app));
+  app.useGlobalInterceptors(new LoggingInterceptor());
   app.use(rateLimit({
     windowMs: 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs

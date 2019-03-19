@@ -73,7 +73,6 @@ export class PrescripcionEncabezadoController {
   @Post('importarxFecha')
   @UseGuards(AuthGuard('jwt'))
   async importarxFecha(@Body() body: BodyxFecha, @Res() res) {
-    Logger.log(body, 'Llego la peticion de importación');
     try {
       const response: ImportaFechaSuccess = await this.prescripcionEncabezadoService.importarxFecha(body);
       res.status(HttpStatus.OK).json(response);

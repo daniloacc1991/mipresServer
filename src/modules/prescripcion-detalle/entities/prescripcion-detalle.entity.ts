@@ -1,4 +1,4 @@
-import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default, HasMany } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, DataType, AutoIncrement, AllowNull, Default, HasMany, DefaultScope } from 'sequelize-typescript';
 import { ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { FormaFarmaceutica } from '../../../modules/forma-farmaceutica/entities/forma-farmaceutica';
 import { ViaAdministracion } from '../../../modules/via-administracion/entities/via-administracion.entity';
@@ -10,6 +10,7 @@ import { TipoProductoNutricional } from '../../../modules/tipo-producto-nutricio
 import { ApiModelProperty } from '@nestjs/swagger';
 import { IndicacionEspecial } from '../../../modules/indicacion-especial/entities/indicacion-especial';
 import { Entrega } from '../../../modules/entrega/entities/entrega.entity';
+import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
 
 @Table({
   timestamps: true,
@@ -235,6 +236,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CadaFreUso: string;
 
   @ApiModelProperty()
+  @ForeignKey(() => Frecuencia)
   @Column
   CodFreUso: number;
 
@@ -247,6 +249,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CantTotal: string;
 
   @ApiModelProperty()
+  @ForeignKey(() => Frecuencia)
   @Column
   CodPerDurTrat: number;
 
@@ -376,6 +379,18 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @BelongsTo(() => IndicacionEspecial)
   indicacionEspecial: IndicacionEspecial;
+
+  @BelongsTo(() => Frecuencia, {
+    as: 'codigoFreUso',
+    foreignKey: 'CodFreUso',
+  })
+  codigoFreUso: Frecuencia;
+
+  @BelongsTo(() => Frecuencia, {
+    as: 'codigoPerDurTrat',
+    foreignKey: 'CodPerDurTrat',
+  })
+  codigoPerdurTrat: Frecuencia;
 
   @HasMany(() => Entrega)
   entregas: Entrega[];
