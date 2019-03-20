@@ -17,7 +17,7 @@ export class PresentacionService {
   }
 
   async findById(id) {
-    return await this.presentacionRepository.findById(id);
+    return await this.presentacionRepository.findByPk(id);
   }
 
   async create(presentacion: Presentacion) {

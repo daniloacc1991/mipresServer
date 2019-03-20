@@ -15,6 +15,7 @@ import { Cie10 } from '../modules/cie10/entities/cie10.entity';
 import { IndicacionEspecial } from '../modules/indicacion-especial/entities/indicacion-especial';
 import { Frecuencia } from '../modules/frecuencia/entities/frecuencia.entity';
 import { Entrega } from '../modules/entrega/entities/entrega.entity';
+import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
 
 export const databaseProviders = [
   {
@@ -49,6 +50,7 @@ export const databaseProviders = [
         TipoProductoNutricional,
         IndicacionEspecial,
         Frecuencia,
+        ProductoNutricional,
         PrescripcionDetalle,
         Entrega,
       ]);

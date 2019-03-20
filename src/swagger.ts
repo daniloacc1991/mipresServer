@@ -16,6 +16,7 @@ import { IndicacionEspecialModule } from './modules/indicacion-especial/indicaci
 import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
 import { EntregaModule } from './modules/entrega/entrega.module';
 import { ViaAdministracionModule } from './modules/via-administracion/via-administracion.module';
+import { ProductoNutricionalModule } from './modules/producto-nutricional/producto-nutricional.module';
 
 export function swaggerApp(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -43,6 +44,7 @@ export function swaggerApp(app: INestApplication) {
         IndicacionEspecialModule,
         FrecuenciaModule,
         ViaAdministracionModule,
+        ProductoNutricionalModule,
         EntregaModule,
       ],
   });

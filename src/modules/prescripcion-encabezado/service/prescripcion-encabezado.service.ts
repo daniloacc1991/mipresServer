@@ -121,18 +121,9 @@ export class PrescripcionEncabezadoService {
             TipoTecnologia: 'S',
           },
         },
-        {
-          model: Municipio,
-          attributes: ['descripcion', 'departamento'],
-        },
-        {
-          model: AmbitoAtencion,
-          attributes: ['descripcion'],
-        },
-        {
-          model: Cie10,
-          attributes: ['descripcion'],
-        },
+        Municipio,
+        AmbitoAtencion,
+        Cie10,
       ],
     });
   }
@@ -148,6 +139,22 @@ export class PrescripcionEncabezadoService {
             FormaFarmaceutica,
             ViaAdministracion,
             UnidadMedidaDosis,
+            {
+              model: IndicacionEspecial,
+              required: false,
+            },
+            {
+              as: 'codigoUFCantTotal',
+              model: Presentacion,
+            },
+            {
+              as: 'codigoFreAdmon',
+              model: Frecuencia,
+            },
+            {
+              as: 'duracionTrat',
+              model: Frecuencia,
+            },
           ],
           where: {
             TipoTecnologia: 'M',
@@ -157,7 +164,19 @@ export class PrescripcionEncabezadoService {
           required: false,
           as: 'procedimientos',
           model: PrescripcionDetalle,
-          include: [Cups],
+          include: [
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+              required: false,
+            },
+            Cups,
+          ],
           where: {
             TipoTecnologia: 'P',
           },
@@ -180,6 +199,15 @@ export class PrescripcionEncabezadoService {
           include: [
             TipoProductoNutricional,
             UnidadMedidaDosis,
+            IndicacionEspecial,
+            {
+              as: 'codigoFreAdmon',
+              model: Frecuencia,
+            },
+            {
+              as: 'duracionTrat',
+              model: Frecuencia,
+            },
           ],
           where: {
             TipoTecnologia: 'N',
@@ -193,18 +221,9 @@ export class PrescripcionEncabezadoService {
             TipoTecnologia: 'S',
           },
         },
-        {
-          model: Municipio,
-          attributes: ['descripcion', 'departamento'],
-        },
-        {
-          model: AmbitoAtencion,
-          attributes: ['descripcion'],
-        },
-        {
-          model: Cie10,
-          attributes: ['descripcion'],
-        },
+        Municipio,
+        AmbitoAtencion,
+        Cie10,
       ],
     });
   }

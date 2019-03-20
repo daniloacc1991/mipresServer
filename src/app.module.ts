@@ -18,6 +18,7 @@ import { FrecuenciaModule } from './modules/frecuencia/frecuencia.module';
 import { EntregaModule } from './modules/entrega/entrega.module';
 import { ConfigService } from './config-service';
 import { AppController } from './app.controller';
+import { ProductoNutricionalModule } from './modules/producto-nutricional/producto-nutricional.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { AppController } from './app.controller';
     IndicacionEspecialModule,
     FrecuenciaModule,
     EntregaModule,
+    ProductoNutricionalModule,
   ],
   controllers: [AppController],
   providers: [
