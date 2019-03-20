@@ -15,6 +15,7 @@ import { IndicacionEspecial } from '../modules/indicacion-especial/entities/indi
 import { Frecuencia } from '../modules/frecuencia/entities/frecuencia.entity';
 import { Entrega } from '../modules/entrega/entities/entrega.entity';
 import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
+import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 
 export const modulesProviders = [
   {
@@ -80,6 +81,10 @@ export const modulesProviders = [
   {
     provide: 'ProductoNutricionalRepository',
     useValue: ProductoNutricional,
+  },
+  {
+    provide: 'ProductoNutricionalFormaRepository',
+    useValue: ProductoNutricionalForma,
   },
   {
     provide: 'EntregaRepository',

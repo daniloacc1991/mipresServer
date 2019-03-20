@@ -19,6 +19,7 @@ import { EntregaModule } from './modules/entrega/entrega.module';
 import { ConfigService } from './config-service';
 import { AppController } from './app.controller';
 import { ProductoNutricionalModule } from './modules/producto-nutricional/producto-nutricional.module';
+import { ProductoNutricionalFormaModule } from './modules/producto-nutricional-forma/producto-nutricional-forma.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ProductoNutricionalModule } from './modules/producto-nutricional/produc
     FrecuenciaModule,
     EntregaModule,
     ProductoNutricionalModule,
+    ProductoNutricionalFormaModule,
   ],
   controllers: [AppController],
   providers: [
