@@ -14,6 +14,7 @@ import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
 import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
 import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
+import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
 
 @Table({
   timestamps: true,
@@ -257,6 +258,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CodPerDurTrat: number;
 
   @ApiModelProperty()
+  @ForeignKey(() => TipoServicioComplementario)
   @Column(DataType.STRING('5'))
   CodSerComp: string;
 
@@ -384,6 +386,11 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @BelongsTo(() => TipoProductoNutricional)
   tipoProductoNutricional: TipoProductoNutricional;
+
+  @BelongsTo(() => TipoServicioComplementario, {
+    foreignKey: 'codigo',
+  })
+  tipoServicioComplementario: TipoServicioComplementario;
 
   @BelongsTo(() => IndicacionEspecial)
   indicacionEspecial: IndicacionEspecial;

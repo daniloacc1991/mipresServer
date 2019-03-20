@@ -21,6 +21,7 @@ import { AppController } from './app.controller';
 import { ProductoNutricionalModule } from './modules/producto-nutricional/producto-nutricional.module';
 import { ProductoNutricionalFormaModule } from './modules/producto-nutricional-forma/producto-nutricional-forma.module';
 import { ProductoNutricionalViaAdminModule } from './modules/producto-nutricional-via-admin/producto-nutricional-via-admin.module';
+import { TipoServicioComplementarioModule } from './modules/tipo-servicio-complementario/tipo-servicio-complementario.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { ProductoNutricionalViaAdminModule } from './modules/producto-nutriciona
     ProductoNutricionalModule,
     ProductoNutricionalFormaModule,
     ProductoNutricionalViaAdminModule,
+    TipoServicioComplementarioModule,
   ],
   controllers: [AppController],
   providers: [

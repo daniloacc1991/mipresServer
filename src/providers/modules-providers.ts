@@ -17,6 +17,7 @@ import { Entrega } from '../modules/entrega/entities/entrega.entity';
 import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
+import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
 
 export const modulesProviders = [
   {
@@ -76,10 +77,6 @@ export const modulesProviders = [
     useValue: Frecuencia,
   },
   {
-    provide: 'PrescripcionDetalleRepository',
-    useValue: PrescripcionDetalle,
-  },
-  {
     provide: 'ProductoNutricionalRepository',
     useValue: ProductoNutricional,
   },
@@ -90,6 +87,14 @@ export const modulesProviders = [
   {
     provide: 'ProductoNutricionalViaAdminRepository',
     useValue: ProductoNutricionalViaAdmin,
+  },
+  {
+    provide: 'TipoServicioComplementarioRepository',
+    useValue: TipoServicioComplementario,
+  },
+  {
+    provide: 'PrescripcionDetalleRepository',
+    useValue: PrescripcionDetalle,
   },
   {
     provide: 'EntregaRepository',

@@ -19,6 +19,7 @@ import { ViaAdministracionModule } from './modules/via-administracion/via-admini
 import { ProductoNutricionalModule } from './modules/producto-nutricional/producto-nutricional.module';
 import { ProductoNutricionalFormaModule } from './modules/producto-nutricional-forma/producto-nutricional-forma.module';
 import { ProductoNutricionalViaAdminModule } from './modules/producto-nutricional-via-admin/producto-nutricional-via-admin.module';
+import { TipoServicioComplementarioModule } from './modules/tipo-servicio-complementario/tipo-servicio-complementario.module';
 
 export function swaggerApp(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -49,6 +50,7 @@ export function swaggerApp(app: INestApplication) {
         ProductoNutricionalModule,
         ProductoNutricionalFormaModule,
         ProductoNutricionalViaAdminModule,
+        TipoServicioComplementarioModule,
         EntregaModule,
       ],
   });
