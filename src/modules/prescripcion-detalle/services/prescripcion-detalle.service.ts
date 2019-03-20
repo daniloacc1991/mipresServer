@@ -5,6 +5,8 @@ import { PrescripcionDetalleGateway } from '../gateway/prescripcion-detalle.gate
 import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
 import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
 import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
+import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
+import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 
 @Injectable()
 export class PrescripcionDetalleService {
@@ -44,6 +46,8 @@ export class PrescripcionDetalleService {
             as: 'duracionTrat',
             model: Frecuencia,
           },
+          ProductoNutricionalForma,
+          ProductoNutricionalViaAdmin,
         ],
       });
     } catch (e) {

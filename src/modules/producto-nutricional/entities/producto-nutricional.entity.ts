@@ -37,6 +37,11 @@ export class ProductoNutricional extends Model<ProductoNutricional> {
 
   @ApiModelProperty()
   @AllowNull(false)
+  @Column
+  grupoNivel1: string;
+
+  @ApiModelProperty()
+  @AllowNull(false)
   @Column(DataType.STRING(100))
   forma: string;
 

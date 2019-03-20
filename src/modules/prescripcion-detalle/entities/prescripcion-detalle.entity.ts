@@ -12,6 +12,8 @@ import { IndicacionEspecial } from '../../../modules/indicacion-especial/entitie
 import { Entrega } from '../../../modules/entrega/entities/entrega.entity';
 import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
 import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
+import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
+import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 
 @Table({
   timestamps: true,
@@ -277,10 +279,12 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CodVA: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('100'))
-  CodForma: string;
+  @ForeignKey(() => ProductoNutricionalForma)
+  @Column
+  CodForma: number;
 
   @ApiModelProperty()
+  @ForeignKey(() => ProductoNutricionalViaAdmin)
   @Column
   CodViaAdmon: number;
 
@@ -397,12 +401,14 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   codigoPerdurTrat: Frecuencia;
 
   @BelongsTo(() => Presentacion, {
+    constraints: false,
     as: 'codigoUFCantTotal',
     foreignKey: 'UFCantTotal',
   })
   codigoUFCantTotal: Presentacion;
 
   @BelongsTo(() => Frecuencia, {
+    constraints: false,
     as: 'codigoFreAdmon',
     foreignKey: 'CodFreAdmon',
   })
@@ -413,6 +419,12 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
     foreignKey: 'DurTrat',
   })
   duracionTrat: Frecuencia;
+
+  @BelongsTo(() => ProductoNutricionalViaAdmin)
+  codigoViaAdmonNut: ProductoNutricionalViaAdmin;
+
+  @BelongsTo(() => ProductoNutricionalForma)
+  codigoFormaNut: ProductoNutricionalForma;
 
   @HasMany(() => Entrega)
   entregas: Entrega[];

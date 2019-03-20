@@ -17,6 +17,8 @@ import { ImportaFechaSuccess } from '../interfaces';
 import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
 import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
 import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
+import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
+import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 
 @Injectable()
 export class PrescripcionEncabezadoService {
@@ -108,6 +110,8 @@ export class PrescripcionEncabezadoService {
               as: 'duracionTrat',
               model: Frecuencia,
             },
+            ProductoNutricionalForma,
+            ProductoNutricionalViaAdmin,
           ],
           where: {
             TipoTecnologia: 'N',
@@ -117,6 +121,18 @@ export class PrescripcionEncabezadoService {
           required: false,
           as: 'serviciosComplementarios',
           model: PrescripcionDetalle,
+          include: [
+            IndicacionEspecial,
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+            },
+          ],
           where: {
             TipoTecnologia: 'S',
           },
@@ -208,6 +224,8 @@ export class PrescripcionEncabezadoService {
               as: 'duracionTrat',
               model: Frecuencia,
             },
+            ProductoNutricionalForma,
+            ProductoNutricionalViaAdmin,
           ],
           where: {
             TipoTecnologia: 'N',
@@ -217,6 +235,18 @@ export class PrescripcionEncabezadoService {
           required: false,
           as: 'serviciosComplementarios',
           model: PrescripcionDetalle,
+          include: [
+            IndicacionEspecial,
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+            },
+          ],
           where: {
             TipoTecnologia: 'S',
           },
