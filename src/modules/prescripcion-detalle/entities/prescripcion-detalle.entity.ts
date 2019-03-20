@@ -388,7 +388,11 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   tipoProductoNutricional: TipoProductoNutricional;
 
   @BelongsTo(() => TipoServicioComplementario, {
-    foreignKey: 'codigo',
+    as: 'tipoServicioComplementario',
+    foreignKey: 'CodSerComp',
+    targetKey: 'codigo',
+    onDelete: 'CASCADE',
+    constraints: true,
   })
   tipoServicioComplementario: TipoServicioComplementario;
 

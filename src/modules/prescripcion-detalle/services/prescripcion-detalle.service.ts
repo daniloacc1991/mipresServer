@@ -7,6 +7,7 @@ import { Presentacion } from 'src/modules/presentacion/entities/presentacion.ent
 import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
+import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
 
 @Injectable()
 export class PrescripcionDetalleService {
@@ -25,6 +26,7 @@ export class PrescripcionDetalleService {
     try {
       return await this.prescripcionDetalleRepository.findByPk(id, {
         include: [
+          TipoServicioComplementario,
           IndicacionEspecial,
           {
             as: 'codigoFreUso',
