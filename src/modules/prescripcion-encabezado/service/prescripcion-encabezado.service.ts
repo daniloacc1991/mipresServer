@@ -90,6 +90,15 @@ export class PrescripcionEncabezadoService {
           model: PrescripcionDetalle,
           include: [
             TipoDispositivoMedico,
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+            },
           ],
           where: {
             TipoTecnologia: 'D',
@@ -205,6 +214,15 @@ export class PrescripcionEncabezadoService {
           model: PrescripcionDetalle,
           include: [
             TipoDispositivoMedico,
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+            },
           ],
           where: {
             TipoTecnologia: 'D',
