@@ -20,6 +20,7 @@ import { ConfigService } from './config-service';
 import { AppController } from './app.controller';
 import { ProductoNutricionalModule } from './modules/producto-nutricional/producto-nutricional.module';
 import { ProductoNutricionalFormaModule } from './modules/producto-nutricional-forma/producto-nutricional-forma.module';
+import { ProductoNutricionalViaAdminModule } from './modules/producto-nutricional-via-admin/producto-nutricional-via-admin.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ProductoNutricionalFormaModule } from './modules/producto-nutricional-f
     EntregaModule,
     ProductoNutricionalModule,
     ProductoNutricionalFormaModule,
+    ProductoNutricionalViaAdminModule,
   ],
   controllers: [AppController],
   providers: [

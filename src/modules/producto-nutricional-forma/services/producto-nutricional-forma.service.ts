@@ -10,7 +10,8 @@ export class ProductoNutricionalFormaService {
     @Inject('ProductoNutricionalFormaRepository') private readonly productoNutricionalFormaRepository: typeof ProductoNutricionalForma,
     @Inject('SequelizeRepository') private readonly seq: Sequelize,
     private productoNutricionalFormaGateway: ProductoNutricionalFormaGateway,
-  ) {}
+  ) { }
+
   async findAll() {
     return await this.productoNutricionalFormaRepository.findAll();
   }

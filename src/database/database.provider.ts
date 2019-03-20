@@ -17,6 +17,7 @@ import { Frecuencia } from '../modules/frecuencia/entities/frecuencia.entity';
 import { Entrega } from '../modules/entrega/entities/entrega.entity';
 import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
+import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 
 export const databaseProviders = [
   {
@@ -53,6 +54,7 @@ export const databaseProviders = [
         Frecuencia,
         ProductoNutricional,
         ProductoNutricionalForma,
+        ProductoNutricionalViaAdmin,
         PrescripcionDetalle,
         Entrega,
       ]);

@@ -4,7 +4,7 @@ import { ProductoNutricionalForma } from '../entities/producto-nutricional-forma
 import { PRODUCTO_NUTRICIONAL_FORMA_ACTIONS } from '../actions/producto-nutricional-forma.actions';
 
 @WebSocketGateway()
-export class ProductoNutricionalFormaGateway {
+export class ProductoNutricionalFormaGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() private socket$;
 
   afterInit() {

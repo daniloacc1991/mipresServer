@@ -9,7 +9,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
   timestamps: true,
   paranoid: true,
 })
-export class ProductoNutricionalForma extends Model<ProductoNutricionalForma> {
+export class ProductoNutricionalViaAdmin extends Model<ProductoNutricionalViaAdmin> {
 
   @ApiModelProperty()
   @PrimaryKey
@@ -35,4 +35,5 @@ export class ProductoNutricionalForma extends Model<ProductoNutricionalForma> {
   @AllowNull(false)
   @Column(DataType.DATE)
   fecha: string;
+
 }
