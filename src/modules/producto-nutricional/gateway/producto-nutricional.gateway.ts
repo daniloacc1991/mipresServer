@@ -3,7 +3,9 @@ import { Logger } from '@nestjs/common';
 import { ProductoNutricional } from '../entities/producto-nutricional.entity';
 import { PRODUCTO_NUTRICIONAL_ACTIONS } from '../actions/producto-nutricional.actions';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  namespace: '/producto-nutricional',
+})
 export class ProductoNutricionalGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() private socket$;
 

@@ -3,7 +3,9 @@ import { Logger } from '@nestjs/common';
 import { TipoServicioComplementario } from '../entities/tipo-servicio-complementario.entity';
 import { TIPO_SERVICIO_COMPLEMENTARIO_ACTIONS } from '../actions/tipo-servicio-complementario.actions';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  namespace: '/tipo-servicio-complementario',
+})
 export class TipoServicioComplementarioGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @WebSocketServer() private socket$;
