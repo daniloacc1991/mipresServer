@@ -11,15 +11,15 @@ export class UsersGateway implements OnGatewayConnection {
   @WebSocketServer() private socket$;
 
   afterInit() {
-    Logger.log('socket ambito-atencion initialized');
+    Logger.log('socket users initialized');
   }
 
   handleConnection(client) {
-    Logger.log('client ambito-atencion connected');
+    Logger.log('client users connected');
   }
 
   handleDisconnect(client) {
-    Logger.log('client ambito-atencion disconnected');
+    Logger.log('client users disconnected');
   }
 
   usersCreated(user: User) {

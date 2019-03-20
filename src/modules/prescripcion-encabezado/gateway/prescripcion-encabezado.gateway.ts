@@ -1,4 +1,4 @@
-import { WebSocketGateway, OnGatewayConnection, WebSocketServer } from '@nestjs/websockets';
+import { WebSocketGateway, OnGatewayConnection, WebSocketServer, OnGatewayDisconnect } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { PrescripcionEncabezado } from '../entities/prescripcion-encabezado.entity';
 import { PRESCRIPCIONS_ENCABEZADO_ACTIONS } from '../actions/prescripcion-encabezado.actions';
@@ -7,7 +7,7 @@ import { ImportaFechaSuccess } from '../interfaces';
 @WebSocketGateway({
   namespace: '/prescripcion-encabezado',
 })
-export class PrescripcionEncabezadoGateway implements OnGatewayConnection {
+export class PrescripcionEncabezadoGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @WebSocketServer() private socket$;
 

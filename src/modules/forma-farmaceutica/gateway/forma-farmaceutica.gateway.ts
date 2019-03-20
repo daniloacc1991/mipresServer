@@ -4,7 +4,7 @@ import { FormaFarmaceutica } from '../entities/forma-farmaceutica';
 import { FORMAS_FARMACEUTICAS_ACTIONS } from '../actions/forma-farmaceutica.actions';
 
 @WebSocketGateway({
-  namespace: 'forma-farmaceutica',
+  namespace: '/forma-farmaceutica',
 })
 export class FormaFarmaceuticaGateway implements OnGatewayConnection {
 
