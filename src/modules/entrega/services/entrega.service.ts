@@ -31,18 +31,23 @@ export class EntregaService {
   async create(entrega: Entrega) {
     const t = await this.seq.transaction();
     try {
+      const prescripcionDet = await this.prescripcionDetRepository.findById(entrega.prescripcionDetalleId);
+      let indEntregado = false;
+      const sumCantEntrega = prescripcionDet.cantidadEntregada + parseInt(entrega.CantTotEntregada, 0);
+      if (prescripcionDet.CantTotalF === sumCantEntrega.toString()) {
+        indEntregado = true;
+      }
       const entFinal = await this.entMinSaludToEntregaLocal(entrega);
       const element = await this.entregaRepository.create(entFinal);
       Logger.log(element, 'Entrega');
       await this.prescripcionDetRepository.update(
         {
-          indEntregado: true,
+          indEntregado,
           cantidadEntregada: element.CantTotEntregada,
         },
         { where: { id: entFinal.prescripcionDetalleId } },
       );
-      const prescripcionDet = await this.prescripcionDetRepository.findById(entFinal.prescripcionDetalleId);
-      Logger.log(prescripcionDet.prescripcionId, 'Find Prescripcion Encabezado Id');
+
       const prescripcionEnc: PrescripcionEncabezado = await this.prescripcionEncRepository.findById(prescripcionDet.prescripcionId);
       t.commit();
       this.entregaGateway.entregaCreated(element);
@@ -100,6 +105,8 @@ export class EntregaService {
     const entMinSalud = await this.putEntregaAmbito(url, ent);
     const entregaLocal: Entrega = ent;
     entregaLocal.IDEntrega = entMinSalud.IdEntrega;
+    Logger.log(JSON.stringify(entMinSalud), 'Rta Entega Ambito');
+    Logger.log(JSON.stringify(entregaLocal), 'Save Entrega Local');
     return entregaLocal;
   }
 

@@ -4,7 +4,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 @Table({
   timestamps: true,
   paranoid: true,
-  tableName: 'users',
+  tableName: 'mp_users',
 })
 export class User extends Model<User> {
 

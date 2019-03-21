@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, AutoIncrement, AllowNull } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, AutoIncrement, AllowNull, Scopes } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
@@ -48,7 +48,7 @@ export class Entrega extends Model<Entrega> {
   CodSerTecEntregado: string;
 
   @ApiModelProperty()
-  @Column
+  @Column(DataType.STRING(10))
   CantTotEntregada: string;
 
   @ApiModelProperty()

@@ -6,9 +6,6 @@ import { ApiModelProperty } from '@nestjs/swagger';
     'id',
     'codigo',
     'nombreComercial',
-    'forma',
-    'presentacionComercial',
-    'unidades',
   ],
 })
 @Table({

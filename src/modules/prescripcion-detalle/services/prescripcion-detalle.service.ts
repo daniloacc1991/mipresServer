@@ -8,6 +8,8 @@ import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/ind
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
+import { Entrega } from 'src/modules/entrega/entities/entrega.entity';
+import sequelize = require('sequelize');
 
 @Injectable()
 export class PrescripcionDetalleService {
@@ -31,22 +33,27 @@ export class PrescripcionDetalleService {
           {
             as: 'codigoFreUso',
             model: Frecuencia,
+            paranoid: false,
           },
           {
             as: 'codigoPerDurTrat',
             model: Frecuencia,
+            paranoid: false,
           },
           {
             as: 'codigoUFCantTotal',
             model: Presentacion,
+            paranoid: false,
           },
           {
             as: 'codigoFreAdmon',
             model: Frecuencia,
+            paranoid: false,
           },
           {
             as: 'duracionTrat',
             model: Frecuencia,
+            paranoid: false,
           },
           ProductoNutricionalForma,
           ProductoNutricionalViaAdmin,
