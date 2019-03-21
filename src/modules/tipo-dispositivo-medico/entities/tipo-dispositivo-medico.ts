@@ -17,7 +17,7 @@ export class TipoDispositivoMedico extends Model<TipoDispositivoMedico> {
   })
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
+  @Column(DataType.STRING('3'))
   id: string;
 
   @AllowNull(false)

@@ -34,7 +34,7 @@ export class EntregaService {
       const prescripcionDet = await this.prescripcionDetRepository.findById(entrega.prescripcionDetalleId);
       let indEntregado = false;
       const sumCantEntrega = prescripcionDet.cantidadEntregada + parseInt(entrega.CantTotEntregada, 0);
-      if (prescripcionDet.CantTotalF === sumCantEntrega.toString()) {
+      if (prescripcionDet.CantTotalF === sumCantEntrega) {
         indEntregado = true;
       }
       const entFinal = await this.entMinSaludToEntregaLocal(entrega);

@@ -46,7 +46,7 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
+  @Column(DataType.STRING('17'))
   NroIDIPS: string;
 
   @ForeignKey(() => Municipio)
@@ -67,7 +67,7 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('20'))
+  @Column(DataType.STRING('2'))
   TipoIDProf: string;
 
   @AllowNull(false)
@@ -100,7 +100,7 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('20'))
+  @Column(DataType.STRING('2'))
   TipoIDPaciente: string;
 
   @AllowNull(false)
@@ -134,6 +134,10 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
 
   @ApiModelProperty()
   @Column
+  RefAmbAte: number;
+
+  @ApiModelProperty()
+  @Column
   EnfHuerfana: number;
 
   @ApiModelProperty()
@@ -162,11 +166,11 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
   SopNutricional: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('20'))
+  @Column(DataType.STRING('6'))
   CodEPS: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('20'))
+  @Column(DataType.STRING('2'))
   TipoIDMadrePaciente: string;
 
   @ApiModelProperty()
@@ -178,7 +182,7 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
   TipoTransc: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('20'))
+  @Column(DataType.STRING('2'))
   TipoIDDonanteVivo: string;
 
   @ApiModelProperty()

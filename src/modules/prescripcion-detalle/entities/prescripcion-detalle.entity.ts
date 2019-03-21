@@ -15,6 +15,7 @@ import { Presentacion } from 'src/modules/presentacion/entities/presentacion.ent
 import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
+import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
 
 @Table({
   timestamps: true,
@@ -129,8 +130,8 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CausaS5: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
-  RznCausaS5: string;
+  @Column
+  RznCausaS5: number;
 
   @ApiModelProperty()
   @Column
@@ -173,11 +174,11 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CausaS7: number;
 
   @ApiModelProperty()
-  @Column
+  @Column(DataType.STRING(300))
   MedPBSUtilizado: string;
 
   @ApiModelProperty()
-  @Column
+  @Column(DataType.STRING(300))
   MedPBSDescartado: string;
 
   @ApiModelProperty()
@@ -198,7 +199,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @ForeignKey(() => TipoDispositivoMedico)
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
+  @Column(DataType.STRING('3'))
   CodDisp: string;
 
   @ForeignKey(() => Cups)
@@ -222,22 +223,23 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   DXEnfRCEV: number;
 
-  @ForeignKey(() => TipoProductoNutricional)
   @ApiModelProperty()
-  @Column(DataType.STRING('30'))
+  @ForeignKey(() => TipoProductoNutricional)
+  @Column(DataType.STRING('4'))
   TippProNut: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('30'))
+  @ForeignKey(() => ProductoNutricional)
+  @Column(DataType.STRING('6'))
   DescProdNutr: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('5'))
-  CanForm: string;
+  @Column
+  CanForm: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('5'))
-  CadaFreUso: string;
+  @Column
+  CadaFreUso: number;
 
   @ApiModelProperty()
   @ForeignKey(() => Frecuencia)
@@ -245,12 +247,12 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CodFreUso: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('5'))
-  Cant: string;
+  @Column
+  Cant: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
-  CantTotal: string;
+  @Column
+  CantTotal: number;
 
   @ApiModelProperty()
   @ForeignKey(() => Frecuencia)
@@ -259,7 +261,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @ApiModelProperty()
   @ForeignKey(() => TipoServicioComplementario)
-  @Column(DataType.STRING('5'))
+  @Column(DataType.STRING('2'))
   CodSerComp: string;
 
   @ApiModelProperty()
@@ -267,17 +269,17 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   DescSerComp: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('5000'))
+  @Column(DataType.STRING('1000'))
   DescMedPrinAct: string;
 
   @ForeignKey(() => FormaFarmaceutica)
   @ApiModelProperty()
-  @Column(DataType.STRING('100'))
+  @Column(DataType.STRING('8'))
   CodFF: string;
 
   @ForeignKey(() => ViaAdministracion)
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
+  @Column(DataType.STRING('3'))
   CodVA: string;
 
   @ApiModelProperty()
@@ -291,17 +293,17 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CodViaAdmon: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
-  Dosis: string;
+  @Column(DataType.DOUBLE)
+  Dosis: number;
 
   @ForeignKey(() => UnidadMedidaDosis)
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
+  @Column(DataType.STRING('4'))
   DosisUM: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('5'))
-  NoFAdmon: string;
+  @Column
+  NoFAdmon: number;
 
   @ApiModelProperty()
   @ForeignKey(() => Frecuencia)
@@ -309,15 +311,13 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CodFreAdmon: number;
 
   @ApiModelProperty()
-  @Default(10)
-  @AllowNull(false)
   @ForeignKey(() => IndicacionEspecial)
   @Column
   IndEsp: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('5'))
-  CanTrat: string;
+  @Column
+  CanTrat: number;
 
   @ApiModelProperty()
   @ForeignKey(() => Frecuencia)
@@ -325,12 +325,12 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   DurTrat: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
-  CantTotalF: string;
+  @Column(DataType.DOUBLE)
+  CantTotalF: number;
 
   @ApiModelProperty()
   @ForeignKey(() => Presentacion)
-  @Column(DataType.STRING('100'))
+  @Column(DataType.STRING('2'))
   UFCantTotal: string;
 
   @ApiModelProperty()
@@ -406,6 +406,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   codigoFreUso: Frecuencia;
 
   @BelongsTo(() => Frecuencia, {
+    constraints: false,
     as: 'codigoPerDurTrat',
     foreignKey: 'CodPerDurTrat',
   })

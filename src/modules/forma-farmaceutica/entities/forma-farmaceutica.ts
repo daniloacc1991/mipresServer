@@ -15,7 +15,7 @@ export class FormaFarmaceutica extends Model<FormaFarmaceutica> {
   @Length({
     msg: 'El codigo no puede ser mayor a 20 caracteres',
     min: 5,
-    max: 20,
+    max: 8,
   })
   @PrimaryKey
   @HasOne(() => PrescripcionDetalle, {
@@ -25,9 +25,9 @@ export class FormaFarmaceutica extends Model<FormaFarmaceutica> {
     constraints: true,
   })
   @ApiModelProperty({
-    maxLength: 20,
+    maxLength: 8,
   })
-  @Column(DataType.STRING('20'))
+  @Column(DataType.STRING('8'))
   id: string;
 
   @AllowNull(false)

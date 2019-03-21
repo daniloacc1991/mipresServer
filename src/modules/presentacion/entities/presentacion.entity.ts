@@ -13,7 +13,7 @@ export class Presentacion extends Model<Presentacion> {
 
   @PrimaryKey
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
+  @Column(DataType.STRING('2'))
   id: string;
 
   @ApiModelProperty()

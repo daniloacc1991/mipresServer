@@ -16,7 +16,7 @@ export class TipoProductoNutricional extends Model<TipoProductoNutricional> {
     onDelete: 'CASCADE',
     constraints: true,
   })
-  @Column(DataType.STRING('30'))
+  @Column(DataType.STRING('4'))
   id: string;
 
   @ApiModelProperty()

@@ -20,7 +20,7 @@ export class ViaAdministracion extends Model<ViaAdministracion> {
     onDelete: 'CASCADE',
     constraints: true,
   })
-  @Column(DataType.STRING('10'))
+  @Column(DataType.STRING('3'))
   id: string;
 
   @ApiModelProperty()

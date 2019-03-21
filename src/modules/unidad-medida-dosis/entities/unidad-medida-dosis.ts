@@ -20,7 +20,7 @@ export class UnidadMedidaDosis extends Model<UnidadMedidaDosis> {
     constraints: true,
   })
   @AllowNull(false)
-  @Column(DataType.STRING('10'))
+  @Column(DataType.STRING('4'))
   @ApiModelProperty()
   id: string;
 

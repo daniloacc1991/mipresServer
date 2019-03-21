@@ -18,7 +18,7 @@ export class TipoServicioComplementario extends Model<TipoServicioComplementario
   id: number;
 
   @Unique
-  @Column(DataType.STRING('5'))
+  @Column(DataType.STRING('2'))
   codigo: string;
 
   @ApiModelProperty()
