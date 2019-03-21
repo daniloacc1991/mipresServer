@@ -16,6 +16,7 @@ import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-vi
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
 import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
+import { EstadoJuntaProfesional } from 'src/modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
 
 @Table({
   timestamps: true,
@@ -202,10 +203,16 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.STRING('3'))
   CodDisp: string;
 
+  @BelongsTo(() => TipoDispositivoMedico)
+  tipoDispositivoMedico: TipoDispositivoMedico;
+
   @ForeignKey(() => Cups)
   @ApiModelProperty()
   @Column(DataType.STRING('6'))
   CodCUPS: string;
+
+  @BelongsTo(() => Cups)
+  cups: Cups;
 
   @ApiModelProperty()
   @Column
@@ -228,10 +235,20 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.STRING('4'))
   TippProNut: string;
 
+  @BelongsTo(() => TipoProductoNutricional)
+  tipoProductoNutricional: TipoProductoNutricional;
+
   @ApiModelProperty()
   @ForeignKey(() => ProductoNutricional)
   @Column(DataType.STRING('6'))
   DescProdNutr: string;
+
+  @BelongsTo(() => ProductoNutricional, {
+    as: 'productoNutricional',
+    foreignKey: 'DescProdNutr',
+    targetKey: 'codigo',
+  })
+  productoNutricional: ProductoNutricional;
 
   @ApiModelProperty()
   @Column
@@ -246,6 +263,12 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   CodFreUso: number;
 
+  @BelongsTo(() => Frecuencia, {
+    as: 'codigoFreUso',
+    foreignKey: 'CodFreUso',
+  })
+  codigoFreUso: Frecuencia;
+
   @ApiModelProperty()
   @Column
   Cant: number;
@@ -259,10 +282,26 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   CodPerDurTrat: number;
 
+  @BelongsTo(() => Frecuencia, {
+    constraints: false,
+    as: 'codigoPerDurTrat',
+    foreignKey: 'CodPerDurTrat',
+  })
+  codigoPerdurTrat: Frecuencia;
+
   @ApiModelProperty()
   @ForeignKey(() => TipoServicioComplementario)
   @Column(DataType.STRING('2'))
   CodSerComp: string;
+
+  @BelongsTo(() => TipoServicioComplementario, {
+    as: 'tipoServicioComplementario',
+    foreignKey: 'CodSerComp',
+    targetKey: 'codigo',
+    onDelete: 'CASCADE',
+    constraints: true,
+  })
+  tipoServicioComplementario: TipoServicioComplementario;
 
   @ApiModelProperty()
   @Column(DataType.STRING('160'))
@@ -277,20 +316,32 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.STRING('8'))
   CodFF: string;
 
+  @BelongsTo(() => FormaFarmaceutica)
+  formaFarmaceutica: FormaFarmaceutica;
+
   @ForeignKey(() => ViaAdministracion)
   @ApiModelProperty()
   @Column(DataType.STRING('3'))
   CodVA: string;
+
+  @BelongsTo(() => ViaAdministracion)
+  viaAdministracion: ViaAdministracion;
 
   @ApiModelProperty()
   @ForeignKey(() => ProductoNutricionalForma)
   @Column
   CodForma: number;
 
+  @BelongsTo(() => ProductoNutricionalForma)
+  codigoFormaNut: ProductoNutricionalForma;
+
   @ApiModelProperty()
   @ForeignKey(() => ProductoNutricionalViaAdmin)
   @Column
   CodViaAdmon: number;
+
+  @BelongsTo(() => ProductoNutricionalViaAdmin)
+  codigoViaAdmonNut: ProductoNutricionalViaAdmin;
 
   @ApiModelProperty()
   @Column(DataType.DOUBLE)
@@ -301,6 +352,9 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.STRING('4'))
   DosisUM: string;
 
+  @BelongsTo(() => UnidadMedidaDosis)
+  unidadMedidaDosis: UnidadMedidaDosis;
+
   @ApiModelProperty()
   @Column
   NoFAdmon: number;
@@ -310,10 +364,20 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   CodFreAdmon: number;
 
+  @BelongsTo(() => Frecuencia, {
+    constraints: false,
+    as: 'codigoFreAdmon',
+    foreignKey: 'CodFreAdmon',
+  })
+  codigoFreAdmon: Frecuencia;
+
   @ApiModelProperty()
   @ForeignKey(() => IndicacionEspecial)
   @Column
   IndEsp: number;
+
+  @BelongsTo(() => IndicacionEspecial)
+  indicacionEspecial: IndicacionEspecial;
 
   @ApiModelProperty()
   @Column
@@ -324,6 +388,12 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column
   DurTrat: number;
 
+  @BelongsTo(() => Frecuencia, {
+    as: 'duracionTrat',
+    foreignKey: 'DurTrat',
+  })
+  duracionTrat: Frecuencia;
+
   @ApiModelProperty()
   @Column(DataType.DOUBLE)
   CantTotalF: number;
@@ -332,6 +402,13 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @ForeignKey(() => Presentacion)
   @Column(DataType.STRING('2'))
   UFCantTotal: string;
+
+  @BelongsTo(() => Presentacion, {
+    constraints: false,
+    as: 'codigoUFCantTotal',
+    foreignKey: 'UFCantTotal',
+  })
+  codigoUFCantTotal: Presentacion;
 
   @ApiModelProperty()
   @Column(DataType.STRING('20'))
@@ -345,8 +422,9 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column(DataType.STRING('160'))
   IndRec: string;
 
-  @AllowNull(false)
   @ApiModelProperty()
+  @ForeignKey(() => EstadoJuntaProfesional)
+  @AllowNull(false)
   @Column
   EstJM: number;
 
@@ -368,82 +446,6 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @BelongsTo(() => PrescripcionEncabezado)
   prescripcion: PrescripcionEncabezado;
-
-  @BelongsTo(() => ViaAdministracion)
-  viaAdministracion: ViaAdministracion;
-
-  @BelongsTo(() => FormaFarmaceutica)
-  formaFarmaceutica: FormaFarmaceutica;
-
-  @BelongsTo(() => UnidadMedidaDosis)
-  unidadMedidaDosis: UnidadMedidaDosis;
-
-  @BelongsTo(() => Cups)
-  cups: Cups;
-
-  @BelongsTo(() => TipoDispositivoMedico)
-  tipoDispositivoMedico: TipoDispositivoMedico;
-
-  @BelongsTo(() => TipoServicioComplementario, {
-    as: 'tipoServicioComplementario',
-    foreignKey: 'CodSerComp',
-    targetKey: 'codigo',
-    onDelete: 'CASCADE',
-    constraints: true,
-  })
-  tipoServicioComplementario: TipoServicioComplementario;
-
-  @BelongsTo(() => IndicacionEspecial)
-  indicacionEspecial: IndicacionEspecial;
-
-  @BelongsTo(() => Frecuencia, {
-    as: 'codigoFreUso',
-    foreignKey: 'CodFreUso',
-  })
-  codigoFreUso: Frecuencia;
-
-  @BelongsTo(() => Frecuencia, {
-    constraints: false,
-    as: 'codigoPerDurTrat',
-    foreignKey: 'CodPerDurTrat',
-  })
-  codigoPerdurTrat: Frecuencia;
-
-  @BelongsTo(() => Presentacion, {
-    constraints: false,
-    as: 'codigoUFCantTotal',
-    foreignKey: 'UFCantTotal',
-  })
-  codigoUFCantTotal: Presentacion;
-
-  @BelongsTo(() => Frecuencia, {
-    constraints: false,
-    as: 'codigoFreAdmon',
-    foreignKey: 'CodFreAdmon',
-  })
-  codigoFreAdmon: Frecuencia;
-
-  @BelongsTo(() => Frecuencia, {
-    as: 'duracionTrat',
-    foreignKey: 'DurTrat',
-  })
-  duracionTrat: Frecuencia;
-
-  @BelongsTo(() => ProductoNutricional, {
-    as: 'productoNutricional',
-    foreignKey: 'DescProdNutr',
-    targetKey: 'codigo',
-  })
-  productoNutricional: ProductoNutricional;
-
-  @BelongsTo(() => TipoProductoNutricional)
-  tipoProductoNutricional: TipoProductoNutricional;
-
-  @BelongsTo(() => ProductoNutricionalViaAdmin)
-  codigoViaAdmonNut: ProductoNutricionalViaAdmin;
-
-  @BelongsTo(() => ProductoNutricionalForma)
-  codigoFormaNut: ProductoNutricionalForma;
 
   @HasMany(() => Entrega)
   entregas: Entrega[];

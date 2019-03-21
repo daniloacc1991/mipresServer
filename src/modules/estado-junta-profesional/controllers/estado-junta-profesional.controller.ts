@@ -2,28 +2,29 @@ import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body } fr
 import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { AmbitoAtencionService } from '../service/ambito-atencion.service';
-import { AmbitoAtencion } from '../entities/ambito-atencion.entity';
+import { EstadoJuntaProfesionalService } from '../services/estado-junta-profesional.service';
+import { EstadoJuntaProfesional } from '../entities/estado-junta-profesional.entity';
 
-@ApiUseTags('Ambito Atencion')
+@ApiUseTags('Estado Junta Profesional')
 @ApiBearerAuth()
-@Controller('ambito-atencion')
-export class AmbitoAtencionController {
+@Controller('estado-junta-profesional')
+export class EstadoJuntaProfesionalController {
+
   constructor(
-    private ambitoAtencionService: AmbitoAtencionService,
+    private estadoJuntaProfesionalService: EstadoJuntaProfesionalService,
   ) { }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async findAll() {
-    return await this.ambitoAtencionService.findAll();
+    return await this.estadoJuntaProfesionalService.findAll();
   }
 
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
   async findbyId(@Res() res, @Param('id') id: number) {
     try {
-      const element = await this.ambitoAtencionService.findById(id);
+      const element = await this.estadoJuntaProfesionalService.findById(id);
       if (element) {
         res.status(HttpStatus.OK).json(element);
       } else {
@@ -38,9 +39,9 @@ export class AmbitoAtencionController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  async create(@Body() ambitoAtencion: AmbitoAtencion, @Res() res) {
+  async create(@Body() estadoJuntaProfesional: EstadoJuntaProfesional, @Res() res) {
     try {
-      const element = await this.ambitoAtencionService.create(ambitoAtencion);
+      const element = await this.estadoJuntaProfesionalService.create(estadoJuntaProfesional);
       res.status(HttpStatus.CREATED).json(element);
     } catch (e) {
       throw new HttpException({
@@ -51,9 +52,9 @@ export class AmbitoAtencionController {
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  async update(@Body() ambitoAtencion: AmbitoAtencion, @Param('id') id: number, @Res() res) {
+  async update(@Body() estadoJuntaProfesional: EstadoJuntaProfesional, @Param('id') id: number, @Res() res) {
     try {
-      const element = await this.ambitoAtencionService.update(id, ambitoAtencion);
+      const element = await this.estadoJuntaProfesionalService.update(id, estadoJuntaProfesional);
       res.status(HttpStatus.OK).json(element);
     } catch (e) {
       throw new HttpException({
@@ -66,7 +67,7 @@ export class AmbitoAtencionController {
   @UseGuards(AuthGuard('jwt'))
   async delete(@Param('id') id: number, @Res() res) {
     try {
-      await this.ambitoAtencionService.delete(id);
+      await this.estadoJuntaProfesionalService.delete(id);
       res.status(HttpStatus.OK).json({});
     } catch (e) {
       throw new HttpException({

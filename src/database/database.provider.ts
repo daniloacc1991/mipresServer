@@ -19,6 +19,7 @@ import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/p
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
+import { EstadoJuntaProfesional } from 'src/modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
 
 export const databaseProviders = [
   {
@@ -57,6 +58,7 @@ export const databaseProviders = [
         ProductoNutricionalForma,
         ProductoNutricionalViaAdmin,
         TipoServicioComplementario,
+        EstadoJuntaProfesional,
         PrescripcionDetalle,
         Entrega,
       ]);
