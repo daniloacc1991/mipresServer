@@ -103,8 +103,10 @@ export class EntregaService {
     const token = await this.tokenEntrega();
     const url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
     const entMinSalud = await this.putEntregaAmbito(url, ent);
-    const entregaLocal: Entrega = ent;
-    entregaLocal.IDEntrega = entMinSalud.IdEntrega;
+    const entregaLocal = {
+      ...ent,
+      IDEntrega: entMinSalud.IdEntrega,
+    };
     Logger.log(JSON.stringify(entMinSalud), 'Rta Entega Ambito');
     Logger.log(JSON.stringify(entregaLocal), 'Save Entrega Local');
     return entregaLocal;
