@@ -6,6 +6,10 @@ import { ApiModelProperty } from '@nestjs/swagger';
     'id',
     'codigo',
     'nombreComercial',
+    'grupoNivel1',
+    'forma',
+    'presentacionComercial',
+    'unidades',
   ],
 })
 @Table({
@@ -24,8 +28,8 @@ export class ProductoNutricional extends Model<ProductoNutricional> {
   @ApiModelProperty()
   @AllowNull(false)
   @Unique
-  @Column
-  codigo: number;
+  @Column(DataType.STRING(6))
+  codigo: string;
 
   @ApiModelProperty()
   @AllowNull(false)

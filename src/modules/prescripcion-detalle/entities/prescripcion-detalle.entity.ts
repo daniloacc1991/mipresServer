@@ -384,9 +384,6 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @BelongsTo(() => TipoDispositivoMedico)
   tipoDispositivoMedico: TipoDispositivoMedico;
 
-  @BelongsTo(() => TipoProductoNutricional)
-  tipoProductoNutricional: TipoProductoNutricional;
-
   @BelongsTo(() => TipoServicioComplementario, {
     as: 'tipoServicioComplementario',
     foreignKey: 'CodSerComp',
@@ -431,6 +428,16 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
     foreignKey: 'DurTrat',
   })
   duracionTrat: Frecuencia;
+
+  @BelongsTo(() => ProductoNutricional, {
+    as: 'productoNutricional',
+    foreignKey: 'DescProdNutr',
+    targetKey: 'codigo',
+  })
+  productoNutricional: ProductoNutricional;
+
+  @BelongsTo(() => TipoProductoNutricional)
+  tipoProductoNutricional: TipoProductoNutricional;
 
   @BelongsTo(() => ProductoNutricionalViaAdmin)
   codigoViaAdmonNut: ProductoNutricionalViaAdmin;

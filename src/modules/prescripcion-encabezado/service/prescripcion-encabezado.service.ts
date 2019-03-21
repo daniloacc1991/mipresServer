@@ -20,6 +20,7 @@ import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/ind
 import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
+import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
 
 @Injectable()
 export class PrescripcionEncabezadoService {
@@ -109,6 +110,7 @@ export class PrescripcionEncabezadoService {
           as: 'productosnutricionales',
           model: PrescripcionDetalle,
           include: [
+            ProductoNutricional,
             TipoProductoNutricional,
             UnidadMedidaDosis,
             IndicacionEspecial,
@@ -156,7 +158,7 @@ export class PrescripcionEncabezadoService {
   }
 
   async findById(id) {
-    return await this.prescripcionEncabezadoRepository.findById(id, {
+    return await this.prescripcionEncabezadoRepository.findByPk(id, {
       include: [
         {
           required: false,
@@ -233,6 +235,7 @@ export class PrescripcionEncabezadoService {
           as: 'productosnutricionales',
           model: PrescripcionDetalle,
           include: [
+            ProductoNutricional,
             TipoProductoNutricional,
             UnidadMedidaDosis,
             IndicacionEspecial,
