@@ -4,7 +4,6 @@ import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { EntregaService } from '../services/entrega.service';
 import { Entrega } from '../entities/entrega.entity';
-import { async } from 'rxjs/internal/scheduler/async';
 
 @ApiUseTags('Entrega')
 @ApiBearerAuth()

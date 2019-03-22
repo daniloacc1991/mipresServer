@@ -2,13 +2,13 @@ import { Injectable, Inject, Logger } from '@nestjs/common';
 import { PrescripcionDetalle } from '../entities/prescripcion-detalle.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { PrescripcionDetalleGateway } from '../gateway/prescripcion-detalle.gateway';
-import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
-import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
-import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
-import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
-import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
-import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
-import { Entrega } from 'src/modules/entrega/entities/entrega.entity';
+import { Frecuencia } from '../../../modules/frecuencia/entities/frecuencia.entity';
+import { Presentacion } from '../../../modules/presentacion/entities/presentacion.entity';
+import { IndicacionEspecial } from '../../../modules/indicacion-especial/entities/indicacion-especial';
+import { ProductoNutricionalForma } from '../../../modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
+import { ProductoNutricionalViaAdmin } from '../../../modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
+import { TipoServicioComplementario } from '../../../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
+import { Entrega } from '../../../modules/entrega/entities/entrega.entity';
 import sequelize = require('sequelize');
 
 @Injectable()

@@ -15,11 +15,11 @@ import { Cie10 } from '../modules/cie10/entities/cie10.entity';
 import { IndicacionEspecial } from '../modules/indicacion-especial/entities/indicacion-especial';
 import { Frecuencia } from '../modules/frecuencia/entities/frecuencia.entity';
 import { Entrega } from '../modules/entrega/entities/entrega.entity';
-import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
-import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
-import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
-import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
-import { EstadoJuntaProfesional } from 'src/modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
+import { ProductoNutricional } from '../modules/producto-nutricional/entities/producto-nutricional.entity';
+import { ProductoNutricionalForma } from '../modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
+import { ProductoNutricionalViaAdmin } from '../modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
+import { TipoServicioComplementario } from '../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
+import { EstadoJuntaProfesional } from '../modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
 
 export const databaseProviders = [
   {

@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Sequelize } from 'sequelize-typescript';
 import { EstadoJuntaProfesional } from '../entities/estado-junta-profesional.entity';
 import { EstadoJuntaProfesionalGateway } from '../gateway/estado-junta-profesional.gateway';
-import { PrescripcionDetalle } from 'src/modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
 @Injectable()
 export class EstadoJuntaProfesionalService {

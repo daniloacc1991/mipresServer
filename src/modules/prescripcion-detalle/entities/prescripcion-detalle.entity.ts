@@ -10,13 +10,13 @@ import { TipoProductoNutricional } from '../../../modules/tipo-producto-nutricio
 import { ApiModelProperty } from '@nestjs/swagger';
 import { IndicacionEspecial } from '../../../modules/indicacion-especial/entities/indicacion-especial';
 import { Entrega } from '../../../modules/entrega/entities/entrega.entity';
-import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
-import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
-import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
-import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
-import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
-import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
-import { EstadoJuntaProfesional } from 'src/modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
+import { Frecuencia } from '../../../modules/frecuencia/entities/frecuencia.entity';
+import { Presentacion } from '../../../modules/presentacion/entities/presentacion.entity';
+import { ProductoNutricionalViaAdmin } from '../../../modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
+import { ProductoNutricionalForma } from '../../../modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
+import { TipoServicioComplementario } from '../../../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
+import { ProductoNutricional } from '../../../modules/producto-nutricional/entities/producto-nutricional.entity';
+import { EstadoJuntaProfesional } from '../../../modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
 
 @Table({
   timestamps: true,

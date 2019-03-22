@@ -14,13 +14,13 @@ import { Municipio } from '../../municipio/entities/municipio.entity';
 import { AmbitoAtencion } from '../../../modules/ambito-atencion/entities/ambito-atencion.entity';
 import { Cie10 } from '../../../modules/cie10/entities/cie10.entity';
 import { ImportaFechaSuccess } from '../interfaces';
-import { Frecuencia } from 'src/modules/frecuencia/entities/frecuencia.entity';
-import { Presentacion } from 'src/modules/presentacion/entities/presentacion.entity';
-import { IndicacionEspecial } from 'src/modules/indicacion-especial/entities/indicacion-especial';
-import { ProductoNutricionalForma } from 'src/modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
-import { ProductoNutricionalViaAdmin } from 'src/modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
-import { TipoServicioComplementario } from 'src/modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
-import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
+import { Frecuencia } from '../../../modules/frecuencia/entities/frecuencia.entity';
+import { Presentacion } from '../../../modules/presentacion/entities/presentacion.entity';
+import { IndicacionEspecial } from '../../../modules/indicacion-especial/entities/indicacion-especial';
+import { ProductoNutricionalForma } from '../../../modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
+import { ProductoNutricionalViaAdmin } from '../../../modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
+import { TipoServicioComplementario } from '../../../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
+import { ProductoNutricional } from '../../../modules/producto-nutricional/entities/producto-nutricional.entity';
 
 @Injectable()
 export class PrescripcionEncabezadoService {

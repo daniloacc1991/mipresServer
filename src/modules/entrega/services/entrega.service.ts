@@ -25,21 +25,16 @@ export class EntregaService {
   }
 
   async findById(id: number) {
-    return await this.entregaRepository.findById(id);
+    return await this.entregaRepository.findByPk(id);
   }
 
   async create(entrega: Entrega) {
     const t = await this.seq.transaction();
     try {
-      const prescripcionDet = await this.prescripcionDetRepository.findById(entrega.prescripcionDetalleId);
-      let indEntregado = false;
-      const sumCantEntrega = prescripcionDet.cantidadEntregada + parseInt(entrega.CantTotEntregada, 0);
-      if (prescripcionDet.CantTotalF === sumCantEntrega) {
-        indEntregado = true;
-      }
+      const prescripcionDet = await this.prescripcionDetRepository.findByPk(entrega.prescripcionDetalleId);
+      const indEntregado = entrega.EntTotal === 1 ? true : false;
       const entFinal = await this.entMinSaludToEntregaLocal(entrega);
       const element = await this.entregaRepository.create(entFinal);
-      Logger.log(element, 'Entrega');
       await this.prescripcionDetRepository.update(
         {
           indEntregado,
@@ -48,7 +43,7 @@ export class EntregaService {
         { where: { id: entFinal.prescripcionDetalleId } },
       );
 
-      const prescripcionEnc: PrescripcionEncabezado = await this.prescripcionEncRepository.findById(prescripcionDet.prescripcionId);
+      const prescripcionEnc: PrescripcionEncabezado = await this.prescripcionEncRepository.findByPk(prescripcionDet.prescripcionId);
       t.commit();
       this.entregaGateway.entregaCreated(element);
       this.prescripcionEncabezadoGateway.prescripcionUpdated(prescripcionEnc);
@@ -103,16 +98,17 @@ export class EntregaService {
     const token = await this.tokenEntrega();
     const url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
     const entMinSalud = await this.putEntregaAmbito(url, ent);
+    Logger.log('Paso Put Ministerio');
     const entregaLocal = {
       ...ent,
-      IDEntrega: entMinSalud.IdEntrega,
+      IDEntrega: entMinSalud[0].IdEntrega,
     };
     Logger.log(JSON.stringify(entMinSalud), 'Rta Entega Ambito');
     Logger.log(JSON.stringify(entregaLocal), 'Save Entrega Local');
     return entregaLocal;
   }
 
-  private async putEntregaAmbito(url, data): Promise<EntregaMinSalud> {
+  private async putEntregaAmbito(url, data): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.put(url, data)
         .subscribe(
