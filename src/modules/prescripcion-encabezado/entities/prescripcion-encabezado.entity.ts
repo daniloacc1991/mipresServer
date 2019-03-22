@@ -26,7 +26,7 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column
+  @Column(DataType.DATE)
   FPrescripcion: string;
 
   @AllowNull(false)
