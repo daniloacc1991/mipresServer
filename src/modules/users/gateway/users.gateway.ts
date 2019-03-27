@@ -4,7 +4,7 @@ import { User } from '../entities/user.entity';
 import { USERS_ACTIONS } from '../actions/users.actions';
 
 @WebSocketGateway({
-  namespace: '/users',
+  namespace: '/user',
 })
 export class UsersGateway implements OnGatewayConnection {
 

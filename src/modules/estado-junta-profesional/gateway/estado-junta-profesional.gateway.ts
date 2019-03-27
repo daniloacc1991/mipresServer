@@ -3,7 +3,9 @@ import { Logger } from '@nestjs/common';
 import { EstadoJuntaProfesional } from '../entities/estado-junta-profesional.entity';
 import { ESTADO_JUNTA_PROFESIONAL_ACTIONS } from '../actions/estado-junta-profesional.actions';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  namespace: '/estado-junta-profesional',
+})
 export class EstadoJuntaProfesionalGateway implements OnGatewayConnection, OnGatewayConnection {
 
   @WebSocketServer() private socket$;

@@ -39,9 +39,9 @@ export class UsersService {
     const t = await this.seq.transaction();
     try {
       delete user.id;
-      const res = await this.usersRepository.update({ ...user }, { where: { id } });
+      await this.usersRepository.update({ ...user }, { where: { id } });
       t.commit();
-      const element = await this.usersRepository.findById(res[0]);
+      const element = await this.usersRepository.findById(id);
       this.usersGateway.usersUpdated(element);
       return element;
     } catch (e) {

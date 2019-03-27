@@ -1,5 +1,5 @@
 export enum ESTADO_JUNTA_PROFESIONAL_ACTIONS {
-  LIVE_CREATED = '[EstadoJuntaProfesional] LIVE CREATED',
-  LIVE_UPDATED = '[EstadoJuntaProfesional] LIVE UPDATED',
-  LIVE_DELETED = '[EstadoJuntaProfesional] LIVE DELETED',
+  LIVE_CREATED = '[EstadoJunta] LIVE CREATED',
+  LIVE_UPDATED = '[EstadoJunta] LIVE UPDATED',
+  LIVE_DELETED = '[EstadoJunta] LIVE DELETED',
 }
