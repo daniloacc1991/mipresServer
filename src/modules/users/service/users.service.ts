@@ -65,6 +65,19 @@ export class UsersService {
     }
   }
 
+  async changePassword(user: any, password: string) {
+    const newPassword = Md5.init(password);
+    const t = await this.seq.transaction();
+    try {
+      await this.usersRepository.update({ password: newPassword }, { where: { usuario: user.usuario } });
+      t.commit();
+      return;
+    } catch (e) {
+      t.rollback();
+      throw e;
+    }
+  }
+
   async delete(id: number) {
     const t = await this.seq.transaction();
     try {

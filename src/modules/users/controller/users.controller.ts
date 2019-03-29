@@ -1,9 +1,10 @@
-import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body, Render } from '@nestjs/common';
-import { Get, Post, Put, Delete } from '@nestjs/common';
+import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body, Req } from '@nestjs/common';
+import { Get, Post, Put, Delete, Patch } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from '../service/users.service';
 import { User } from '../entities/user.entity';
+import { ChangePasswordInterface } from '../interfaces';
 
 @ApiUseTags('Usuarios')
 @ApiBearerAuth()
@@ -12,7 +13,7 @@ export class UsersController {
 
   constructor(
     private usersService: UsersService,
-  ) {}
+  ) { }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
@@ -80,6 +81,19 @@ export class UsersController {
     try {
       await this.usersService.delete(id);
       res.status(HttpStatus.OK).json({});
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Patch('change-password')
+  @UseGuards(AuthGuard('jwt'))
+  async changePassword(@Body() newPassword: ChangePasswordInterface, @Req() req, @Res() res) {
+    try {
+      await this.usersService.changePassword(req.user, newPassword.password);
+      res.status(HttpStatus.OK).json({ msg: 'Contraseña cambiada exitosamente' });
     } catch (e) {
       throw new HttpException({
         error: e,
