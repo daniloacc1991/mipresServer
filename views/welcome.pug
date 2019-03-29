@@ -1,0 +1,22 @@
+head
+  link(
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+    )
+html
+  div(class="container")
+    div(class="jumbotrom")
+      h1(class="display-4") Bienvenido, #{username} a Mipres San Luis!
+      p(class="lead") Usted a sido registrado en nuestra plataforma para gestionar todo lo relacionado con las prescripciones generadas en MIPRES por nuestro personal medico
+      hr(class="my-4")
+      table(class="table")
+        tbody
+          tr
+            th(scope="row" style="width: 8rem;") Usuario
+            td #{user}
+          tr
+            th(scope="row" style="width: 8rem;") Contraseña
+            td #{password}
+      a(class="btn btn-primary btn-lg" href="http://mipressanluis" target="_blank") Ir al Sitio

@@ -1,9 +1,11 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
+import { MailerService } from '@nest-modules/mailer';
 import { User } from '../entities/user.entity';
 import { Md5 } from 'md5-typescript';
 import { Auth, JwtPayload } from '../interfaces';
 import { Sequelize } from 'sequelize-typescript';
 import { UsersGateway } from '../gateway/users.gateway';
+import * as randomize from 'randomatic';
 
 @Injectable()
 export class UsersService {
@@ -11,6 +13,7 @@ export class UsersService {
     @Inject('UsersRepository') private readonly usersRepository: typeof User,
     @Inject('SequelizeRepository') private seq: Sequelize,
     private usersGateway: UsersGateway,
+    private readonly mailerService: MailerService,
   ) { }
 
   async findAll() {
@@ -18,15 +21,27 @@ export class UsersService {
   }
 
   async findById(id: number) {
-    return await this.usersRepository.findById(id);
+    return await this.usersRepository.findByPk(id);
   }
 
   async create(user: User) {
-    user.password = Md5.init(user.password);
+    const password = randomize('Aa0!', 10);
+    user.password = Md5.init(password);
     const t = await this.seq.transaction();
     try {
       const element = await this.usersRepository.create(user, { transaction: t });
       t.commit();
+      const mail = await this.mailerService.sendMail({
+        to: user.email,
+        subject: 'Creación de Usuario Mipres SanLuis ✔',
+        template: 'welcome',
+        context: {
+          username: user.name,
+          user: user.usuario,
+          password,
+        },
+      });
+      Logger.log(mail, 'Response Mail');
       this.usersGateway.usersCreated(element);
       return element;
     } catch (e) {

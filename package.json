@@ -21,6 +21,7 @@
     "seeders": "node_modules/.bin/sequelize db:seed:all"
   },
   "dependencies": {
+    "@nest-modules/mailer": "^1.0.4",
     "@nestjs/common": "^5.4.0",
     "@nestjs/core": "^5.4.0",
     "@nestjs/jwt": "^0.3.0",
@@ -41,6 +42,7 @@
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.0",
     "pg": "^7.8.1",
+    "randomatic": "^3.1.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.2",
     "rxjs": "^6.2.2",
