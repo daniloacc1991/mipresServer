@@ -88,16 +88,4 @@ export class UsersController {
     }
   }
 
-  @Patch('change-password')
-  @UseGuards(AuthGuard('jwt'))
-  async changePassword(@Body() newPassword: ChangePasswordInterface, @Req() req, @Res() res) {
-    try {
-      await this.usersService.changePassword(req.user, newPassword.password);
-      res.status(HttpStatus.OK).json({ msg: 'Contraseña cambiada exitosamente' });
-    } catch (e) {
-      throw new HttpException({
-        error: e,
-      }, HttpStatus.BAD_REQUEST);
-    }
-  }
 }
