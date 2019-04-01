@@ -1,10 +1,9 @@
-import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body, Req } from '@nestjs/common';
+import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body } from '@nestjs/common';
 import { Get, Post, Put, Delete, Patch } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from '../service/users.service';
 import { User } from '../entities/user.entity';
-import { ChangePasswordInterface } from '../interfaces';
 
 @ApiUseTags('Usuarios')
 @ApiBearerAuth()

@@ -30,7 +30,6 @@ export class UsersService {
     const t = await this.seq.transaction();
     try {
       const element = await this.usersRepository.create(user, { transaction: t });
-      t.commit();
       const mail = await this.mailerService.sendMail({
         to: user.email,
         subject: 'Creación de Usuario Mipres SanLuis ✔',
@@ -41,11 +40,12 @@ export class UsersService {
           password,
         },
       });
-      Logger.log(mail, 'Response Mail');
+      t.commit();
       this.usersGateway.usersCreated(element);
       return element;
     } catch (e) {
       t.rollback();
+      Logger.error(e);
       throw e;
     }
   }

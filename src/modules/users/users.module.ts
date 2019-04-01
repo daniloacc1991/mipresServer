@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MailerModule, PugAdapter } from '@nest-modules/mailer';
+import { join } from 'path';
+const pathTemplates = join(__dirname, 'templates');
 const MAILER = [
   MailerModule.forRootAsync({
     useFactory: () => ({
@@ -8,7 +10,7 @@ const MAILER = [
         from: '"Mipres San Luis" <Contacto.Sistemas@ClinicaSanluis.com>',
       },
       template: {
-        dir: __dirname + '/templates',
+        dir: pathTemplates,
         adapter: new PugAdapter(),
         options: {
           strict: true,
@@ -49,9 +51,4 @@ import { AuthController } from './controller/auth.controller';
     AuthController,
   ],
 })
-export class UsersModule {
-  constructor() {
-    // tslint:disable-next-line:no-console
-    console.log('Construtor UserModule', __dirname);
-  }
-}
+export class UsersModule { }
