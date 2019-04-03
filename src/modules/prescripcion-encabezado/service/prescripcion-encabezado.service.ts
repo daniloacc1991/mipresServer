@@ -32,8 +32,8 @@ export class PrescripcionEncabezadoService {
     private readonly httpService: HttpService,
   ) { }
 
-  async findAll() {
-    return await this.prescripcionEncabezadoRepository.findAll({
+  async findAll(perPage: number, page: number) {
+    return await this.prescripcionEncabezadoRepository.findAndCountAll({
       include: [
         {
           required: false,
@@ -154,6 +154,154 @@ export class PrescripcionEncabezadoService {
         AmbitoAtencion,
         Cie10,
       ],
+      limit: perPage,
+      offset: page === 1 ? 0 : (page - 1) * perPage,
+      order: [['NoPrescripcion', 'DESC']],
+    });
+  }
+
+  async findByTermAll(perPage: number, page: number, term: string) {
+    return await this.prescripcionEncabezadoRepository.findAndCount({
+      include: [
+        {
+          required: false,
+          as: 'medicamentos',
+          model: PrescripcionDetalle,
+          include: [
+            FormaFarmaceutica,
+            ViaAdministracion,
+            UnidadMedidaDosis,
+            {
+              model: IndicacionEspecial,
+              required: false,
+            },
+            {
+              as: 'codigoUFCantTotal',
+              model: Presentacion,
+            },
+            {
+              as: 'codigoFreAdmon',
+              model: Frecuencia,
+            },
+            {
+              as: 'duracionTrat',
+              model: Frecuencia,
+            },
+          ],
+          where: {
+            TipoTecnologia: 'M',
+          },
+        },
+        {
+          required: false,
+          as: 'procedimientos',
+          model: PrescripcionDetalle,
+          include: [
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+              required: false,
+            },
+            Cups,
+          ],
+          where: {
+            TipoTecnologia: 'P',
+          },
+        },
+        {
+          required: false,
+          as: 'dispositivos',
+          model: PrescripcionDetalle,
+          include: [
+            TipoDispositivoMedico,
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+            },
+          ],
+          where: {
+            TipoTecnologia: 'D',
+          },
+        },
+        {
+          required: false,
+          as: 'productosnutricionales',
+          model: PrescripcionDetalle,
+          include: [
+            ProductoNutricional,
+            TipoProductoNutricional,
+            UnidadMedidaDosis,
+            IndicacionEspecial,
+            {
+              as: 'codigoFreAdmon',
+              model: Frecuencia,
+            },
+            {
+              as: 'duracionTrat',
+              model: Frecuencia,
+            },
+            ProductoNutricionalForma,
+            ProductoNutricionalViaAdmin,
+          ],
+          where: {
+            TipoTecnologia: 'N',
+          },
+        },
+        {
+          required: false,
+          as: 'serviciosComplementarios',
+          model: PrescripcionDetalle,
+          include: [
+            TipoServicioComplementario,
+            IndicacionEspecial,
+            {
+              as: 'codigoFreUso',
+              model: Frecuencia,
+              required: false,
+            },
+            {
+              as: 'codigoPerDurTrat',
+              model: Frecuencia,
+            },
+          ],
+          where: {
+            TipoTecnologia: 'S',
+          },
+        },
+        Municipio,
+        AmbitoAtencion,
+        Cie10,
+      ],
+      limit: perPage,
+      where: {
+        $or: [
+          { NoPrescripcion: { $ilike: `%${term}%` } },
+          { SAPaciente: { $ilike: `%${term}%` } },
+          { PAPaciente: { $ilike: `%${term}%` } },
+          { SNPaciente: { $ilike: `%${term}%` } },
+          { PNPaciente: { $ilike: `%${term}%` } },
+          { SAProfS: { $ilike: `%${term}%` } },
+          { PAProfS: { $ilike: `%${term}%` } },
+          { SNProfS: { $ilike: `%${term}%` } },
+          { SAProfS: { $ilike: `%${term}%` } },
+          { TipoIDPaciente: { $ilike: `%${term}%` } },
+          { NroIDPaciente: { $ilike: `%${term}%` } },
+          { TipoIDProf: { $ilike: `%${term}%` } },
+          { NumIDProf: { $ilike: `%${term}%` } },
+        ],
+      },
+      offset: page === 1 ? 0 : (page - 1) * perPage,
+      order: [['NoPrescripcion', 'DESC']],
     });
   }
 

@@ -15,10 +15,15 @@ export class PrescripcionEncabezadoController {
     private prescripcionEncabezadoService: PrescripcionEncabezadoService,
   ) { }
 
-  @Get()
+  @Get(':perPage/:term/:page')
   @UseGuards(AuthGuard('jwt'))
-  async findAll() {
-    return await this.prescripcionEncabezadoService.findAll();
+  async findAll(@Param('perPage') perPage: number, @Param('page') page: number, @Param('term') term: string) {
+    term = term === '&' ? null : term;
+    if (term !== null) {
+      return await this.prescripcionEncabezadoService.findByTermAll(perPage, page, term);
+    } else {
+      return await this.prescripcionEncabezadoService.findAll(perPage, page);
+    }
   }
 
   @Get(':id')
