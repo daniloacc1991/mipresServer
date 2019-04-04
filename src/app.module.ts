@@ -23,6 +23,7 @@ import { ProductoNutricionalFormaModule } from './modules/producto-nutricional-f
 import { ProductoNutricionalViaAdminModule } from './modules/producto-nutricional-via-admin/producto-nutricional-via-admin.module';
 import { TipoServicioComplementarioModule } from './modules/tipo-servicio-complementario/tipo-servicio-complementario.module';
 import { EstadoJuntaProfesionalModule } from './modules/estado-junta-profesional/estado-junta-profesional.module';
+import { CausaNoEntregaModule } from './modules/causa-no-entrega/causa-no-entrega.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { EstadoJuntaProfesionalModule } from './modules/estado-junta-profesional
     ProductoNutricionalViaAdminModule,
     TipoServicioComplementarioModule,
     EstadoJuntaProfesionalModule,
+    CausaNoEntregaModule,
   ],
   controllers: [AppController],
   providers: [
