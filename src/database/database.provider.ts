@@ -32,6 +32,9 @@ export const databaseProviders = [
         username: 'postgres',
         password: 'POSTGRES',
         database: process.env.DB,
+        dialectOptions: {
+          application_name: 'API - Mipres San Luis',
+        },
         pool: {
           acquire: 1000,
           idle: 5000,
