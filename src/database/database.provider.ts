@@ -20,7 +20,7 @@ import { ProductoNutricionalForma } from '../modules/producto-nutricional-forma/
 import { ProductoNutricionalViaAdmin } from '../modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 import { TipoServicioComplementario } from '../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
 import { EstadoJuntaProfesional } from '../modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
-import { CausaNoEntrega } from 'src/modules/causa-no-entrega/entities/causa-no-entrega.entity';
+import { CausaNoEntrega } from '../modules/causa-no-entrega/entities/causa-no-entrega.entity';
 
 export const databaseProviders = [
   {

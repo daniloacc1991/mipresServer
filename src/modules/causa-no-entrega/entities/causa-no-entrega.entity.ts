@@ -1,4 +1,4 @@
-import { Table, Model, Column, PrimaryKey } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @Table({
@@ -14,19 +14,43 @@ export class CausaNoEntrega extends Model<CausaNoEntrega> {
     field: 'id',
     allowNull: false,
   })
-  Id: number;
+  id: number;
 
   @ApiModelProperty()
   @Column({
     field: 'descripcion',
     allowNull: false,
   })
-  Descripcion: string;
+  descripcion: string;
 
   @ApiModelProperty()
   @Column({
     field: 'aplica_para',
     allowNull: false,
   })
-  AplicaPara: number;
+  aplicaPara: number;
+
+  @ApiModelProperty()
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+    type: 'timestamp without time zone',
+  })
+  createdAt: string;
+
+  @ApiModelProperty()
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+    type: 'timestamp without time zone',
+  })
+  updatedAt: string;
+
+  @ApiModelProperty()
+  @DeletedAt
+  @Column({
+    field: 'deleted_at',
+    type: 'timestamp without time zone',
+  })
+  deletedAt: string;
 }

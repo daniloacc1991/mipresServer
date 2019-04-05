@@ -22,7 +22,6 @@ export class CausaNoEntregaService {
   async create(causaNoEntrega: CausaNoEntrega) {
     const t = await this.seq.transaction();
     try {
-
       const element = await this.causaNoEntregaRepository.create(causaNoEntrega);
       t.commit();
       this.causaNoEntregaGateway.causaNoEntregaCreated(element);
