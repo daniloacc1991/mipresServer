@@ -60,7 +60,9 @@ export class Entrega extends Model<Entrega> {
   CausaNoEntrega: number;
 
   @ApiModelProperty()
-  @Column(DataType.DATE)
+  @Column({
+    type: 'timestamp without time zone',
+  })
   FecEntrega: string;
 
   @ApiModelProperty()

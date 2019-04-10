@@ -1,5 +1,7 @@
-import { Table, Model, Column, PrimaryKey, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
+import { Table, Model, Column, PrimaryKey, CreatedAt, UpdatedAt, DeletedAt, HasMany } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { CausaNoEntregaTipoTecnologia } from 'src/modules/causa-no-entrega-tipo-tecnologia/entites/causa-no-entrega-tipo-tecnologia.entity';
+import { TipoTecnologiaRequest } from '../interfaces/tipo-tecnologia-request';
 
 @Table({
   tableName: 'mp_causa_no_entrega',
@@ -53,4 +55,15 @@ export class CausaNoEntrega extends Model<CausaNoEntrega> {
     type: 'timestamp without time zone',
   })
   deletedAt: string;
+
+  tipoTecnologia: {
+    dispositivoMedico: boolean;
+    medicamento: boolean;
+    procedimiento: boolean;
+    servicioComplementario: boolean;
+    soporteNutricional: boolean;
+  };
+
+  @HasMany(() => CausaNoEntregaTipoTecnologia)
+  causasNoEntregaTipoTecnologia: CausaNoEntregaTipoTecnologia[];
 }

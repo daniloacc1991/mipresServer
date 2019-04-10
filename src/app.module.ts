@@ -24,6 +24,7 @@ import { ProductoNutricionalViaAdminModule } from './modules/producto-nutriciona
 import { TipoServicioComplementarioModule } from './modules/tipo-servicio-complementario/tipo-servicio-complementario.module';
 import { EstadoJuntaProfesionalModule } from './modules/estado-junta-profesional/estado-junta-profesional.module';
 import { CausaNoEntregaModule } from './modules/causa-no-entrega/causa-no-entrega.module';
+import { CausaNoEntregaTipoTecnologiaModule } from './modules/causa-no-entrega-tipo-tecnologia/causa-no-entrega-tipo-tecnologia.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { CausaNoEntregaModule } from './modules/causa-no-entrega/causa-no-entreg
     TipoServicioComplementarioModule,
     EstadoJuntaProfesionalModule,
     CausaNoEntregaModule,
+    CausaNoEntregaTipoTecnologiaModule,
   ],
   controllers: [AppController],
   providers: [

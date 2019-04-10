@@ -21,6 +21,7 @@ import { ProductoNutricionalViaAdmin } from '../modules/producto-nutricional-via
 import { TipoServicioComplementario } from '../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
 import { EstadoJuntaProfesional } from '../modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
 import { CausaNoEntrega } from '../modules/causa-no-entrega/entities/causa-no-entrega.entity';
+import { CausaNoEntregaTipoTecnologia } from '../modules/causa-no-entrega-tipo-tecnologia/entites/causa-no-entrega-tipo-tecnologia.entity';
 
 export const databaseProviders = [
   {
@@ -66,6 +67,7 @@ export const databaseProviders = [
         PrescripcionDetalle,
         Entrega,
         CausaNoEntrega,
+        CausaNoEntregaTipoTecnologia,
       ]);
       await sequelize.sync();
       return sequelize;
