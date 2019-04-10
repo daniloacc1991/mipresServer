@@ -31,6 +31,12 @@ export class PrescripcionDetalleController {
     }
   }
 
+  @Get('junta/:perPage/:page/:juntaId')
+  @UseGuards(AuthGuard('jwt'))
+  async findAllIdJunta(@Param('perPage') perPage: number, @Param('page') page: number, @Param('juntaId') juntaId: number) {
+    return await this.prescripcionDetalleService.findByJuntaId(perPage, page, juntaId);
+  }
+
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
   async findbyId(@Res() res, @Param('id') id: number) {

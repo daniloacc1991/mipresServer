@@ -61,7 +61,8 @@ export class Entrega extends Model<Entrega> {
 
   @ApiModelProperty()
   @Column({
-    type: 'timestamp without time zone',
+    field: 'fecha_entrega',
+    type: DataType.DATEONLY,
   })
   FecEntrega: string;
 
