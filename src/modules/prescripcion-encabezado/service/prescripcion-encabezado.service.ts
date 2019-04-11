@@ -604,7 +604,7 @@ export class PrescripcionEncabezadoService {
     });
   }
 
-  async notifyEmail(fecha: string) {
+  private async notifyEmail(fecha: string) {
     const emails = await this.usersRepository.findAll({
       attributes: ['email'],
       where: {

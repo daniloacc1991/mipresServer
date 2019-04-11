@@ -36,10 +36,6 @@ export class PrescripcionEncabezadoController {
       res.status(HttpStatus.NO_CONTENT).json([]);
     }
   }
-  @Get('junta/:fecha')
-  async notifyEmail(@Param('fecha') fecha: string) {
-    return await this.prescripcionEncabezadoService.notifyEmail(fecha);
-  }
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
