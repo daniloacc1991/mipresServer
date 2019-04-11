@@ -17,6 +17,8 @@ import { ProductoNutricionalForma } from '../../../modules/producto-nutricional-
 import { TipoServicioComplementario } from '../../../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
 import { ProductoNutricional } from '../../../modules/producto-nutricional/entities/producto-nutricional.entity';
 import { EstadoJuntaProfesional } from '../../../modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
+import { MedicamentoPrincipioActivo } from '../../../modules/medicamento-principio-activo/entities/medicamento-principio-activo.entity';
+import { MedicamentoIndicacionesUnirs } from '../../../modules/medicamento-indicaciones-unirs/entities/medicamento-indicaciones-unirs.entity';
 
 @Table({
   timestamps: true,
@@ -344,7 +346,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   codigoViaAdmonNut: ProductoNutricionalViaAdmin;
 
   @ApiModelProperty()
-  @Column(DataType.DOUBLE)
+  @Column(DataType['DOUBLE PRECISION'])
   Dosis: number;
 
   @ForeignKey(() => UnidadMedidaDosis)
@@ -438,6 +440,12 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Default(0)
   @Column
   cantidadEntregada: number;
+
+  @HasMany(() => MedicamentoPrincipioActivo)
+  PrincipiosActivos: MedicamentoPrincipioActivo[];
+
+  @HasMany(() => MedicamentoIndicacionesUnirs)
+  IndicacionesUNIRS: MedicamentoIndicacionesUnirs[];
 
   @ForeignKey(() => PrescripcionEncabezado)
   @ApiModelProperty()

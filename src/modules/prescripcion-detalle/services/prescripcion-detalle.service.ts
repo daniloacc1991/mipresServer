@@ -8,10 +8,10 @@ import { IndicacionEspecial } from '../../../modules/indicacion-especial/entitie
 import { ProductoNutricionalForma } from '../../../modules/producto-nutricional-forma/entities/producto-nutricional-forma.entity';
 import { ProductoNutricionalViaAdmin } from '../../../modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 import { TipoServicioComplementario } from '../../../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
-import { PrescripcionEncabezado } from 'src/modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
-import { TipoProductoNutricional } from 'src/modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
-import { ProductoNutricional } from 'src/modules/producto-nutricional/entities/producto-nutricional.entity';
-import { Cups } from 'src/modules/cups/entities/cups.entity';
+import { PrescripcionEncabezado } from '../../../modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
+import { TipoProductoNutricional } from '../../../modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
+import { ProductoNutricional } from '../../../modules/producto-nutricional/entities/producto-nutricional.entity';
+import { Cups } from '../../../modules/cups/entities/cups.entity';
 
 @Injectable()
 export class PrescripcionDetalleService {

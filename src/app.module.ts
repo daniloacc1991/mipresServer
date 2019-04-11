@@ -25,6 +25,8 @@ import { TipoServicioComplementarioModule } from './modules/tipo-servicio-comple
 import { EstadoJuntaProfesionalModule } from './modules/estado-junta-profesional/estado-junta-profesional.module';
 import { CausaNoEntregaModule } from './modules/causa-no-entrega/causa-no-entrega.module';
 import { CausaNoEntregaTipoTecnologiaModule } from './modules/causa-no-entrega-tipo-tecnologia/causa-no-entrega-tipo-tecnologia.module';
+import { MedicamentoPrincipioActivoModule } from './modules/medicamento-principio-activo/medicamento-principio-activo.module';
+import { MedicamentoIndicacionesUnirsModule } from './modules/medicamento-indicaciones-unirs/medicamento-indicaciones-unirs.module';
 
 @Module({
   imports: [
@@ -52,6 +54,8 @@ import { CausaNoEntregaTipoTecnologiaModule } from './modules/causa-no-entrega-t
     EstadoJuntaProfesionalModule,
     CausaNoEntregaModule,
     CausaNoEntregaTipoTecnologiaModule,
+    MedicamentoPrincipioActivoModule,
+    MedicamentoIndicacionesUnirsModule,
   ],
   controllers: [AppController],
   providers: [

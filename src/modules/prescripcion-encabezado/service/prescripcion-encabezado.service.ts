@@ -21,12 +21,16 @@ import { ProductoNutricionalForma } from '../../../modules/producto-nutricional-
 import { ProductoNutricionalViaAdmin } from '../../../modules/producto-nutricional-via-admin/entities/producto-nutricional-via-admin.entity';
 import { TipoServicioComplementario } from '../../../modules/tipo-servicio-complementario/entities/tipo-servicio-complementario.entity';
 import { ProductoNutricional } from '../../../modules/producto-nutricional/entities/producto-nutricional.entity';
+import { MedicamentoPrincipioActivo } from '../../../modules/medicamento-principio-activo/entities/medicamento-principio-activo.entity';
+import { MedicamentoIndicacionesUnirs } from '../../../modules/medicamento-indicaciones-unirs/entities/medicamento-indicaciones-unirs.entity';
 
 @Injectable()
 export class PrescripcionEncabezadoService {
   constructor(
     @Inject('PrescripcionEncabezadoRepository') private readonly prescripcionEncabezadoRepository: typeof PrescripcionEncabezado,
     @Inject('PrescripcionDetalleRepository') private readonly prescripcionDetalleRepository: typeof PrescripcionDetalle,
+    @Inject('MedicamentoPrincipioActivoRepository') private readonly medicamentoPrincipioActivoRepository: typeof MedicamentoPrincipioActivo,
+    @Inject('MedicamentoIndicacionesUnirsRepository') private readonly medicamentoIndicacionesUnirsRepository: typeof MedicamentoIndicacionesUnirs,
     @Inject('SequelizeRepository') private seq: Sequelize,
     private prescripcionEncabezadoGateway: PrescripcionEncabezadoGateway,
     private readonly httpService: HttpService,
@@ -59,6 +63,8 @@ export class PrescripcionEncabezadoService {
               as: 'duracionTrat',
               model: Frecuencia,
             },
+            MedicamentoPrincipioActivo,
+            MedicamentoIndicacionesUnirs,
           ],
           where: {
             TipoTecnologia: 'M',
@@ -187,6 +193,8 @@ export class PrescripcionEncabezadoService {
               as: 'duracionTrat',
               model: Frecuencia,
             },
+            MedicamentoPrincipioActivo,
+            MedicamentoIndicacionesUnirs,
           ],
           where: {
             TipoTecnologia: 'M',
@@ -326,6 +334,8 @@ export class PrescripcionEncabezadoService {
               as: 'duracionTrat',
               model: Frecuencia,
             },
+            MedicamentoPrincipioActivo,
+            MedicamentoIndicacionesUnirs,
           ],
           where: {
             TipoTecnologia: 'M',
@@ -445,18 +455,18 @@ export class PrescripcionEncabezadoService {
           medicamento.prescripcionId = p.id;
           medicamento.TipoTecnologia = 'M';
           // medicamento.IndEsp = medicamento.IndEsp ? medicamento.IndEsp : 10;
-          // const principiosActivos: MedicamentoPrincipio[] = medicamento.PrincipiosActivos;
-          // const indicacionesUNIRS: MedicamentoIndicacion[] = medicamento.IndicacionesUNIRS ? medicamento.IndicacionesUNIRS : [];
+          const principiosActivos: MedicamentoPrincipioActivo[] = medicamento.PrincipiosActivos;
+          const indicacionesUNIRS: MedicamentoIndicacionesUnirs[] = medicamento.IndicacionesUNIRS;
           const m = await this.prescripcionDetalleRepository.create(medicamento, { transaction: t });
-          // for (const principiosActivo of principiosActivos) {
-          //   principiosActivo.medicamentoId = m.id;
-          //   await this.medicamentoPrincipioRepository.create(principiosActivo, { transaction: t });
-          // }
+          for (const principiosActivo of principiosActivos) {
+            principiosActivo.prescripcionDetalleId = m.id;
+            await this.medicamentoPrincipioActivoRepository.create(principiosActivo, { transaction: t });
+          }
 
-          // for (const indicacionUNIRS of indicacionesUNIRS) {
-          //   indicacionUNIRS.medicamentoId = m.id;
-          //   await this.medicamentoIndicacionRepository.create(indicacionUNIRS, { transaction: t });
-          // }
+          for (const indicacionUNIRS of indicacionesUNIRS) {
+            indicacionUNIRS.prescripcionDetalleId = m.id;
+            await this.medicamentoIndicacionesUnirsRepository.create(indicacionUNIRS, { transaction: t });
+          }
         }
         for (const procedimiento of procedimientos) {
           procedimiento.prescripcionId = p.id;
@@ -482,9 +492,10 @@ export class PrescripcionEncabezadoService {
           // productosnutricional.IndEsp = productosnutricional.IndEsp ? productosnutricional.IndEsp : 10;
           await this.prescripcionDetalleRepository.create(productosnutricional, { transaction: t });
         }
-        this.prescripcionEncabezadoGateway.prescripcionCreated(p);
         t.commit();
-        return p;
+        const pNew = await this.prescripcionEncabezadoRepository.findByPk(p.id);
+        this.prescripcionEncabezadoGateway.prescripcionCreated(pNew);
+        return pNew;
       } else {
         t.commit();
         return prescripcion;
@@ -523,6 +534,7 @@ export class PrescripcionEncabezadoService {
     let prescripciones: PrescripcionEncabezado[];
 
     try {
+      Logger.log(JSON.stringify(prescripciones));
       prescripciones = await this.importacion(url);
     } catch (e) {
       throw e;

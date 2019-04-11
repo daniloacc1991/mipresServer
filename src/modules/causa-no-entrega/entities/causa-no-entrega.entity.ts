@@ -1,7 +1,7 @@
 import { Table, Model, Column, PrimaryKey, CreatedAt, UpdatedAt, DeletedAt, HasMany } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { CausaNoEntregaTipoTecnologia } from 'src/modules/causa-no-entrega-tipo-tecnologia/entites/causa-no-entrega-tipo-tecnologia.entity';
-import { TipoTecnologiaRequest } from '../interfaces/tipo-tecnologia-request';
+import { CausaNoEntregaTipoTecnologia } from '../../../modules/causa-no-entrega-tipo-tecnologia/entites/causa-no-entrega-tipo-tecnologia.entity';
+import { Hooks } from 'sequelize-typescript/lib/models/Model';
 
 @Table({
   tableName: 'mp_causa_no_entrega',
@@ -66,4 +66,5 @@ export class CausaNoEntrega extends Model<CausaNoEntrega> {
 
   @HasMany(() => CausaNoEntregaTipoTecnologia)
   causasNoEntregaTipoTecnologia: CausaNoEntregaTipoTecnologia[];
+
 }

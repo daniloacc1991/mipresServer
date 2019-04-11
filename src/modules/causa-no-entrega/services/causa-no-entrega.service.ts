@@ -4,7 +4,6 @@ import { Transaction } from 'sequelize';
 import { CausaNoEntrega } from '../entities/causa-no-entrega.entity';
 import { CausaNoEntregaGateway } from '../gateways/causa-no-entrega.gateway';
 import { CausaNoEntregaTipoTecnologia } from '../../causa-no-entrega-tipo-tecnologia/entites/causa-no-entrega-tipo-tecnologia.entity';
-import { TipoTecnologiaRequest } from '../interfaces/tipo-tecnologia-request';
 
 @Injectable()
 export class CausaNoEntregaService {

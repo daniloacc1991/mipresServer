@@ -22,6 +22,8 @@ import { TipoServicioComplementario } from '../modules/tipo-servicio-complementa
 import { EstadoJuntaProfesional } from '../modules/estado-junta-profesional/entities/estado-junta-profesional.entity';
 import { CausaNoEntrega } from '../modules/causa-no-entrega/entities/causa-no-entrega.entity';
 import { CausaNoEntregaTipoTecnologia } from '../modules/causa-no-entrega-tipo-tecnologia/entites/causa-no-entrega-tipo-tecnologia.entity';
+import { MedicamentoPrincipioActivo } from '../modules/medicamento-principio-activo/entities/medicamento-principio-activo.entity';
+import { MedicamentoIndicacionesUnirs } from 'src/modules/medicamento-indicaciones-unirs/entities/medicamento-indicaciones-unirs.entity';
 
 export const databaseProviders = [
   {
@@ -68,6 +70,8 @@ export const databaseProviders = [
         Entrega,
         CausaNoEntrega,
         CausaNoEntregaTipoTecnologia,
+        MedicamentoPrincipioActivo,
+        MedicamentoIndicacionesUnirs,
       ]);
       await sequelize.sync();
       return sequelize;

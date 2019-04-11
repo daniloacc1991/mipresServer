@@ -1,7 +1,7 @@
 import { Table, Model, AutoIncrement, PrimaryKey, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
 import { CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { CausaNoEntrega } from 'src/modules/causa-no-entrega/entities/causa-no-entrega.entity';
+import { CausaNoEntrega } from '../../../modules/causa-no-entrega/entities/causa-no-entrega.entity';
 
 @Table({
   tableName: 'mp_causa_no_entrega_tipo_procedimiento',
