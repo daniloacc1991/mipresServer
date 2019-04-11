@@ -7,6 +7,7 @@ import { AppModule } from './app.module';
 import { swaggerApp } from './swagger';
 import { RedisIoAdapter } from './adapters/redis-io.adapters';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { join } from 'path';
 
 async function bootstrap() {
   dotenv.config();
@@ -14,6 +15,10 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
   const host = process.env.HOST || 'localhost';
   const app = await NestFactory.create(AppModule);
+
+  // Engine Views
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.setViewEngine('pug');
 
   // app.setGlobalPrefix('api');
   app.useWebSocketAdapter(new RedisIoAdapter(app));

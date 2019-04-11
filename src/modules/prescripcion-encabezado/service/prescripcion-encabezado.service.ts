@@ -1,4 +1,5 @@
 import { Injectable, Inject, HttpService, Logger } from '@nestjs/common';
+import { MailerService } from '@nest-modules/mailer';
 import { Sequelize } from 'sequelize-typescript';
 import { PrescripcionEncabezadoGateway } from '../gateway/prescripcion-encabezado.gateway';
 import { PrescripcionEncabezado } from '../entities/prescripcion-encabezado.entity';
@@ -9,11 +10,10 @@ import { UnidadMedidaDosis } from '../../../modules/unidad-medida-dosis/entities
 import { Cups } from '../../../modules/cups/entities/cups.entity';
 import { TipoDispositivoMedico } from '../../../modules/tipo-dispositivo-medico/entities/tipo-dispositivo-medico';
 import { TipoProductoNutricional } from '../../../modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
-import { BodyxFecha } from '../interfaces/body-x-fecha';
 import { Municipio } from '../../municipio/entities/municipio.entity';
 import { AmbitoAtencion } from '../../../modules/ambito-atencion/entities/ambito-atencion.entity';
 import { Cie10 } from '../../../modules/cie10/entities/cie10.entity';
-import { ImportaFechaSuccess } from '../interfaces';
+import { ImportaFechaSuccess, PrescripcionDetalleJunta, BodyxFecha } from '../interfaces';
 import { Frecuencia } from '../../../modules/frecuencia/entities/frecuencia.entity';
 import { Presentacion } from '../../../modules/presentacion/entities/presentacion.entity';
 import { IndicacionEspecial } from '../../../modules/indicacion-especial/entities/indicacion-especial';
@@ -23,6 +23,7 @@ import { TipoServicioComplementario } from '../../../modules/tipo-servicio-compl
 import { ProductoNutricional } from '../../../modules/producto-nutricional/entities/producto-nutricional.entity';
 import { MedicamentoPrincipioActivo } from '../../../modules/medicamento-principio-activo/entities/medicamento-principio-activo.entity';
 import { MedicamentoIndicacionesUnirs } from '../../../modules/medicamento-indicaciones-unirs/entities/medicamento-indicaciones-unirs.entity';
+import { User } from '../../../modules/users/entities/user.entity';
 
 @Injectable()
 export class PrescripcionEncabezadoService {
@@ -31,8 +32,10 @@ export class PrescripcionEncabezadoService {
     @Inject('PrescripcionDetalleRepository') private readonly prescripcionDetalleRepository: typeof PrescripcionDetalle,
     @Inject('MedicamentoPrincipioActivoRepository') private readonly medicamentoPrincipioActivoRepository: typeof MedicamentoPrincipioActivo,
     @Inject('MedicamentoIndicacionesUnirsRepository') private readonly medicamentoIndicacionesUnirsRepository: typeof MedicamentoIndicacionesUnirs,
+    @Inject('UsersRepository') private readonly usersRepository: typeof User,
     @Inject('SequelizeRepository') private seq: Sequelize,
     private prescripcionEncabezadoGateway: PrescripcionEncabezadoGateway,
+    private readonly mailerService: MailerService,
     private readonly httpService: HttpService,
   ) { }
 
@@ -553,6 +556,7 @@ export class PrescripcionEncabezadoService {
       }
     }
     this.prescripcionEncabezadoGateway.prescripcionImported(response);
+    this.notifyEmail(body.fecha);
     return response;
   }
 
@@ -577,5 +581,55 @@ export class PrescripcionEncabezadoService {
           },
         );
     });
+  }
+
+  private async paraJunta(fecha: string): Promise<PrescripcionDetalleJunta[]> {
+    return await this.prescripcionDetalleRepository.findAll({
+      attributes: [
+        'TipoTecnologia', 'ConOrden', 'EstJM',
+      ],
+      include: [{
+        attributes: [
+          'NoPrescripcion', 'FPrescripcion', 'TipoIDPaciente', 'NroIDPaciente', 'PAPaciente', 'SAPaciente', 'PNPaciente', 'SNPaciente',
+        ],
+        model: PrescripcionEncabezado,
+        where: {
+          FPrescripcion: fecha,
+        },
+        required: true,
+      }],
+      where: {
+        EstJM: 2,
+      },
+    });
+  }
+
+  async notifyEmail(fecha: string) {
+    const emails = await this.usersRepository.findAll({
+      attributes: ['email'],
+      where: {
+        indNotifyJunta: 'S',
+      },
+    });
+
+    let destinos: string = '';
+    emails.map(rowsUser => {
+      destinos += rowsUser.email + ',';
+    });
+    Logger.log(destinos, 'Emails: ');
+
+    const rows = await this.paraJunta(fecha);
+    if (rows.length > 0) {
+      const mail = await this.mailerService.sendMail({
+        to: destinos,
+        subject: `Prescripcion Pendientes Por Junta - ${fecha}`,
+        template: 'junta',
+        context: {
+          rows,
+        },
+      });
+    }
+
+    return rows;
   }
 }

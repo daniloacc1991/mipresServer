@@ -1,24 +1,4 @@
 import { Module } from '@nestjs/common';
-import { MailerModule, PugAdapter } from '@nest-modules/mailer';
-import { join } from 'path';
-const pathTemplates = join(__dirname, 'templates');
-const MAILER = [
-  MailerModule.forRootAsync({
-    useFactory: () => ({
-      transport: 'smtps://contacto.sistemas@clinicasanluis.com.co:' + encodeURIComponent('Sistemas2016%%$$') + '@smtp.gmail.com',
-      defaults: {
-        from: '"Mipres San Luis" <Contacto.Sistemas@ClinicaSanluis.com>',
-      },
-      template: {
-        dir: pathTemplates,
-        adapter: new PugAdapter(),
-        options: {
-          strict: true,
-        },
-      },
-    }),
-  }),
-];
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersService } from './service/users.service';
@@ -37,7 +17,6 @@ import { AuthController } from './controller/auth.controller';
     JwtModule.register({
       secretOrPrivateKey: 'b8ee5150-bf69-40d2-89b8-c9cc1cfc1ea4',
     }),
-    ...MAILER,
   ],
   providers: [
     ...modulesProviders,

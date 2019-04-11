@@ -1,4 +1,26 @@
 import { Module } from '@nestjs/common';
+
+import { MailerModule, PugAdapter } from '@nest-modules/mailer';
+import { join } from 'path';
+const pathTemplates = join(__dirname, 'templates');
+const MAILER = [
+  MailerModule.forRootAsync({
+    useFactory: () => ({
+      transport: 'smtps://contacto.sistemas@clinicasanluis.com.co:' + encodeURIComponent('Sistemas2016%%$$') + '@smtp.gmail.com',
+      defaults: {
+        from: '"Mipres San Luis" <Contacto.Sistemas@ClinicaSanluis.com>',
+      },
+      template: {
+        dir: pathTemplates,
+        adapter: new PugAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
+  }),
+];
+
 import { PrescripcionEncabezadoModule } from './modules/prescripcion-encabezado/prescripcion-encabezado.module';
 import { AmbitoAtencionModule } from './modules/ambito-atencion/ambito-atencion.module';
 import { MunicipioModule } from './modules/municipio/municipio.module';
@@ -31,6 +53,7 @@ import { MedicamentoIndicacionesUnirsModule } from './modules/medicamento-indica
 @Module({
   imports: [
     DatabaseModule,
+    ...MAILER,
     UsersModule,
     PrescripcionEncabezadoModule,
     PrescripcionDetalleModule,

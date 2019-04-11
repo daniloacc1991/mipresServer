@@ -1,4 +1,4 @@
-import { Table, Column, Model, AutoIncrement, Unique, PrimaryKey, AllowNull } from 'sequelize-typescript';
+import { Table, Column, Model, AutoIncrement, Unique, PrimaryKey, AllowNull, DataType } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @Table({
@@ -40,4 +40,12 @@ export class User extends Model<User> {
   @Column
   @ApiModelProperty()
   rol: string;
+
+  @Column({
+    field: 'ind_notifica_junta',
+    defaultValue: 'N',
+    allowNull: false,
+    type: DataType.STRING(1),
+  })
+  indNotifyJunta: string;
 }

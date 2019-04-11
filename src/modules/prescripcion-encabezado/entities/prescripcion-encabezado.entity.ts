@@ -209,6 +209,9 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
   @HasMany(() => PrescripcionDetalle)
   serviciosComplementarios: PrescripcionDetalle[];
 
+  @HasMany(() => PrescripcionDetalle)
+  prescripcionDetalle: PrescripcionDetalle[];
+
   @BelongsTo(() => AmbitoAtencion)
   ambitoAtencion: AmbitoAtencion;
 
