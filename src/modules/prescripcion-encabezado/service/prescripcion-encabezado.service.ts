@@ -24,6 +24,8 @@ import { ProductoNutricional } from '../../../modules/producto-nutricional/entit
 import { MedicamentoPrincipioActivo } from '../../../modules/medicamento-principio-activo/entities/medicamento-principio-activo.entity';
 import { MedicamentoIndicacionesUnirs } from '../../../modules/medicamento-indicaciones-unirs/entities/medicamento-indicaciones-unirs.entity';
 import { User } from '../../../modules/users/entities/user.entity';
+import { CronJob } from 'cron';
+import { DateTime } from 'luxon';
 
 @Injectable()
 export class PrescripcionEncabezadoService {
@@ -37,7 +39,19 @@ export class PrescripcionEncabezadoService {
     private prescripcionEncabezadoGateway: PrescripcionEncabezadoGateway,
     private readonly mailerService: MailerService,
     private readonly httpService: HttpService,
-  ) { }
+  ) {
+    const dt = DateTime.local();
+    const d = dt.toFormat('yyyy-MM-dd');
+    const job = new CronJob('0 50 23 * * *', () => {
+      const data: BodyxFecha = {
+        fecha: d,
+        nit: '890208758',
+        token: '5BA4903C-7C5A-43BD-A686-EF2012C06326',
+      };
+      this.importarxFecha(data);
+    });
+    job.start();
+  }
 
   async findAll(perPage: number, page: number) {
     return await this.prescripcionEncabezadoRepository.findAndCountAll({

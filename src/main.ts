@@ -8,6 +8,9 @@ import { swaggerApp } from './swagger';
 import { RedisIoAdapter } from './adapters/redis-io.adapters';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { join } from 'path';
+import { Settings } from 'luxon';
+
+Settings.defaultZoneName = 'America/Bogota';
 
 async function bootstrap() {
   dotenv.config();

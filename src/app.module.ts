@@ -1,5 +1,4 @@
-import { Module } from '@nestjs/common';
-
+import { Module, Logger } from '@nestjs/common';
 import { MailerModule, PugAdapter } from '@nest-modules/mailer';
 import { join } from 'path';
 const pathTemplates = join(__dirname, 'templates');
