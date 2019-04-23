@@ -8,7 +8,9 @@ import { modulesProviders } from '../../providers/modules-providers';
 @Module({
   imports: [
     DatabaseModule,
-    HttpModule,
+    HttpModule.register({
+      timeout: 200000,
+    }),
   ],
   providers: [
     ...modulesProviders,

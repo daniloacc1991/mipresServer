@@ -54,7 +54,7 @@ export class PrescripcionEncabezadoService {
   }
 
   async findAll(perPage: number, page: number) {
-    return await this.prescripcionEncabezadoRepository.findAndCountAll({
+    const rows = await this.prescripcionEncabezadoRepository.findAll({
       include: [
         {
           required: false,
@@ -181,10 +181,16 @@ export class PrescripcionEncabezadoService {
       offset: page === 1 ? 0 : (page - 1) * perPage,
       order: [['NoPrescripcion', 'DESC']],
     });
+    const count = await this.prescripcionEncabezadoRepository.count();
+
+    return {
+      rows,
+      count,
+    };
   }
 
   async findByTermAll(perPage: number, page: number, term: string) {
-    return await this.prescripcionEncabezadoRepository.findAndCount({
+    const rows = await this.prescripcionEncabezadoRepository.findAll({
       include: [
         {
           required: false,
@@ -322,6 +328,25 @@ export class PrescripcionEncabezadoService {
       offset: page === 1 ? 0 : (page - 1) * perPage,
       order: [['NoPrescripcion', 'DESC']],
     });
+
+    const count = await this.prescripcionEncabezadoRepository.count({
+      where: {
+        $or: [
+          { NoPrescripcion: { $ilike: `%${term}%` } },
+          { TipoIDPaciente: { $ilike: `%${term}%` } },
+          { NroIDPaciente: { $ilike: `%${term}%` } },
+          { PAPaciente: { $ilike: `%${term}%` } },
+          { SAPaciente: { $ilike: `%${term}%` } },
+          { PNPaciente: { $ilike: `%${term}%` } },
+          { SNPaciente: { $ilike: `%${term}%` } },
+        ],
+      },
+    });
+
+    return {
+      rows,
+      count,
+    };
   }
 
   async findById(id) {
@@ -547,31 +572,31 @@ export class PrescripcionEncabezadoService {
   }
 
   async importarxFecha(body: BodyxFecha) {
+    Logger.log(body);
     const url = `https://wsmipres.sispro.gov.co/WSMIPRESNOPBS/api/Prescripcion/${body.nit}/${body.fecha}/${body.token}`;
     let prescripciones: PrescripcionEncabezado[];
 
     try {
-      Logger.log(JSON.stringify(prescripciones));
       prescripciones = await this.importacion(url);
+      const response: ImportaFechaSuccess = {
+        success: [],
+        fails: [],
+      };
+
+      for (const prescripcion of prescripciones) {
+        try {
+          await this.create(prescripcion);
+          response.success.push(prescripcion.NoPrescripcion);
+        } catch (error) {
+          response.fails.push(prescripcion.NoPrescripcion);
+        }
+      }
+      this.prescripcionEncabezadoGateway.prescripcionImported(response);
+      this.notifyEmail(body.fecha);
+      return response;
     } catch (e) {
       throw e;
     }
-    const response: ImportaFechaSuccess = {
-      success: [],
-      fails: [],
-    };
-
-    for (const prescripcion of prescripciones) {
-      try {
-        await this.create(prescripcion);
-        response.success.push(prescripcion.NoPrescripcion);
-      } catch (error) {
-        response.fails.push(prescripcion.NoPrescripcion);
-      }
-    }
-    this.prescripcionEncabezadoGateway.prescripcionImported(response);
-    this.notifyEmail(body.fecha);
-    return response;
   }
 
   private async importacion(url): Promise<PrescripcionEncabezado[]> {

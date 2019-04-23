@@ -83,6 +83,9 @@ export class PrescripcionDetalleService {
       where: {
         EstJM: juntaId,
       },
+      order: [
+        [{ model: PrescripcionEncabezado, as: 'prescripcion' }, 'NoPrescripcion', 'DESC'],
+      ],
       limit: perPage,
       offset: page === 1 ? 0 : (page - 1) * perPage,
     });
