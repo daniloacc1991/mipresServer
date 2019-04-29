@@ -40,9 +40,9 @@ export class PrescripcionEncabezadoService {
     private readonly mailerService: MailerService,
     private readonly httpService: HttpService,
   ) {
-    const dt = DateTime.local();
-    const d = dt.toFormat('yyyy-MM-dd');
     const job = new CronJob('0 50 23 * * *', () => {
+      const dt = DateTime.local();
+      const d = dt.toFormat('yyyy-MM-dd');
       const data: BodyxFecha = {
         fecha: d,
         nit: '890208758',
@@ -479,13 +479,13 @@ export class PrescripcionEncabezadoService {
   async create(prescripcion: PrescripcionEncabezado) {
     const t = await this.seq.transaction();
     try {
-      const exits = await this.prescripcionEncabezadoRepository.findAll(
+      const exits = await this.prescripcionEncabezadoRepository.findOne(
         {
           where: { NoPrescripcion: prescripcion.NoPrescripcion },
           transaction: t,
         });
 
-      if (exits.length === 0) {
+      if (!exits) {
         const medicamentos: PrescripcionDetalle[] = prescripcion.medicamentos;
         const procedimientos: PrescripcionDetalle[] = prescripcion.procedimientos;
         const dispositivos: PrescripcionDetalle[] = prescripcion.dispositivos;
@@ -539,8 +539,82 @@ export class PrescripcionEncabezadoService {
         this.prescripcionEncabezadoGateway.prescripcionCreated(pNew);
         return pNew;
       } else {
+        const medicamentos: PrescripcionDetalle[] = prescripcion.medicamentos;
+        const procedimientos: PrescripcionDetalle[] = prescripcion.procedimientos;
+        const dispositivos: PrescripcionDetalle[] = prescripcion.dispositivos;
+        const productosnutricionales: PrescripcionDetalle[] = prescripcion.productosnutricionales;
+        const serviciosComplementarios: PrescripcionDetalle[] = prescripcion.serviciosComplementarios;
+        await this.prescripcionEncabezadoRepository.update({ ...prescripcion }, { where: { id: exits.id }, transaction: t });
+
+        for (const medicamento of medicamentos) {
+          medicamento.prescripcionId = exits.id;
+          medicamento.TipoTecnologia = 'M';
+          await this.prescripcionDetalleRepository.update({ ...medicamento }, {
+            where: {
+              $and: [
+                { prescripcionId: exits.id },
+                { ConOrden: medicamento.ConOrden },
+              ],
+            },
+            transaction: t,
+          });
+        }
+        for (const procedimiento of procedimientos) {
+          procedimiento.prescripcionId = exits.id;
+          procedimiento.TipoTecnologia = 'P';
+          await this.prescripcionDetalleRepository.update({ ...procedimiento }, {
+            where: {
+              $and: [
+                { prescripcionId: exits.id },
+                { ConOrden: procedimiento.ConOrden },
+              ],
+            },
+            transaction: t,
+          });
+        }
+        for (const dispositivo of dispositivos) {
+          dispositivo.prescripcionId = exits.id;
+          dispositivo.TipoTecnologia = 'D';
+          await this.prescripcionDetalleRepository.update({ ...dispositivo }, {
+            where: {
+              $and: [
+                { prescripcionId: exits.id },
+                { ConOrden: dispositivo.ConOrden },
+              ],
+            },
+            transaction: t,
+          });
+        }
+        for (const serviciosComplementario of serviciosComplementarios) {
+          serviciosComplementario.prescripcionId = exits.id;
+          serviciosComplementario.TipoTecnologia = 'S';
+          await this.prescripcionDetalleRepository.update({ ...serviciosComplementario }, {
+            where: {
+              $and: [
+                { prescripcionId: exits.id },
+                { ConOrden: serviciosComplementario.ConOrden },
+              ],
+            },
+            transaction: t,
+          });
+        }
+        for (const productosnutricional of productosnutricionales) {
+          productosnutricional.prescripcionId = exits.id;
+          productosnutricional.TipoTecnologia = 'N';
+          await this.prescripcionDetalleRepository.update(productosnutricional, {
+            where: {
+              $and: [
+                { prescripcionId: exits.id },
+                { ConOrden: productosnutricional.ConOrden },
+              ],
+            },
+            transaction: t,
+          });
+        }
         t.commit();
-        return prescripcion;
+        const pNew = await this.prescripcionEncabezadoRepository.findByPk(exits.id);
+        this.prescripcionEncabezadoGateway.prescripcionUpdated(pNew);
+        return pNew;
       }
     } catch (e) {
       Logger.error(e);
@@ -592,7 +666,7 @@ export class PrescripcionEncabezadoService {
         }
       }
       this.prescripcionEncabezadoGateway.prescripcionImported(response);
-      this.notifyEmail(body.fecha);
+      // this.notifyEmail(body.fecha);
       return response;
     } catch (e) {
       throw e;

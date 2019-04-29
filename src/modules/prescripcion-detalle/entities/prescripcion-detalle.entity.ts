@@ -346,7 +346,10 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   codigoViaAdmonNut: ProductoNutricionalViaAdmin;
 
   @ApiModelProperty()
-  @Column(DataType['DOUBLE PRECISION'])
+  @Column({
+    type: DataType['DOUBLE PRECISION'],
+    field: 'dosis',
+  })
   Dosis: number;
 
   @ForeignKey(() => UnidadMedidaDosis)
