@@ -666,7 +666,7 @@ export class PrescripcionEncabezadoService {
         }
       }
       this.prescripcionEncabezadoGateway.prescripcionImported(response);
-      // this.notifyEmail(body.fecha);
+      this.notifyEmail(body.fecha);
       return response;
     } catch (e) {
       throw e;
