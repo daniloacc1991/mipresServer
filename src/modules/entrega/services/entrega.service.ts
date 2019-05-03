@@ -95,28 +95,37 @@ export class EntregaService {
   }
 
   async entMinSaludToEntregaLocal(ent: Entrega) {
-    const token = await this.tokenEntrega();
-    const url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
-    const entMinSalud = await this.putEntregaAmbito(url, ent);
-    Logger.log('Paso Put Ministerio');
-    const entregaLocal = {
-      ...ent,
-      IDEntrega: entMinSalud[0].IdEntrega,
-    };
-    Logger.log(JSON.stringify(entMinSalud), 'Rta Entega Ambito');
-    Logger.log(JSON.stringify(entregaLocal), 'Save Entrega Local');
-    return entregaLocal;
+    try {
+      Logger.log(ent, 'Entrega Recibida');
+      const token = await this.tokenEntrega();
+      Logger.log(token, 'Token Suministro');
+      const url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
+      const entMinSalud = await this.putEntregaAmbito(url, ent);
+      Logger.log(entMinSalud, 'Paso Put Ministerio');
+      const entregaLocal = {
+        ...ent,
+        IDEntrega: entMinSalud[0].IdEntrega,
+      };
+      Logger.log(JSON.stringify(entregaLocal), 'Save Entrega Local');
+      return entregaLocal;
+    } catch (e) {
+      Logger.error(e);
+      throw e;
+    }
   }
 
   private async putEntregaAmbito(url, data): Promise<any> {
+    Logger.log(data, 'Desde la funcion putEntregaAmbito');
+    Logger.log(url, 'Desde la funcion putEntregaAmbito');
     return new Promise((resolve, reject) => {
       this.http.put(url, data)
         .subscribe(
           rows => {
             resolve(rows.data);
           },
-          error => {
-            reject(error);
+          err => {
+            Logger.error(err);
+            reject(err);
           },
         );
     });
