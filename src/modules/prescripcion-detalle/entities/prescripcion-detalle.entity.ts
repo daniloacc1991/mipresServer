@@ -35,25 +35,40 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('1'))
+  @Column({
+    field: 'tipo_tecnologia',
+    type: DataType.STRING('1'),
+  })
   TipoTecnologia: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column
+  @Column({
+    field: 'consecutivo_orden',
+    type: DataType.INTEGER,
+  })
   ConOrden: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({
+    field: 'tipo_med',
+    type: DataType.INTEGER,
+  })
   TipoMed: number;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column
+  @Column({
+    field: 'tipo_prest',
+    type: DataType.INTEGER,
+  })
   TipoPrest: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({
+    field: 'causa_s1',
+    type: DataType.INTEGER,
+  })
   CausaS1: number;
 
   @ApiModelProperty()
@@ -436,7 +451,10 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @ApiModelProperty()
   @AllowNull(false)
   @Default(false)
-  @Column(DataType.BOOLEAN)
+  @Column({
+    field: 'ind_entregado',
+    type: DataType.BOOLEAN,
+  })
   indEntregado: boolean;
 
   @ApiModelProperty()
@@ -452,7 +470,10 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @ForeignKey(() => PrescripcionEncabezado)
   @ApiModelProperty()
-  @Column
+  @Column({
+    field: 'prescripcion_id',
+    type: DataType.BIGINT,
+  })
   prescripcionId: number;
 
   @BelongsTo(() => PrescripcionEncabezado)
