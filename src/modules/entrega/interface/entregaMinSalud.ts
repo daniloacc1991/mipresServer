@@ -12,7 +12,9 @@ export interface EntregaMinSalud {
   EntTotal: number;
   CausaNoEntrega: number;
   FecEntrega: string;
-  NoLote: string;
   EstEntrega: number;
   FecAnulacion: string;
+  EstadoEntrega: number;
+  ValorEntregado: number;
+  prescripcionDetalleId: number;
 }

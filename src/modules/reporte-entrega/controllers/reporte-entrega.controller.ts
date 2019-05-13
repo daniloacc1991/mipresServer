@@ -1,31 +1,30 @@
 import { Controller, UseGuards, Res, HttpStatus, HttpException, Param, Body } from '@nestjs/common';
 import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ReporteEntregaService } from '../services/reporte-entrega.service';
 import { AuthGuard } from '@nestjs/passport';
-import { EntregaService } from '../services/entrega.service';
-import { Entrega } from '../entities/entrega.entity';
-import { EntregaMinSalud } from '../interface';
+import { ReporteEntrega } from '../entities/reporte-entrega.entity';
 
-@ApiUseTags('Entrega')
+@ApiUseTags('Reporte Entrega')
 @ApiBearerAuth()
-@Controller('entrega')
-export class EntregaController {
+@Controller('reporte-entrega')
+export class ReporteEntregaController {
 
   constructor(
-    private entregaService: EntregaService,
+    private reporteEntregaService: ReporteEntregaService,
   ) { }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async findAll() {
-    return await this.entregaService.findAll();
+    return await this.reporteEntregaService.findAll();
   }
 
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
   async findbyId(@Res() res, @Param('id') id: number) {
     try {
-      const element = await this.entregaService.findById(id);
+      const element = await this.reporteEntregaService.findById(id);
       if (element) {
         res.status(HttpStatus.OK).json(element);
       } else {
@@ -40,9 +39,9 @@ export class EntregaController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  async create(@Body() entrega: EntregaMinSalud, @Res() res) {
+  async create(@Body() reporteEntrega: ReporteEntrega, @Res() res) {
     try {
-      const element = await this.entregaService.create(entrega);
+      const element = await this.reporteEntregaService.create(reporteEntrega);
       res.status(HttpStatus.CREATED).json(element);
     } catch (e) {
       throw new HttpException({
@@ -53,9 +52,9 @@ export class EntregaController {
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  async update(@Body() entrega: Entrega, @Param('id') id: number, @Res() res) {
+  async update(@Body() reporteEntrega: ReporteEntrega, @Param('id') id: number, @Res() res) {
     try {
-      const element = await this.entregaService.update(id, entrega);
+      const element = await this.reporteEntregaService.update(id, reporteEntrega);
       res.status(HttpStatus.OK).json(element);
     } catch (e) {
       throw new HttpException({
@@ -68,7 +67,7 @@ export class EntregaController {
   @UseGuards(AuthGuard('jwt'))
   async delete(@Param('id') id: number, @Res() res) {
     try {
-      await this.entregaService.delete(id);
+      await this.reporteEntregaService.delete(id);
       res.status(HttpStatus.OK).json({});
     } catch (e) {
       throw new HttpException({
@@ -80,6 +79,7 @@ export class EntregaController {
   @Get('detalle/:id')
   @UseGuards(AuthGuard('jwt'))
   async findPrescripcionDetalleById(@Param('id') id: number) {
-    return await this.entregaService.findPrescripcionDetalleById(id);
+    // return await this.reporteEntregaService.findPrescripcionDetalleById(id);
   }
+
 }

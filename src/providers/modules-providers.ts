@@ -23,6 +23,7 @@ import { CausaNoEntrega } from '../modules/causa-no-entrega/entities/causa-no-en
 import { CausaNoEntregaTipoTecnologia } from '../modules/causa-no-entrega-tipo-tecnologia/entites/causa-no-entrega-tipo-tecnologia.entity';
 import { MedicamentoPrincipioActivo } from '../modules/medicamento-principio-activo/entities/medicamento-principio-activo.entity';
 import { MedicamentoIndicacionesUnirs } from '../modules/medicamento-indicaciones-unirs/entities/medicamento-indicaciones-unirs.entity';
+import { ReporteEntrega } from '../modules/reporte-entrega/entities/reporte-entrega.entity';
 
 export const modulesProviders = [
   {
@@ -108,6 +109,10 @@ export const modulesProviders = [
   {
     provide: 'EntregaRepository',
     useValue: Entrega,
+  },
+  {
+    provide: 'ReporteEntregaRepository',
+    useValue: ReporteEntrega,
   },
   {
     provide: 'CausaNoEntregaRepository',

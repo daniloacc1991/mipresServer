@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, AutoIncrement, AllowNull, Scopes } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo, AllowNull } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
@@ -9,9 +9,10 @@ import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entit
 })
 export class Entrega extends Model<Entrega> {
 
-  @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.BIGINT)
+  @Column({
+    primaryKey: true,
+    type: DataType.BIGINT,
+  })
   id: number;
 
   @ApiModelProperty()
@@ -20,22 +21,27 @@ export class Entrega extends Model<Entrega> {
   IDEntrega: number;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column(DataType.STRING('20'))
   NoPrescripcion: string;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column(DataType.STRING('1'))
   TipoTec: string;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column
   ConTec: number;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column
   TipoIDPaciente: string;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column
   NoIDPaciente: string;
 
@@ -44,14 +50,17 @@ export class Entrega extends Model<Entrega> {
   NoEntrega: number;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column
   CodSerTecEntregado: string;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column(DataType.STRING(10))
   CantTotEntregada: string;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column
   EntTotal: number;
 
@@ -60,6 +69,7 @@ export class Entrega extends Model<Entrega> {
   CausaNoEntrega: number;
 
   @ApiModelProperty()
+  @AllowNull(false)
   @Column({
     field: 'fecha_entrega',
     type: DataType.DATEONLY,
@@ -67,7 +77,9 @@ export class Entrega extends Model<Entrega> {
   FecEntrega: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({
+    allowNull: true,
+  })
   NoLote: string;
 
   @ApiModelProperty()

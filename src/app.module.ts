@@ -1,25 +1,6 @@
 import { Module, Logger } from '@nestjs/common';
 import { MailerModule, PugAdapter } from '@nest-modules/mailer';
 import { join } from 'path';
-const pathTemplates = join(__dirname, 'templates');
-const MAILER = [
-  MailerModule.forRootAsync({
-    useFactory: () => ({
-      transport: 'smtps://contacto.sistemas@clinicasanluis.com.co:' + encodeURIComponent('Sistemas2016%%$$') + '@smtp.gmail.com',
-      defaults: {
-        from: '"Mipres San Luis" <Contacto.Sistemas@ClinicaSanluis.com>',
-      },
-      template: {
-        dir: pathTemplates,
-        adapter: new PugAdapter(),
-        options: {
-          strict: true,
-        },
-      },
-    }),
-  }),
-];
-
 import { PrescripcionEncabezadoModule } from './modules/prescripcion-encabezado/prescripcion-encabezado.module';
 import { AmbitoAtencionModule } from './modules/ambito-atencion/ambito-atencion.module';
 import { MunicipioModule } from './modules/municipio/municipio.module';
@@ -48,6 +29,26 @@ import { CausaNoEntregaModule } from './modules/causa-no-entrega/causa-no-entreg
 import { CausaNoEntregaTipoTecnologiaModule } from './modules/causa-no-entrega-tipo-tecnologia/causa-no-entrega-tipo-tecnologia.module';
 import { MedicamentoPrincipioActivoModule } from './modules/medicamento-principio-activo/medicamento-principio-activo.module';
 import { MedicamentoIndicacionesUnirsModule } from './modules/medicamento-indicaciones-unirs/medicamento-indicaciones-unirs.module';
+import { ReporteEntregaModule } from './modules/reporte-entrega/reporte-entrega.module';
+const pathTemplates = join(__dirname, 'templates');
+const MAILER = [
+  MailerModule.forRootAsync({
+    useFactory: () => ({
+      transport: 'smtps://contacto.sistemas@clinicasanluis.com.co:' + encodeURIComponent('Sistemas2016%%$$') + '@smtp.gmail.com',
+      defaults: {
+        from: '"Mipres San Luis" <Contacto.Sistemas@ClinicaSanluis.com>',
+      },
+      template: {
+        dir: pathTemplates,
+        adapter: new PugAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
+  }),
+];
+
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { MedicamentoIndicacionesUnirsModule } from './modules/medicamento-indica
     CausaNoEntregaTipoTecnologiaModule,
     MedicamentoPrincipioActivoModule,
     MedicamentoIndicacionesUnirsModule,
+    ReporteEntregaModule,
   ],
   controllers: [AppController],
   providers: [

@@ -5,7 +5,10 @@ import { EntregaGateway } from '../gateway/entrega.gateway';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 import { PrescripcionEncabezado } from '../../../modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
 import { PrescripcionEncabezadoGateway } from '../../../modules/prescripcion-encabezado/gateway/prescripcion-encabezado.gateway';
-import { EntregaMinSalud } from '../interface/entregaMinSalud';
+import { ResponseEntregaAmbito, EntregaMinSalud } from '../interface';
+import { ReporteEntrega } from '../../../modules/reporte-entrega/entities/reporte-entrega.entity';
+import { Transaction } from 'sequelize';
+import { ResponseReporteEntrega } from '../../../modules/reporte-entrega/interfaces/response-reporte-entrega';
 
 @Injectable()
 export class EntregaService {
@@ -14,6 +17,7 @@ export class EntregaService {
     @Inject('EntregaRepository') private readonly entregaRepository: typeof Entrega,
     @Inject('PrescripcionDetalleRepository') private readonly prescripcionDetRepository: typeof PrescripcionDetalle,
     @Inject('PrescripcionEncabezadoRepository') private readonly prescripcionEncRepository: typeof PrescripcionEncabezado,
+    @Inject('ReporteEntregaRepository') private readonly reporteEntregaRepository: typeof ReporteEntrega,
     @Inject('SequelizeRepository') private seq: Sequelize,
     private entregaGateway: EntregaGateway,
     private prescripcionEncabezadoGateway: PrescripcionEncabezadoGateway,
@@ -28,21 +32,20 @@ export class EntregaService {
     return await this.entregaRepository.findByPk(id);
   }
 
-  async create(entrega: Entrega) {
+  async create(entrega: EntregaMinSalud) {
     const t = await this.seq.transaction();
     try {
-      const prescripcionDet = await this.prescripcionDetRepository.findByPk(entrega.prescripcionDetalleId);
-      const indEntregado = entrega.EntTotal === 1 ? true : false;
-      const entFinal = await this.entMinSaludToEntregaLocal(entrega);
-      const element = await this.entregaRepository.create(entFinal);
+      const indEntregado = entrega.EntTotal == 1 ? true : false;
+      const element = await this.entMinSaludToEntregaLocal(entrega, t);
       await this.prescripcionDetRepository.update(
         {
           indEntregado,
-          cantidadEntregada: element.CantTotEntregada,
+          cantidadEntregada: entrega.CantTotEntregada,
         },
-        { where: { id: entFinal.prescripcionDetalleId } },
+        { where: { id: entrega.prescripcionDetalleId } },
       );
 
+      const prescripcionDet = await this.prescripcionDetRepository.findByPk(entrega.prescripcionDetalleId);
       const prescripcionEnc: PrescripcionEncabezado = await this.prescripcionEncRepository.findByPk(prescripcionDet.prescripcionId);
       t.commit();
       this.entregaGateway.entregaCreated(element);
@@ -60,7 +63,7 @@ export class EntregaService {
       delete entrega.id;
       const res = await this.entregaRepository.update({ ...entrega }, { where: { id } });
       t.commit();
-      const element = await this.entregaRepository.findById(res[0]);
+      const element = await this.entregaRepository.findByPk(id);
       this.entregaGateway.entregaUpdated(element);
       return element;
     } catch (e) {
@@ -83,7 +86,7 @@ export class EntregaService {
   }
 
   async findPrescripcionDetalleById(id: number) {
-    return await this.prescripcionDetRepository.findById(id, {
+    return await this.prescripcionDetRepository.findByPk(id, {
       attributes: ['id', 'TipoTecnologia', 'ConOrden'],
       include: [
         {
@@ -94,29 +97,63 @@ export class EntregaService {
     });
   }
 
-  async entMinSaludToEntregaLocal(ent: Entrega) {
+  async entMinSaludToEntregaLocal(ent: EntregaMinSalud, t: Transaction) {
     try {
-      Logger.log(ent, 'Entrega Recibida');
       const token = await this.tokenEntrega();
-      Logger.log(token, 'Token Suministro');
-      const url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
+      let url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
       const entMinSalud = await this.putEntregaAmbito(url, ent);
-      Logger.log(entMinSalud, 'Paso Put Ministerio');
       const entregaLocal = {
         ...ent,
         IDEntrega: entMinSalud[0].IdEntrega,
+        id: entMinSalud[0].Id,
       };
-      Logger.log(JSON.stringify(entregaLocal), 'Save Entrega Local');
-      return entregaLocal;
+
+      const element = await this.entregaRepository.create(entregaLocal, { transaction: t });
+
+      url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/ReporteEntrega/890208758/${token}`;
+      const reportePut = {
+        ID: entMinSalud[0].Id,
+        EstadoEntrega: ent.EstadoEntrega,
+        CausaNoEntrega: ent.CausaNoEntrega,
+        ValorEntregado: ent.ValorEntregado,
+      };
+
+      const responseReporteEntrega = await this.putReporteEntregaMin(url, reportePut);
+
+      const reporteCreated = {
+        id: responseReporteEntrega[0].Id,
+        IdReporteEntrega: responseReporteEntrega[0].IdReporteEntrega,
+        EstadoEntrega: reportePut.EstadoEntrega,
+        CausaNoEntrega: reportePut.CausaNoEntrega,
+        ValorEntregado: reportePut.ValorEntregado,
+        EntregaId: reportePut.ID,
+      };
+
+      await this.reporteEntregaRepository.create(reporteCreated, { transaction: t });
+
+      return element;
     } catch (e) {
       Logger.error(e);
       throw e;
     }
   }
 
-  private async putEntregaAmbito(url, data): Promise<any> {
-    Logger.log(data, 'Desde la funcion putEntregaAmbito');
-    Logger.log(url, 'Desde la funcion putEntregaAmbito');
+  private async putEntregaAmbito(url, data): Promise<ResponseEntregaAmbito[]> {
+    return new Promise((resolve, reject) => {
+      this.http.put(url, data)
+        .subscribe(
+          rows => {
+            resolve(rows.data);
+          },
+          err => {
+            Logger.error(err);
+            reject(err);
+          },
+        );
+    });
+  }
+
+  private async putReporteEntregaMin(url, data): Promise<ResponseReporteEntrega[]> {
     return new Promise((resolve, reject) => {
       this.http.put(url, data)
         .subscribe(
@@ -139,8 +176,9 @@ export class EntregaService {
           rows => {
             resolve(rows.data);
           },
-          error => {
-            reject(error);
+          err => {
+            Logger.error(err);
+            reject(err);
           },
         );
     });

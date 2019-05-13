@@ -56,7 +56,7 @@ export class UsersService {
       delete user.id;
       await this.usersRepository.update({ ...user }, { where: { id } });
       t.commit();
-      const element = await this.usersRepository.findById(id);
+      const element = await this.usersRepository.findByPk(id);
       this.usersGateway.usersUpdated(element);
       return element;
     } catch (e) {
