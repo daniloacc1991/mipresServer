@@ -1,6 +1,7 @@
-import { Table, Model, Column, DataType, ForeignKey, BelongsTo, AllowNull } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo, AllowNull, HasOne } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
+import { ReporteEntrega } from '../../../modules/reporte-entrega/entities/reporte-entrega.entity';
 
 @Table({
   timestamps: true,
@@ -9,6 +10,12 @@ import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entit
 })
 export class Entrega extends Model<Entrega> {
 
+  @HasOne( () => ReporteEntrega, {
+    as: 'reporteEntrega',
+    foreignKey: 'entrega_id',
+    onDelete: 'CASCADE',
+    constraints: true,
+  })
   @Column({
     primaryKey: true,
     type: DataType.BIGINT,
@@ -79,12 +86,16 @@ export class Entrega extends Model<Entrega> {
   @ApiModelProperty()
   @Column({
     allowNull: true,
+    field: 'no_lote',
   })
   NoLote: string;
 
   @ApiModelProperty()
   @ForeignKey(() => PrescripcionDetalle)
-  @Column
+  @Column({
+    field: 'prescripcion_detalle_id',
+    type: DataType.BIGINT,
+  })
   prescripcionDetalleId: number;
 
   @BelongsTo(() => PrescripcionDetalle)

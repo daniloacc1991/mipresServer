@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body } from '@nestjs/common';
+import { Controller, UseGuards, Res, Param, HttpStatus, HttpException, Body, Logger } from '@nestjs/common';
 import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -35,6 +35,19 @@ export class PrescripcionDetalleController {
   @UseGuards(AuthGuard('jwt'))
   async findAllIdJunta(@Param('perPage') perPage: number, @Param('page') page: number, @Param('juntaId') juntaId: number) {
     return await this.prescripcionDetalleService.findByJuntaId(perPage, page, juntaId);
+  }
+
+  @Get('entregas')
+  @UseGuards(AuthGuard('jwt'))
+  async entregas() {
+    Logger.log('Paso por el controlador');
+    try {
+      return await this.prescripcionDetalleService.entregas();
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get(':id')
@@ -92,4 +105,5 @@ export class PrescripcionDetalleController {
       }, HttpStatus.BAD_REQUEST);
     }
   }
+
 }

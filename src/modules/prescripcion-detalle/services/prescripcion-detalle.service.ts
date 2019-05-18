@@ -12,6 +12,9 @@ import { PrescripcionEncabezado } from '../../../modules/prescripcion-encabezado
 import { TipoProductoNutricional } from '../../../modules/tipo-producto-nutricional/entities/tipo-producto-nutricional.entity';
 import { ProductoNutricional } from '../../../modules/producto-nutricional/entities/producto-nutricional.entity';
 import { Cups } from '../../../modules/cups/entities/cups.entity';
+import { Entrega } from '../../../modules/entrega/entities/entrega.entity';
+import sequelize = require('sequelize');
+import { ReporteEntrega } from 'src/modules/reporte-entrega/entities/reporte-entrega.entity';
 
 @Injectable()
 export class PrescripcionDetalleService {
@@ -128,6 +131,50 @@ export class PrescripcionDetalleService {
       return;
     } catch (e) {
       t.rollback();
+      throw e;
+    }
+  }
+
+  async entregas() {
+    try {
+      return await this.prescripcionDetalleRepository.findAll({
+        attributes: [
+          ['id', 'Id'],
+          ['tipo_tecnologia', 'TipoTecnologia'],
+          ['consecutivo_orden', 'ConOrden'],
+          ['prescripcion_id', 'PrescripcionId'],
+          [sequelize.literal('"prescripcion"."NoPrescripcion"'), 'NoPrescripcion'],
+          [sequelize.fn('SUM', sequelize.col('valor_entregado')), 'ValorTotal'],
+        ],
+        include: [
+          {
+            attributes: [],
+            model: PrescripcionEncabezado,
+            required: true,
+          },
+          {
+            attributes: [],
+            model: Entrega,
+            include: [
+              {
+                attributes: [],
+                model: ReporteEntrega,
+                required: true,
+              },
+            ],
+            required: true,
+          },
+        ],
+        group: [
+          '"PrescripcionDetalle"."id"',
+          'tipo_tecnologia',
+          'consecutivo_orden',
+          'prescripcion_id',
+          '"prescripcion"."NoPrescripcion"',
+        ],
+        raw: true,
+      });
+    } catch (e) {
       throw e;
     }
   }

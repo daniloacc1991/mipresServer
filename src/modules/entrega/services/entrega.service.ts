@@ -35,6 +35,7 @@ export class EntregaService {
   async create(entrega: EntregaMinSalud) {
     const t = await this.seq.transaction();
     try {
+      Logger.log(entrega, 'Entrega desde el Front');
       const indEntregado = entrega.EntTotal == 1 ? true : false;
       const element = await this.entMinSaludToEntregaLocal(entrega, t);
       await this.prescripcionDetRepository.update(
@@ -101,6 +102,18 @@ export class EntregaService {
     try {
       const token = await this.tokenEntrega();
       let url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
+
+      const reportePut = {
+        ID: 0,
+        EstadoEntrega: ent.EstadoEntrega,
+        CausaNoEntrega: ent.CausaNoEntrega,
+        ValorEntregado: ent.ValorEntregado,
+      };
+
+      delete(ent.EstadoEntrega);
+      delete(ent.ValorEntregado);
+
+      Logger.log(ent, 'Entrega Despues del delete');
       const entMinSalud = await this.putEntregaAmbito(url, ent);
       const entregaLocal = {
         ...ent,
@@ -108,16 +121,12 @@ export class EntregaService {
         id: entMinSalud[0].Id,
       };
 
+      Logger.log(entregaLocal, 'Entrega Created');
       const element = await this.entregaRepository.create(entregaLocal, { transaction: t });
 
       url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/ReporteEntrega/890208758/${token}`;
-      const reportePut = {
-        ID: entMinSalud[0].Id,
-        EstadoEntrega: ent.EstadoEntrega,
-        CausaNoEntrega: ent.CausaNoEntrega,
-        ValorEntregado: ent.ValorEntregado,
-      };
 
+      reportePut.ID = entMinSalud[0].Id;
       const responseReporteEntrega = await this.putReporteEntregaMin(url, reportePut);
 
       const reporteCreated = {
@@ -129,6 +138,7 @@ export class EntregaService {
         EntregaId: reportePut.ID,
       };
 
+      Logger.log(reportePut, 'Reporte Created');
       await this.reporteEntregaRepository.create(reporteCreated, { transaction: t });
 
       return element;
@@ -146,8 +156,8 @@ export class EntregaService {
             resolve(rows.data);
           },
           err => {
-            Logger.error(err);
-            reject(err);
+            Logger.error(err.response.data);
+            reject(err.response.data);
           },
         );
     });
@@ -161,8 +171,8 @@ export class EntregaService {
             resolve(rows.data);
           },
           err => {
-            Logger.error(err);
-            reject(err);
+            Logger.error(err.response.data);
+            reject(err.response.data);
           },
         );
     });
@@ -177,8 +187,8 @@ export class EntregaService {
             resolve(rows.data);
           },
           err => {
-            Logger.error(err);
-            reject(err);
+            Logger.error(err.response.data);
+            reject(err.response.data);
           },
         );
     });

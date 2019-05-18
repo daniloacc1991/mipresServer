@@ -473,6 +473,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   @Column({
     field: 'prescripcion_id',
     type: DataType.BIGINT,
+    allowNull: false,
   })
   prescripcionId: number;
 
