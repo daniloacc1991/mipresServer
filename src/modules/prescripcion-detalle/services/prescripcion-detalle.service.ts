@@ -14,7 +14,7 @@ import { ProductoNutricional } from '../../../modules/producto-nutricional/entit
 import { Cups } from '../../../modules/cups/entities/cups.entity';
 import { Entrega } from '../../../modules/entrega/entities/entrega.entity';
 import sequelize = require('sequelize');
-import { ReporteEntrega } from 'src/modules/reporte-entrega/entities/reporte-entrega.entity';
+import { ReporteEntrega } from '../../../modules/reporte-entrega/entities/reporte-entrega.entity';
 
 @Injectable()
 export class PrescripcionDetalleService {

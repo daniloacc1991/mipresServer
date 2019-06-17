@@ -21,17 +21,6 @@ export class EntregaController {
     return await this.entregaService.findAll();
   }
 
-  @Get('pruebaRequest/:url')
-  async pruebaRequestPromise(@Param('url') url: string) {
-    try {
-      return await this.entregaService.tokenEntrega();
-    } catch (e) {
-      throw new HttpException({
-        error: e,
-      }, HttpStatus.BAD_REQUEST);
-    }
-  }
-
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
   async findbyId(@Res() res, @Param('id') id: number) {
