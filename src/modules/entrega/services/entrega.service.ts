@@ -9,6 +9,7 @@ import { ResponseEntregaAmbito, EntregaMinSalud } from '../interface';
 import { ReporteEntrega } from '../../../modules/reporte-entrega/entities/reporte-entrega.entity';
 import { Transaction } from 'sequelize';
 import { ResponseReporteEntrega } from '../../../modules/reporte-entrega/interfaces/response-reporte-entrega';
+import * as rp from 'request-promise';
 
 @Injectable()
 export class EntregaService {
@@ -101,7 +102,7 @@ export class EntregaService {
   async entMinSaludToEntregaLocal(ent: EntregaMinSalud, t: Transaction) {
     try {
       const token = await this.tokenEntrega();
-      let url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/890208758/${token}`;
+      let url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/EntregaAmbito/${process.env.NIT}/${token}`;
 
       const reportePut = {
         ID: 0,
@@ -110,8 +111,8 @@ export class EntregaService {
         ValorEntregado: ent.ValorEntregado,
       };
 
-      delete(ent.EstadoEntrega);
-      delete(ent.ValorEntregado);
+      delete (ent.EstadoEntrega);
+      delete (ent.ValorEntregado);
 
       Logger.log(ent, 'Entrega Despues del delete');
       const entMinSalud = await this.putEntregaAmbito(url, ent);
@@ -124,7 +125,7 @@ export class EntregaService {
       Logger.log(entregaLocal, 'Entrega Created');
       const element = await this.entregaRepository.create(entregaLocal, { transaction: t });
 
-      url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/ReporteEntrega/890208758/${token}`;
+      url = `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/ReporteEntrega/${process.env.NIT}/${token}`;
 
       reportePut.ID = entMinSalud[0].Id;
       const responseReporteEntrega = await this.putReporteEntregaMin(url, reportePut);
@@ -149,48 +150,48 @@ export class EntregaService {
   }
 
   private async putEntregaAmbito(url, data): Promise<ResponseEntregaAmbito[]> {
-    return new Promise((resolve, reject) => {
-      this.http.put(url, data)
-        .subscribe(
-          rows => {
-            resolve(rows.data);
-          },
-          err => {
-            Logger.error(err.response.data);
-            reject(err.response.data);
-          },
-        );
-    });
+    const options = {
+      method: 'PUT',
+      uri: url,
+      body: data,
+      json: true,
+    };
+
+    try {
+      return await rp(options);
+    } catch (e) {
+      Logger.error(e.error);
+      throw e.error.Message;
+    }
   }
 
   private async putReporteEntregaMin(url, data): Promise<ResponseReporteEntrega[]> {
-    return new Promise((resolve, reject) => {
-      this.http.put(url, data)
-        .subscribe(
-          rows => {
-            resolve(rows.data);
-          },
-          err => {
-            Logger.error(err.response.data);
-            reject(err.response.data);
-          },
-        );
-    });
+    const options = {
+      method: 'PUT',
+      uri: url,
+      body: data,
+      json: true,
+    };
+
+    try {
+      return await rp(options);
+    } catch (e) {
+      Logger.error(e.error);
+      throw e.error.Message;
+    }
   }
 
   private async tokenEntrega(): Promise<string> {
-    const url = 'https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/GenerarToken/890208758/5BA4903C-7C5A-43BD-A686-EF2012C06326';
-    return new Promise((resolve, reject) => {
-      this.http.get<string>(url)
-        .subscribe(
-          rows => {
-            resolve(rows.data);
-          },
-          err => {
-            Logger.error(err.response.data);
-            reject(err.response.data);
-          },
-        );
-    });
+    const options = {
+      uri: `https://wsmipres.sispro.gov.co/WSSUMMIPRESNOPBS/api/GenerarToken/${process.env.NIT}/${process.env.TOKEN_MIPRES}`,
+      json: true,
+    };
+
+    try {
+      return await rp(options);
+    } catch (e) {
+      Logger.error(e.error);
+      throw e.error.Message;
+    }
   }
 }

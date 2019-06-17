@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Res, HttpStatus, HttpException, Param, Body } from '@nestjs/common';
+import { Controller, UseGuards, Res, HttpStatus, HttpException, Param, Body, Logger } from '@nestjs/common';
 import { Get, Post, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -19,6 +19,17 @@ export class EntregaController {
   @UseGuards(AuthGuard('jwt'))
   async findAll() {
     return await this.entregaService.findAll();
+  }
+
+  @Get('pruebaRequest/:url')
+  async pruebaRequestPromise(@Param('url') url: string) {
+    try {
+      return await this.entregaService.tokenEntrega();
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get(':id')
@@ -80,6 +91,13 @@ export class EntregaController {
   @Get('detalle/:id')
   @UseGuards(AuthGuard('jwt'))
   async findPrescripcionDetalleById(@Param('id') id: number) {
-    return await this.entregaService.findPrescripcionDetalleById(id);
+    try {
+      return await this.entregaService.findPrescripcionDetalleById(id);
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.BAD_REQUEST);
+    }
   }
+
 }
