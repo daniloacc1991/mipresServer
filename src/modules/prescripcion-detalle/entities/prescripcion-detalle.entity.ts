@@ -72,152 +72,206 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   CausaS1: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'causa_s11' })
   CausaS11: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'causa_s12' })
   CausaS12: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'causa_s2' })
   CausaS2: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'causa_s3' })
   CausaS3: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s31' })
   RznCausaS31: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_31',
+    type: DataType.STRING('160'),
+  })
   DescRzn31: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'rzn_causa_s32' })
   RznCausaS32: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_32',
+    type: DataType.STRING('160'),
+  })
   DescRzn32: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'causa_s4' })
   CausaS4: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_causa_s4',
+    type: DataType.STRING('160'),
+  })
   DescCausaS4: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ type: 'razon_causa_s41' })
   RznCausaS41: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_41',
+    type: DataType.STRING('160'),
+  })
   DescRzn41: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s42' })
   RznCausaS42: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_42',
+    type: DataType.STRING('160'),
+  })
   DescRzn42: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s43' })
   RznCausaS43: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_43',
+    type: DataType.STRING('160'),
+  })
   DescRzn43: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s44' })
   RznCausaS44: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_44',
+    type: DataType.STRING('160'),
+  })
   DescRzn44: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'causa_s5' })
   CausaS5: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s5' })
   RznCausaS5: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s51' })
   RznCausaS51: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_51',
+    type: DataType.STRING('160'),
+  })
   DescRzn51: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s52' })
   RznCausaS52: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_52',
+    type: DataType.STRING('160'),
+  })
   DescRzn52: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s53' })
   RznCausaS53: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_53',
+    type: DataType.STRING('160'),
+  })
   DescRzn53: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'razon_causa_s54' })
   RznCausaS54: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'descrip_razon_54',
+    type: DataType.STRING('160'),
+  })
   DescRzn54: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'causa_s6' })
   CausaS6: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'causa_s7' })
   CausaS7: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING(300))
+  @Column({
+    field: 'med_pbs_utilizado',
+    type: DataType.STRING(300),
+  })
   MedPBSUtilizado: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING(300))
+  @Column({
+    field: 'med_pbs_descartado',
+    type: DataType.STRING(300),
+  })
   MedPBSDescartado: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('6'))
+  @Column({
+    field: 'pro_pbs_utilizado',
+    type: DataType.STRING('6'),
+  })
   ProPBSUtilizado: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('6'))
+  @Column({
+    field: 'pro_pbs_descartado',
+    type: DataType.STRING('6'),
+  })
   ProPBSDescartado: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'pro_nut_utilizado',
+    type: DataType.STRING('160'),
+  })
   ProNutUtilizado: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('160'))
+  @Column({
+    field: 'pro_nut_descartado',
+    type: DataType.STRING('160'),
+  })
   ProNutDescartado: string;
 
   @ForeignKey(() => TipoDispositivoMedico)
   @ApiModelProperty()
-  @Column(DataType.STRING('3'))
+  @Column({
+    field: 'codigo_dispositivo',
+    type: DataType.STRING(3),
+  })
   CodDisp: string;
 
   @BelongsTo(() => TipoDispositivoMedico)
@@ -225,18 +279,21 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
 
   @ForeignKey(() => Cups)
   @ApiModelProperty()
-  @Column(DataType.STRING('6'))
+  @Column({
+    field: 'codigo_cups',
+    type: DataType.STRING(6),
+  })
   CodCUPS: string;
 
   @BelongsTo(() => Cups)
   cups: Cups;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'dx_enf_huer' })
   DXEnfHuer: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'dx_vih' })
   DXVIH: number;
 
   @ApiModelProperty()

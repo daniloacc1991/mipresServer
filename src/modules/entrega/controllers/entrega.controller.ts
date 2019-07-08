@@ -51,6 +51,19 @@ export class EntregaController {
     }
   }
 
+  @Post('local')
+  @UseGuards(AuthGuard('jwt'))
+  async createLocal(@Body() entrega: Entrega, @Res() res) {
+    try {
+      const element = await this.entregaService.createLocal(entrega);
+      res.status(HttpStatus.CREATED).json(element);
+    } catch (e) {
+      throw new HttpException({
+        error: e,
+      }, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   async update(@Body() entrega: Entrega, @Param('id') id: number, @Res() res) {

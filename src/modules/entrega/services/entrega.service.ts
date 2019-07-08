@@ -59,6 +59,18 @@ export class EntregaService {
     }
   }
 
+  async createLocal(entrega: Entrega) {
+    const t = await this.seq.transaction();
+    try {
+      const element = await this.entregaRepository.create(entrega, { transaction: t });
+      t.commit();
+      return element;
+    } catch (e) {
+      t.rollback();
+      throw e;
+    }
+  }
+
   async update(id: number, entrega: Entrega) {
     const t = await this.seq.transaction();
     try {

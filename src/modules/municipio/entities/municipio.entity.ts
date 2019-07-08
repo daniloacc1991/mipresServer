@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, HasOne, DefaultScope } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, HasOne, DefaultScope, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { PrescripcionEncabezado } from '../../../modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
 
@@ -32,11 +32,16 @@ export class Municipio extends Model<Municipio> {
   departamento: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
+  @Column({
+    field: 'amezana_sismica',
+    type: DataType.STRING('10'),
+  })
   amenazaSismica: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({
+    field: 'categoria_municipal',
+  })
   categoriaMunicipal: number;
 
   @ApiModelProperty()
@@ -46,5 +51,29 @@ export class Municipio extends Model<Municipio> {
   @ApiModelProperty()
   @Column
   indicativo: number;
+
+  @ApiModelProperty()
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+    type: 'timestamp without time zone',
+  })
+  createdAt: string;
+
+  @ApiModelProperty()
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+    type: 'timestamp without time zone',
+  })
+  updatedAt: string;
+
+  @ApiModelProperty()
+  @DeletedAt
+  @Column({
+    field: 'deleted_at',
+    type: 'timestamp without time zone',
+  })
+  deletedAt: string;
 
 }

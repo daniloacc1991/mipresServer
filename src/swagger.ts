@@ -22,6 +22,7 @@ import { ProductoNutricionalViaAdminModule } from './modules/producto-nutriciona
 import { TipoServicioComplementarioModule } from './modules/tipo-servicio-complementario/tipo-servicio-complementario.module';
 import { EstadoJuntaProfesionalModule } from './modules/estado-junta-profesional/estado-junta-profesional.module';
 import { CausaNoEntregaModule } from './modules/causa-no-entrega/causa-no-entrega.module';
+import { ReporteEntregaModule } from './modules/reporte-entrega/reporte-entrega.module';
 
 export function swaggerApp(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -56,6 +57,7 @@ export function swaggerApp(app: INestApplication) {
         TipoServicioComplementarioModule,
         CausaNoEntregaModule,
         EntregaModule,
+        ReporteEntregaModule,
       ],
   });
 
