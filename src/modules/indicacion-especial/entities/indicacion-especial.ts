@@ -1,4 +1,4 @@
-import { Table, DefaultScope, Model, AutoIncrement, PrimaryKey, Column, DataType, AllowNull, HasOne } from 'sequelize-typescript';
+import { Table, DefaultScope, Model, AutoIncrement, PrimaryKey, Column, DataType, AllowNull, HasOne, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 
@@ -37,4 +37,28 @@ export class IndicacionEspecial extends Model<IndicacionEspecial> {
   @AllowNull(false)
   @Column(DataType.DATE)
   fecha: string;
+
+  @ApiModelProperty()
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+    type: 'timestamp without time zone',
+  })
+  createdAt: string;
+
+  @ApiModelProperty()
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+    type: 'timestamp without time zone',
+  })
+  updatedAt: string;
+
+  @ApiModelProperty()
+  @DeletedAt
+  @Column({
+    field: 'deleted_at',
+    type: 'timestamp without time zone',
+  })
+  deletedAt: string;
 }

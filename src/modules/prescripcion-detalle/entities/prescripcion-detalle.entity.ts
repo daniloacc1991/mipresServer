@@ -121,7 +121,7 @@ export class PrescripcionDetalle extends Model<PrescripcionDetalle> {
   DescCausaS4: string;
 
   @ApiModelProperty()
-  @Column({ type: 'razon_causa_s41' })
+  @Column({ field: 'razon_causa_s41' })
   RznCausaS41: number;
 
   @ApiModelProperty()

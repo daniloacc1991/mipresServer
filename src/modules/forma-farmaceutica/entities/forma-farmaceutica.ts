@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, HasOne, AllowNull, Length, DefaultScope } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, HasOne, AllowNull, Length, DefaultScope, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
 
@@ -44,4 +44,28 @@ export class FormaFarmaceutica extends Model<FormaFarmaceutica> {
   @ApiModelProperty()
   @Column(DataType.DATE)
   fecha: string;
+
+  @ApiModelProperty()
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+    type: 'timestamp without time zone',
+  })
+  createdAt: string;
+
+  @ApiModelProperty()
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+    type: 'timestamp without time zone',
+  })
+  updatedAt: string;
+
+  @ApiModelProperty()
+  @DeletedAt
+  @Column({
+    field: 'deleted_at',
+    type: 'timestamp without time zone',
+  })
+  deletedAt: string;
 }

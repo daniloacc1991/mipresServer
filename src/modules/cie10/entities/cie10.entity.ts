@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, HasMany, AllowNull, AutoIncrement, Unique, DefaultScope } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, HasMany, AllowNull, AutoIncrement, Unique, DefaultScope, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { PrescripcionEncabezado } from '../../../modules/prescripcion-encabezado/entities/prescripcion-encabezado.entity';
 
@@ -35,6 +35,30 @@ export class Cie10 extends Model<Cie10> {
   @Column(DataType.DATE)
   @ApiModelProperty()
   fecha: boolean;
+  
+  @ApiModelProperty()
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+    type: 'timestamp without time zone',
+  })
+  createdAt: string;
+
+  @ApiModelProperty()
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+    type: 'timestamp without time zone',
+  })
+  updatedAt: string;
+
+  @ApiModelProperty()
+  @DeletedAt
+  @Column({
+    field: 'deleted_at',
+    type: 'timestamp without time zone',
+  })
+  deletedAt: string;
 
   @HasMany(() => PrescripcionEncabezado, {
     as: 'prescripciones_fk',
@@ -43,4 +67,5 @@ export class Cie10 extends Model<Cie10> {
     sourceKey: 'codigo',
   })
   prescripciones: PrescripcionEncabezado[];
+
 }
