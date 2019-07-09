@@ -1,4 +1,5 @@
 import { Table, Model, Column, PrimaryKey, DataType, Unique, AutoIncrement, AllowNull, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
+import { CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { AmbitoAtencion } from '../../../modules/ambito-atencion/entities/ambito-atencion.entity';
 import { Municipio } from '../../../modules/municipio/entities/municipio.entity';
 import { PrescripcionDetalle } from '../../../modules/prescripcion-detalle/entities/prescripcion-detalle.entity';
@@ -21,178 +22,295 @@ export class PrescripcionEncabezado extends Model<PrescripcionEncabezado> {
   @Unique
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('20'))
+  @Column({
+    field: 'no_prescripcion',
+    type: DataType.STRING(20),
+  })
   NoPrescripcion: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.DATE)
+  @Column({
+    field: 'f_prescripcion',
+    type: DataType.DATE,
+  })
   FPrescripcion: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('10'))
+  @Column({
+    field: 'h_prescripcion',
+    type: DataType.STRING(10),
+  })
   HPrescripcion: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('20'))
+  @Column({
+    field: 'cod_hab_ips',
+    type: DataType.STRING(20),
+  })
   CodHabIPS: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('2'))
+  @Column({
+    field: 'tipo_id_ips',
+    type: DataType.STRING(2),
+  })
   TipoIDIPS: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('17'))
+  @Column({
+    field: 'nro_id_ips',
+    type: DataType.STRING(17),
+  })
   NroIDIPS: string;
 
   @ForeignKey(() => Municipio)
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('5'))
+  @Column({
+    field: 'cod_dane_mun_ips',
+    type: DataType.STRING(5),
+  })
   CodDANEMunIPS: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('300'))
+  @Column({
+    field: 'dir_sede_ips',
+    type: DataType.STRING(300),
+  })
   DirSedeIPS: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('70'))
+  @Column({
+    field: 'tel_sede_ips',
+    type: DataType.STRING(70),
+  })
   TelSedeIPS: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('2'))
+  @Column({
+    field: 'tipo_id_prof',
+    type: DataType.STRING(2),
+  })
   TipoIDProf: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('17'))
+  @Column({
+    field: 'num_id_prof',
+    type: DataType.STRING(17),
+  })
   NumIDProf: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('60'))
+  @Column({
+    field: 'pn_prof_s',
+    type: DataType.STRING(60),
+  })
   PNProfS: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('60'))
+  @Column({
+    field: 'sn_prof_s',
+    type: DataType.STRING(60),
+  })
   SNProfS: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('60'))
+  @Column({
+    field: 'pa_prof_s',
+    type: DataType.STRING(60),
+  })
   PAProfS: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('60'))
+  @Column({
+    field: 'sa_prof_s',
+    type: DataType.STRING(60),
+  })
   SAProfS: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('30'))
+  @Column({
+    field: 'reg_prof_s',
+    type: DataType.STRING(30),
+  })
   RegProfS: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('2'))
+  @Column({
+    field: 'tipo_id_paciente',
+    type: DataType.STRING(2),
+  })
   TipoIDPaciente: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('17'))
+  @Column({
+    field: 'nro_id_paciente',
+    type: DataType.STRING(17),
+  })
   NroIDPaciente: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('60'))
+  @Column({
+    field: 'pn_paciente',
+    type: DataType.STRING(60),
+  })
   PNPaciente: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('60'))
+  @Column({
+    field: 'sn_paciente',
+    type: DataType.STRING(60),
+  })
   SNPaciente: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column(DataType.STRING('60'))
+  @Column({
+    field: 'pa_paciente',
+    type: DataType.STRING(60),
+  })
   PAPaciente: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('60'))
+  @Column({
+    field: 'sa_paciente',
+    type: DataType.STRING(60),
+  })
   SAPaciente: string;
 
   @ForeignKey(() => AmbitoAtencion)
   @AllowNull(false)
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'cod_amb_ate' })
   CodAmbAte: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'ref_amb_ate' })
   RefAmbAte: number;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'enf_huerfana' })
   EnfHuerfana: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('4'))
+  @Column({
+    field: 'cod_enf_huerfana',
+    type: DataType.STRING(4),
+  })
   CodEnfHuerfana: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'enf_huerfana_dx' })
   EnfHuerfanaDX: number;
 
   @ForeignKey(() => Cie10)
   @ApiModelProperty()
-  @Column(DataType.STRING('4'))
+  @Column({
+    field: 'cod_dx_ppal',
+    type: DataType.STRING(4),
+  })
   CodDxPpal: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('4'))
+  @Column({
+    field: 'cod_dx_rel_1',
+    type: DataType.STRING(4),
+  })
   CodDxRel1: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('4'))
+  @Column({
+    field: 'cod_dx_rel_2',
+    type: DataType.STRING(4),
+  })
   CodDxRel2: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'sop_nutricional' })
   SopNutricional: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('6'))
+  @Column({
+    field: 'cod_eps',
+    type: DataType.STRING(6),
+  })
   CodEPS: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('2'))
+  @Column({
+    field: 'tipo_id_madre_paciente',
+    type: DataType.STRING(2),
+  })
   TipoIDMadrePaciente: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('17'))
+  @Column({
+    field: 'nro_id_madre_paciente',
+    type: DataType.STRING(17),
+  })
   NroIDMadrePaciente: string;
 
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'tipo_transc' })
   TipoTransc: number;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('2'))
+  @Column({
+    field: 'tipo_id_donante_vivo',
+    type: DataType.STRING(2),
+  })
   TipoIDDonanteVivo: string;
 
   @ApiModelProperty()
-  @Column(DataType.STRING('17'))
+  @Column({
+    field: 'nro_id_donante_vivo',
+    type: DataType.STRING(17),
+  })
   NroIDDonanteVivo: string;
 
   @AllowNull(false)
   @ApiModelProperty()
-  @Column
+  @Column({ field: 'estado_prescripcion' })
   EstPres: number;
+
+  @ApiModelProperty()
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+    type: 'timestamp without time zone',
+  })
+  createdAt: string;
+
+  @ApiModelProperty()
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+    type: 'timestamp without time zone',
+  })
+  updatedAt: string;
+
+  @ApiModelProperty()
+  @DeletedAt
+  @Column({
+    field: 'deleted_at',
+    type: 'timestamp without time zone',
+  })
+  deletedAt: string;
 
   @HasMany(() => PrescripcionDetalle)
   medicamentos: PrescripcionDetalle[];

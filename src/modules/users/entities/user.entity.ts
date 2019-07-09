@@ -1,4 +1,5 @@
 import { Table, Column, Model, AutoIncrement, Unique, PrimaryKey, AllowNull, DataType } from 'sequelize-typescript';
+import { CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @Table({
@@ -48,4 +49,28 @@ export class User extends Model<User> {
     type: DataType.STRING(1),
   })
   indNotifyJunta: string;
+
+  @ApiModelProperty()
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+    type: 'timestamp without time zone',
+  })
+  createdAt: string;
+
+  @ApiModelProperty()
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+    type: 'timestamp without time zone',
+  })
+  updatedAt: string;
+
+  @ApiModelProperty()
+  @DeletedAt
+  @Column({
+    field: 'deleted_at',
+    type: 'timestamp without time zone',
+  })
+  deletedAt: string;
 }

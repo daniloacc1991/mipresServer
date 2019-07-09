@@ -1,4 +1,5 @@
 import { Table, DefaultScope, Model, AutoIncrement, PrimaryKey, Column, DataType, AllowNull, Unique, Default } from 'sequelize-typescript';
+import { CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @DefaultScope({
@@ -33,12 +34,12 @@ export class ProductoNutricional extends Model<ProductoNutricional> {
 
   @ApiModelProperty()
   @AllowNull(false)
-  @Column
+  @Column({ field: 'nombre_comercial' })
   nombreComercial: string;
 
   @ApiModelProperty()
   @AllowNull(false)
-  @Column
+  @Column({ field: 'grupo_nivel1' })
   grupoNivel1: string;
 
   @ApiModelProperty()
@@ -48,7 +49,10 @@ export class ProductoNutricional extends Model<ProductoNutricional> {
 
   @ApiModelProperty()
   @AllowNull(false)
-  @Column(DataType.DOUBLE)
+  @Column({
+    field: 'presentacion_comercial',
+    type: DataType.DOUBLE,
+  })
   presentacionComercial: number;
 
   @ApiModelProperty()
@@ -71,4 +75,28 @@ export class ProductoNutricional extends Model<ProductoNutricional> {
   @AllowNull(false)
   @Column(DataType.DATE)
   fecha: string;
+
+  @ApiModelProperty()
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+    type: 'timestamp without time zone',
+  })
+  createdAt: string;
+
+  @ApiModelProperty()
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+    type: 'timestamp without time zone',
+  })
+  updatedAt: string;
+
+  @ApiModelProperty()
+  @DeletedAt
+  @Column({
+    field: 'deleted_at',
+    type: 'timestamp without time zone',
+  })
+  deletedAt: string;
 }
